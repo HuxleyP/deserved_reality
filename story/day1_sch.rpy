@@ -731,3 +731,20 @@ label sch_day1_mi:
     ivan "Ещё что-то?"
 
     return
+
+
+
+
+
+
+
+
+label sch_day1_od:
+    $ persistent.sprite_time = "day"
+    $ day_time()
+
+    stop music fadeout 1
+
+    pause(1)
+
+    play sfx_open_door_1
