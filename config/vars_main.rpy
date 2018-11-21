@@ -243,7 +243,7 @@ init python:
         elif sch_name == "Ваня":
             globals()["ivan"] = Character("Ваня", color = "#5B5BE5", what_color = "#E2C778", drop_shadow = [ (2, 2) ], drop_shadow_color = "#000", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
         else:
-            globals()["ivan"] = Character("Я", color = "#920202", what_color = "#E2C778", drop_shadow = [ (2, 2) ], drop_shadow_color = "#000", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
+            globals()["ivan"] = DynamicCharacter(sch_name, color = "#920202", what_color = "#E2C778", drop_shadow = [ (2, 2) ], drop_shadow_color = "#000", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
 
 
 # Дизайн меню by Лишняя | Запятая, рабочая часть by DeadFox и Huxley
