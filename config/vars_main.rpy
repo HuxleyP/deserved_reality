@@ -74,10 +74,12 @@ label sch_vars_day1:
     $ day1_info_check = False # Проверка связи
     $ list_sch_ch_known = [] # Знакомые персонажи
     $ list_sch_day1_map_visited = [] # Посещённые места на карте
+    $ sch_day1_med = None
+    $ sch_day1_un_walk = False
     #$ sch_day1_dv_known = False # Dv-ветка
     #$ sch_day1_mi_known = False # Mi-ветка
-    $ sch_day1_un_known = False # Поздоровался с Леной
-    $ sch_day1_us_known = False # Знаешь Ульяну
+    #$ sch_day1_un_known = False # Поздоровался с Леной
+    #$ sch_day1_us_known = False # Знаешь Ульяну
     $ sch_day1_mp = 0
     $ sch_day1_sl_together = True # Пошли по лагерю вместе со Славей
     $ sch_day1_mi_together = True # Пошли по лагерю вместе с Мику
