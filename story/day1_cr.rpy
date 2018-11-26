@@ -11,11 +11,11 @@ label sch_day1_cr:
 
         call sch_day1_slavya
 
-		pause(1)
+        pause(1)
 
         if sch_day1_sl_route:
 
-			call sch_day1_camp_slavya
+            call sch_day1_camp_slavya
 
 
 
