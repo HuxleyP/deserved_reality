@@ -80,6 +80,8 @@ label sch_vars_day1:
     $ sch_day1_med_asked_alone = False
     $ sch_day1_aidpost = False
     $ sch_day1_un_walk = 0
+    $ sch_day1_sl_cleanuphelp = False
+    $ sch_sabotage = 0 # 0 -не знает, -1 - отказ, 1, 2... - этапы, -2 - отказ в середине, -3 - отказ перед самым концом
 
     #$ sch_day1_dv_known = False # Dv-ветка
     #$ sch_day1_mi_known = False # Mi-ветка
