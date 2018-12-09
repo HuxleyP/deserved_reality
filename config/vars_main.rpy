@@ -37,6 +37,7 @@ init -1:
     $ pt_mi = 0
     $ pt_pi = 0 # Поинты пионера, вычисляются в десятках и сотнях, прибавляются за каждый правильный поступок со стороны регламента лагеря (я серьёзно не знаю, как назвать устав), за правильные поступки даются послабления в дальнейшем, а так же ГГ больше доверяют. Поведение проверяет сам вездесущий Генда и его ручная кошкодевочка, которая для генсека will be fine too
     $ pt_wi = 0 # Поинты воли
+    $ pt_ka = 0 #c поинты кармы
     $ pt_nr = 0 # Очки Нуара
     $ sch_bound = False # точно не слямзил у Санати/при всех гудах
     $ sch_true = False # При получении ВЫХОДА к  ТруЪ концовке
@@ -69,23 +70,27 @@ label sch_vars_day0:
 #Первый день
 label sch_vars_day1:
 
-    $ sch_day1_un_guilty = False # Вина перед Леной
-    $ sch_day1_el_guide = False # Электровеник-гид
+    $ sch_day1_sl_runaway = False #сбежал от Слави
     $ day1_info_check = False # Проверка связи
+
     $ list_sch_ch_known = [] # Знакомые персонажи
+    $ list_sch_day1_together = [] # С кем пошёл к ОД
+
     $ list_sch_day1_map_visited = [] # Посещённые места на карте
-    $ sch_day1_med = None
-    $ sch_day1_un_walk = False
+    $ sch_day1_med_asked_alone = False
+    $ sch_day1_aidpost = False
+    $ sch_day1_un_walk = 0
+
     #$ sch_day1_dv_known = False # Dv-ветка
     #$ sch_day1_mi_known = False # Mi-ветка
     #$ sch_day1_un_known = False # Поздоровался с Леной
     #$ sch_day1_us_known = False # Знаешь Ульяну
-    $ sch_day1_mp = 0
-    $ sch_day1_sl_together = True # Пошли по лагерю вместе со Славей
-    $ sch_day1_mi_together = True # Пошли по лагерю вместе с Мику
-    $ sch_day1_un_us_spotted = False # Заметил Ульянку
-    $ sch_day1_mi_help = False # Помог Мику до конца
-    $ sch_day1_mi_inclub = False # флаг Мику в клубе
+
+    #$ sch_day1_sl_together = False # Пошли по лагерю вместе со Славей
+    #$ sch_day1_mi_together = False # Пошли по лагерю вместе с Мику
+    #$ sch_day1_un_together = False # Пошли по лагерю вместе с Леной
+
+
 
     return
 

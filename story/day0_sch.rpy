@@ -393,7 +393,7 @@ label sch_prologue_normal:
     ivan "Ты обещала, что придешь ко мне."
     ivan "Слышишь? Ты обещала."
     ivan "И что теперь? И зачем?"
-         "Но я все еще жду…"
+    "Но я все еще жду…"
 
     scene semen_room_night with dissolve
     $ renpy.pause(2, hard=True)
