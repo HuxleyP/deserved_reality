@@ -38,6 +38,8 @@ label sch_day1_map_1:
     else:
         return
 
+        
+
 label sch_day1_square_map:
     # площадь
 
@@ -157,15 +159,10 @@ label sch_day1_beach_map:
     jump sch_day1_map_1
 
 label sch_day1_dining_hall_map:
-    if not ('dh' in list_sch_day1_map_1_visited):
-        call sch_day1_event_dining_hall
-        $ list_sch_day1_map_1_visited.append['bh']
-        $ sch_day1_mp +=1
+    call sch_day1_event_dining_hall
+    $ list_sch_day1_map_1_visited.append['bh']
+    $ sch_day1_mp +=1
+    $ disable_current_zone_sch()
 
-        pause(1)
-    else:
-        call sch_day1_event_dining_hall_visited
-        pause(1)
-
-        $ disable_current_zone_sch()
+    pause(1)
     jump sch_day1_map_1
