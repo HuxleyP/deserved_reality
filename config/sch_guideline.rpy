@@ -10,15 +10,13 @@ label sichium: # Меню
     $ prolog_time()
     $ name_sch()
 
-    if not sch_ingame:
-        scene bg white
-        $ renpy.movie_cutscene(preroll)
-        scene bg white with fade
+    scene black
+    $ renpy.movie_cutscene(preroll)
 
     play sound whiteflash
     play music honor fadein 1
 
-    $ renpy.movie_cutscene(sch_menu_cs)
+    call sch_menu_anim_mm
     call screen sch_menu
 
     stop music fadeout 1

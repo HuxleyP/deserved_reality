@@ -69,4 +69,13 @@ label sch_day1_cr:
         pause(1)
 
         call sch_day1_map_1
+
+        pause(1)
     else:
+        pass
+
+    call sch_day1_dinner
+
+    pause(1)
+
+    call sch_day1

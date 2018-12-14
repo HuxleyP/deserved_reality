@@ -1,7 +1,6 @@
-# инит от 14.10
+# инит от 14.12
 
 init -9999 python:
-    #config.developer = True
     sch_path = 'deserved_reality/'
     source_sch = sch_path+'source/'
     #def sources_sch(file):
@@ -39,7 +38,7 @@ init -1:
     $ pt_wi = 0 # Поинты воли
     $ pt_ka = 0 #c поинты кармы
     $ pt_nr = 0 # Очки Нуара
-    $ sch_bound = False # точно не слямзил у Санати/при всех гудах
+    $ sch_bound = False # при всех гудах
     $ sch_true = False # При получении ВЫХОДА к  ТруЪ концовке
     $ sch_hard = False
     $ sch_launch = 0
@@ -47,9 +46,8 @@ init -1:
     if persistent.sch_launched:
         $ sch_launch = 1
     $ sch_ingame = False # был ли в игре, пока что надобность в переменной только ради плейсхолдера
-    $ limb = False # Лимб, имя "дефолта", чтобы не путать с Иваном и не писать ГГ, ибо каждый из них ГГ
+    $ limb = False # Лимб, имя "дефолта", чтобы не путать с Иваном и не писать ГГ, ибо каждый из них ГГ (Тоха уже сказал, что отсылка на один мод, но чёрта с два!)
     $ prophet = False # Пророк, он же трушник, но при этом он выносится как отдельный игрок, ибо Пророк не может выйти на обычные руты, а только на нуара с небольшими изменениями и дополненным тру и на саму тру-ветку
-    #Судорожно понимаю, что... все отлично!
     $ cycled = False
     $ reference_7dl = True
     if ((persistent.mi_good_sch) and (persistent.dv_good_sch) and (persistent.sl_good_sch) and (persistent.us_good_sch) and (persistent.un_good_sch) and (persistent.iv_good_sch) and (persistent.nr_good_sch)):
@@ -58,6 +56,12 @@ init -1:
         $ sch_true = True
     if (persistent.mi_good_sch or persistent.mi_bad_sch or persistent.mi_reject_sch or persistent.mi_neutral_sch or persistent.mi_true_sch or persistent.mi_transit_good_sch or persistent.mi_transit_bad_sch or persistent.dv_good_sch or persistent.dv_bad_sch or persistent.dv_reject_sch or persistent.dv_neutral_sch or persistent.dv_true_sch or persistent.dv_transit_good_sch or persistent.dv_transit_bad_sch or persistent.sl_good_sch or persistent.sl_bad_sch or persistent.sl_reject_sch or persistent.sl_neutral_sch or persistent.sl_true_sch or persistent.sl_transit_good_sch or persistent.sl_transit_bad_sch or persistent.un_good_sch or persistent.un_bad_sch or persistent.un_reject_sch or persistent.un_neutral_sch or persistent.un_true_sch or persistent.un_transit_good_sch or persistent.un_transit_bad_sch or persistent.us_good_sch or persistent.us_bad_sch or persistent.us_neutral_sch or persistent.us_true_sch or persistent.iv_good_sch or persistent.iv_bad_sch or persistent.iv_transit_good_sch or persistent.iv_transit_bad_sch or persistent.nr_good_sch or persistent.nr_bad_sch or persistent.nr_rf_true_sch or persistent.nr_ussr_true_sch): #Как же долго я искал ошибку...
         $ cycled = True
+
+init 99999999:
+    $ config.developer = True
+    $ config.window_title = u"Заслуженная | Реальность"
+    $ config.name = u"Заслуженная | Реальность"
+
 
 # Нулевой день
 label sch_vars_day0:
@@ -83,14 +87,6 @@ label sch_vars_day1:
     $ sch_day1_sl_cleanuphelp = False
     $ sch_sabotage = 0 # 0 -не знает, -1 - отказ, 1, 2... - этапы, -2 - отказ в середине, -3 - отказ перед самым концом
 
-    #$ sch_day1_dv_known = False # Dv-ветка
-    #$ sch_day1_mi_known = False # Mi-ветка
-    #$ sch_day1_un_known = False # Поздоровался с Леной
-    #$ sch_day1_us_known = False # Знаешь Ульяну
-
-    #$ sch_day1_sl_together = False # Пошли по лагерю вместе со Славей
-    #$ sch_day1_mi_together = False # Пошли по лагерю вместе с Мику
-    #$ sch_day1_un_together = False # Пошли по лагерю вместе с Леной
 
 
 
@@ -111,16 +107,15 @@ label sch_vars_day3:
 
     return
 
-init -1:
 
-#Все, но не я.
+#Characters
     $ iv = Character(color="#E2C778", what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
     $ god = Character(u'Харон', color="#00fa9a", what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
     $ chat = Character(u'Друг', color="#6e3961", what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
     $ mother = Character(u'Мама', color="#f9106b", what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
     # $ glitch = Character(u'Глюк', color="#556b2f", what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000") Рест ин пис, бесполезная заглушка.
 
-init:
+init -1000:
     #BG
     image bg bus_stop_summer = image_sch("bg/bus_stop_summer.jpg")
     image bg ext_entrance_night_clear_sch = image_sch("bg/ext_entrance_night_clear_sch.png")
@@ -137,7 +132,6 @@ init:
     image bg ext_warehouse_sunset_sch = image_sch("bg/ext_warehouse_sunset_sch.jpg")
     image bg ext_warehouse_night_sch = image_sch("bg/ext_warehouse_night_sch.jpg")
     image bg int_home_lift_sch = image_sch("bg/int_home_lift_sch.png")
-    image bg white = menu_sch("white.png")
     image bg ext_winterpark = image_sch("bg/ext_winterpark.jpg")
 
 
@@ -160,12 +154,11 @@ init:
     image day6 = gui_sch('day6.png')
     image day7 = gui_sch('day7.png')
 
-    #rain
-    image rainclose = image_sch("effects/rainclose.png")
-    image rainnormal = image_sch("effects/rainnormal.png")
-    image rainfar = image_sch("effects/rainfar.png")
-
     #menu
+
+    image bg white = "#fff"
+    image white2 = "#ffffff"
+    image black_square = 'deserved_reality/source/images/gui/menu/square.png'
 
 
     # А тут Мику-диджей крутит музыку :3
@@ -206,7 +199,6 @@ init:
 
     # Заставки
     $ preroll = video_sch("preroll.webm")
-    $ sch_menu_cs = menu_sch("sch_menu_cutscene.webm")
 
 
 
@@ -228,7 +220,7 @@ init:
 
 
 # Там, где меня нет.
-init python:
+#init python:
     #def name_sch(sch_name):
     #    globals()["name_sch"] = sch_name
         # 920202 - тёмно-красный
@@ -243,6 +235,7 @@ init python:
 #
     #    globals()["ivan"] = Character(u"[name_sch]", color = sch_colorname, what_color = "#E2C778", drop_shadow = [ (2, 2) ], drop_shadow_color = "#000", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
 
+init python:
     def name_sch(sch_name='Я'):
         # 920202 - тёмно-красный
         # 295f48 - тёмно-зелёный
@@ -411,9 +404,9 @@ init 999 python:
 
 label sch_defaultsettings:
     $ persistent.sch_widget = False # Виджет ЛП, надо поработать над ним
-    $ persistent.sch_butterfly = False # Эффект бабочки
+    #$ persistent.sch_butterfly = False # Эффект бабочки
     $ persistent.sch_difficulty = 'Normal'
-    $ persistent.sch_sprites = 'Default' # Orika для спрайтов и CG Орики, custom для сочетания двух стилей
+    $ persistent.sch_sprites = 'Default' # custom для сочетания двух стилей
     $ persistent.undone_jumper = False # Прыгалка на незаконченные руты, при False герой заведомо не будет выходить
     $ persistent.sch_launched = True
     return

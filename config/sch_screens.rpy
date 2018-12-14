@@ -1,11 +1,35 @@
-transform out_transition:
-    
 
 
+label sch_menu_anim_mm:
+    scene white
+    show black_square:
+        truecenter
+        zoom 20.0
+        pause 2.0
+        ease 1.0 zoom 1.0
+        linear 0.75 xzoom 0.12
+        easein 0.75 yzoom 3.62
+        linear 0.75 xanchor 111
+    pause(5.75)
+    show white2:
+        xpos 861
+    show sch_begin behind white2:
+        pos(861, 414)
+        linear 0.75 xanchor 498
+    show sch_continue behind white2:
+        pos(861, 484)
+        linear 0.75 xanchor 498
+    show sch_settings behind white2:
+        pos(861, 554)
+        linear 0.75 xanchor 498
+    show sch_achievements behind white2:
+        pos(861, 624)
+        linear 0.75 xanchor 498
+    show exit_idle:
+        pos (-72, 1008)
+        linear 0.75 pos(0, 1008)
+    return
 
-
-
-# Дизайн меню by Лишняя | Запятая, рабочая часть by DeadFox и Huxley
 
 init 999:
     $ style.sch_keys = Style(style.default)
@@ -23,8 +47,8 @@ init 999:
 screen sch_menu:
     tag menu
     modal True
-    add menu_sch("white.png")
-    add menu_sch("line.png") xpos 849 ypos 375
+    add '#fff'
+    add 'black_square' xzoom 0.12 yzoom 3.62 xanchor 111
 
 
     vbox: #Продолжить_Игру
@@ -57,29 +81,21 @@ screen sch_menu:
     vbox: #Ачивки
         textbutton ("•Достижения"):
             xpos 363
-            ypos 629
+            ypos 624
             background None
             text_style "sch_keys"
             style "sch_keys"
             action [Hide("sch_menu"), Jump("sch_achievements")]
 
-    vbox: # TOBEDONE на "настройки"
-        textbutton ("#To be done"):
-            xpos 863
-            ypos 564
-            background None
-            text_style "sch_keys_reversed"
-            style "sch_keys_reversed"
-            action [OpenURL("https://vk.com/deserved_reality"), Stop('music', fadeout=2), Return()]
+    #vbox: # TOBEDONE на "настройки"
+    #    textbutton ("#To be done"):
+    #        xpos 863
+    #        ypos 564
+    #        background None
+    #        text_style "sch_keys_reversed"
+    #        style "sch_keys_reversed"
+    #        action [OpenURL("https://vk.com/deserved_reality"), Stop('music', fadeout=2), Return()]
 
-    vbox: # TOBEDONE на "ачивки"
-        textbutton ("#To be done"):
-            xpos 863
-            ypos 639
-            background None
-            text_style "sch_keys_reversed"
-            style "sch_keys_reversed"
-            action [Hide("sch_menu"), OpenURL("https://vk.com/deserved_reality"), Stop('music', fadeout=2), Return()]
 
     imagebutton: #Ливнуть
         auto menu_sch("ButtonExit_%s.png")
@@ -109,5 +125,5 @@ label sch_achievements: # окошко с ачивками
     $ sch_ingame = True
     jump sichium
 
-label sch_settings:
-   screen sch_settings_menu:
+#label sch_settings:
+   #screen sch_settings_menu:
