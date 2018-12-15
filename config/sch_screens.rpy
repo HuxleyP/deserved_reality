@@ -1,6 +1,70 @@
+label sch_defaultsettings:
+    $ persistent.sch_widget = False # Виджет ОП, надо поработать над ним
+    #$ persistent.sch_butterfly = False # Эффект бабочки
+    $ persistent.sch_difficulty = False # False для Noraml
+    $ persistent.sch_custom = True # custom для сочетания двух стилей
+    $ persistent.undone_jumper = False # Прыгалка на незаконченные руты, при False герой заведомо не будет выходить
+    $ persistent.sch_launched = True
+    return
+
+init 999:
+    $ style.sch_keys = Style(style.default)
+    $ style.sch_keys.color = "#000000"
+    $ style.sch_keys.hover_color = "#800000"
+    $ style.sch_keys.size = 83
+    $ style.sch_keys.font = csn
+
+    $ style.sch_keys_reversed = Style(style.default)
+    $ style.sch_keys_reversed.color = "#800000"
+    $ style.sch_keys_reversed.hover_color = "#000000"
+    $ style.sch_keys_reversed.size = 83
+    $ style.sch_keys_reversed.font = dr_font
+
+    $ style.sch_keys_white = Style(style.default) # Объявление
+    $ style.sch_keys_white.color = "#ffffff" # Цвет текста
+    $ style.sch_keys_white.hover_color = "#800000" # Цвет при наведении
+    $ style.sch_keys_white.size = 83 # Размер
+    $ style.sch_keys_white.font = csn
+
+    $ style.sch_desc = Style(style.default)
+    $ style.sch_desc.color = "#ffffff"
+    $ style.sch_desc.hover_color = "#800000"
+    $ style.sch_desc.size = 40
+    $ style.sch_desc.font = csn
+
+
+init:
+    $ hide_back = False
+
+
+
+    image bg white = "#fff"
+    image white2 = "#ffffff"
+    image blacksquare = 'deserved_reality/source/images/gui/menu/square.png'
+    image whitesquare = im.MatrixColor("deserved_reality/source/images/gui/menu/square.png", im.matrix.colorize("#fff", "#fff"))
+    image gray = "#171717"
+
+    image sch_settings_reversed = Text("•Настройки", style="sch_keys_reversed")
+
+
+    image sch_back_white = Text("/Назад/", style="sch_keys_white", size = 100)
+
+    image sch_placeholder_off = Text("•Заглушки - OFF", style="sch_keys_white")
+    image sch_placeholder_on = Text("•Заглушки - ON", style="sch_keys_white")
+
+    image sch_sprites_normal = Text("•Спрайты - Оригинал", style="sch_keys_white")
+    image sch_sprites_orika = Text("•Спрайты - \"Выбор автора\"", style="sch_keys_white")
+
+    image sch_widget_off = Text("•Виджет ОП - OFF", style="sch_keys_white")
+    image sch_widget_on = Text("•Виджет ОП - ON", style="sch_keys_white")
+
+    image sch_es_settings = Text("•Перейти в настройки игры", style="sch_keys_white")
 
 
 label sch_menu_anim_mm:
+
+    $ overriding_on = True
+
     scene white
     show black_square:
         truecenter
@@ -28,30 +92,20 @@ label sch_menu_anim_mm:
     show exit_idle:
         pos (-72, 1008)
         linear 0.75 pos(0, 1008)
+
+    $ overriding_on = False
+
     return
 
-
-init 999:
-    $ style.sch_keys = Style(style.default)
-    $ style.sch_keys.color = "#000000"
-    $ style.sch_keys.hover_color = "#800000"
-    $ style.sch_keys.size = 83
-    $ style.sch_keys.font = csn
-
-    $ style.sch_keys_reversed = Style(style.default)
-    $ style.sch_keys_reversed.color = "#800000"
-    $ style.sch_keys_reversed.hover_color = "#000000"
-    $ style.sch_keys_reversed.size = 53
-    $ style.sch_keys_reversed.font = dr_font
 
 screen sch_menu:
     tag menu
     modal True
     add '#fff'
-    add 'black_square' xzoom 0.12 yzoom 3.62 xanchor 111
+    add 'blacksquare' xalign 0.5 yalign 0.5 xzoom 0.12 yzoom 3.62 xanchor 111
 
 
-    vbox: #Продолжить_Игру
+    vbox:   #Продолжить_Игру
         textbutton ("•Продолжить_Игру"):
             xpos 363
             ypos 414
@@ -60,16 +114,16 @@ screen sch_menu:
             style "sch_keys"
             action [Hide("sch_menu"), Jump("sch_savescreen")]
 
-    vbox: #Новая_Игра
+            #Новая_Игра
         textbutton ("•Новая_Игра"):
             xpos 363
             ypos 484
             background None
             text_style "sch_keys"
             style "sch_keys"
-            action [Hide("sch_menu"), Jump("day1_cr")]
+            action [Hide("sch_menu"), Jump('sch_newgame')]
 
-    vbox: #Настройки
+            #Настройки
         textbutton ("•Настройки"):
             xpos 363
             ypos 554
@@ -78,7 +132,7 @@ screen sch_menu:
             style "sch_keys"
             action [Hide("sch_menu"), Jump("sch_options")]
 
-    vbox: #Ачивки
+            #Ачивки
         textbutton ("•Достижения"):
             xpos 363
             ypos 624
@@ -86,15 +140,6 @@ screen sch_menu:
             text_style "sch_keys"
             style "sch_keys"
             action [Hide("sch_menu"), Jump("sch_achievements")]
-
-    #vbox: # TOBEDONE на "настройки"
-    #    textbutton ("#To be done"):
-    #        xpos 863
-    #        ypos 564
-    #        background None
-    #        text_style "sch_keys_reversed"
-    #        style "sch_keys_reversed"
-    #        action [OpenURL("https://vk.com/deserved_reality"), Stop('music', fadeout=2), Return()]
 
 
     imagebutton: #Ливнуть
@@ -113,17 +158,218 @@ label original_mm: # возвращение в меню
     call screen main_menu
     return
 
-label sch_savescreen: # открывается окошко с сейвами мода
+label sch_newgame: # Новая игра
+    #Анимация
+    return
+
+
+label sch_savescreen: # Загрузить игру
     scene undone with dissolve
     $ renpy.pause(3)
     $ sch_ingame = True
     jump sichium
 
-label sch_achievements: # окошко с ачивками
+label sch_achievements: # Достижения
     scene undone with dissolve
     $ renpy.pause(3)
     $ sch_ingame = True
     jump sichium
 
-#label sch_settings:
-   #screen sch_settings_menu:
+label sch_settings_in: # Переход в настройки
+    $ overriding_on = True
+
+    window hide
+
+    show sch_settings_pressed:
+        pos(363, 554)
+
+
+    scene gray
+
+    show whitesquare:
+        xalign 0.5 yalign 0.5
+        xanchor 111 xzoom 0.12 yzoom 3.62
+
+    with Dissolve(0.25)
+
+    pause(0.25)
+
+    show sch_back_white:
+        pos(400, 519)
+
+    with Dissolve(0.25)
+
+    if persistent.undone_jumper:
+        show sch_placeholder_on:
+            pos(903, 362)
+    else:
+        show sch_placeholder_off:
+            pos(903, 362)
+
+    if persistent.sch_sprites == 'Default':
+        show sch_sprites_normal:
+            pos(903, 442)
+    elif persistent.sch_sprites == 'Orika'
+        show sch_sprites_orika:
+            pos(903, 442)
+
+    if persistent.sch_widget:
+        show sch_sprites_on:
+            pos(903, 522)
+    else:
+        show sch_sprites_off:
+            pos(903, 522)
+
+    show sch_es_settings:
+        pos(903, 644)
+
+
+
+    $ overriding_on = False
+
+   screen sch_settings_menu:
+        tag menu
+        modal True
+        add '#fff'
+        add 'whitesquare' xalign 0.5 yalign 0.5 xzoom 0.12 yzoom 3.62 xanchor 111
+
+        vbox:
+            if persistent.undone_jumper: #Заглушки
+                textbutton ("•Заглушки - ON"):
+                    xpos 903
+                    ypos 362
+                    background None
+                    text_style "sch_keys_reversed"
+                    style "sch_keys_reversed"
+                    hovered [ToggleVariable(hide_back, true_value=False, false_value=True), Text("Данная опция позволяет включить заглушки,\nКоторые препятствуют переходу на незаконченный рут." style='sch_desc' pos(400, 362)]
+                    action [Hide("sch_menu"), ToggleVariable(persistent.undone_jumper, true_value=False, false_value=True), Jump("sch_settings_between")]
+            else:
+                textbutton ("•Заглушки - OFF"):
+                    xpos 903
+                    ypos 362
+                    background None
+                    text_style "sch_keys_reversed"
+                    style "sch_keys_reversed"
+                    hovered [ToggleVariable(hide_back, true_value=False, false_value=True), Text("Данная опция позволяет включить заглушки,\nКоторые препятствуют переходу на незаконченный рут." style='sch_desc' pos(400, 362)]
+                    action [Hide("sch_menu"), ToggleVariable(persistent.undone_jumper, true_value=False, false_value=True), Jump("sch_settings_between")]
+
+            if not persistent.sch_custom: # Спрайты
+                textbutton ("•Спрайты - Оригинал"):
+                    xpos 903
+                    ypos 422
+                    background None
+                    text_style "sch_keys_reversed"
+                    style "sch_keys_reversed"
+                    hovered [ToggleVariable(hide_back, true_value=False, false_value=True), Text("Данная опция позволяет сменить внешний вид спрайтов и фонов.\nОригинал - спрайты из оригинальной игры.\nCustom - смесь спрайтов Орики и оригинальной игры." style='sch_desc' pos(400, 362)]
+                    action [Hide("sch_menu"), ToggleVariable(persistent.sch_custom, true_value=False, false_value=True), Jump("sch_settings_between")]
+            elif persistent.sch_custom:
+                textbutton ("•Спрайты - \"Выбор автора\""):
+                    xpos 903
+                    ypos 422
+                    background None
+                    text_style "sch_keys_reversed"
+                    style "sch_keys_reversed"
+                    hovered [ToggleVariable(hide_back, true_value=False, false_value=True), Text("Данная опция позволяет сменить внешний вид спрайтов и фонов.\nОригинал - спрайты из оригинальной игры.\nCustom - смесь спрайтов Орики и оригинальной игры.\nПо умолчанию - Custom." style='sch_desc' pos(400, 362)]
+                    action [Hide("sch_menu"), ToggleVariable(persistent.sch_custom, true_value=False, false_value=True), Jump("sch_settings_between")]
+
+            if persistent.sch_difficulty: # Сложность
+                textbutton ("•Сложность по умолчанию - Hardmode"):
+                    xpos 903
+                    ypos 482
+                    background None
+                    text_style "sch_keys_reversed"
+                    style "sch_keys_reversed"
+                    hovered [ToggleVariable(hide_back, true_value=False, false_value=True), Text("Данная опция позволяет сменить сложность при выборе по умолчанию.\nНормальная сложность - рекомендуется.\nHardmode - сложный режим, меньше ОП, суровее условия.\nНе установлено - выбор при начале игры.\nПо умолчанию - не установлено." style='sch_desc' pos(400, 362)]
+                    action [Hide("sch_menu"), SetVariable(persistent.sch_difficulty=None), Jump("sch_settings_between")]
+            if persistent.sch_difficulty == False:
+                textbutton ("•Сложность по умолчанию - Обычная"):
+                    xpos 903
+                    ypos 482
+                    background None
+                    text_style "sch_keys_reversed"
+                    style "sch_keys_reversed"
+                    hovered [ToggleVariable(hide_back, true_value=False, false_value=True), Text("Данная опция позволяет сменить сложность при выборе по умолчанию.\nНормальная сложность - рекомендуется.\nHardmode - сложный режим, меньше ОП, суровее условия.\nНе установлено - выбор при начале игры.\nПо умолчанию - не установлено." style='sch_desc' pos(400, 362)]
+                    action [Hide("sch_menu"), SetVariable(persistent.sch_difficulty=None), Jump("sch_settings_between")]
+            else:
+                textbutton ("•Сложность по умолчанию - не установлено"):
+                    xpos 903
+                    ypos 482
+                    background None
+                    text_style "sch_keys_reversed"
+                    style "sch_keys_reversed"
+                    hovered [ToggleVariable(hide_back, true_value=False, false_value=True), Text("Данная опция позволяет сменить сложность при выборе по умолчанию.\nНормальная сложность - рекомендуется.\nHardmode - сложный режим, меньше ОП, суровее условия.\nНе установлено - выбор при начале игры.\nПо умолчанию - не установлено." style='sch_desc' pos(400, 362)]
+                    action [Hide("sch_menu"), SetVariable(persistent.sch_difficulty=True), Jump("sch_settings_between")]
+
+            if persistent.sch_widget: # Виджет ОП
+                textbutton("•Виджет ОП - ON"):
+                    xpos 903
+                    ypos 542
+                    background None
+                    text_style "sch_keys_reversed"
+                    style "sch_keys_reversed"
+                    hovered [ToggleVariable(hide_back, true_value=False, false_value=True), "Данная опция позволяет включить заглушки,\nКоторые препятствуют переходу на незаконченный рут." style='sch_desc' pos(400, 362)]
+                    action [Hide("sch_menu"), ToggleVariable(persistent.sch_custom, true_value=False, false_value=True), Jump("sch_settings_between")]
+            else:
+                textbutton("•Виджет ОП - OFF"):
+                    xpos 903
+                    ypos 542
+                    background None
+                    text_style "sch_keys_reversed"
+                    style "sch_keys_reversed"
+                    hovered [ToggleVariable(hide_back, true_value=False, false_value=True), "Данная опция позволяет включить заглушки,\nКоторые препятствуют переходу на незаконченный рут." style='sch_desc' pos(400, 362)]
+                    action [Hide("sch_menu"), ToggleVariable(persistent.sch_custom, true_value=False, false_value=True), Jump("sch_settings_between")]
+
+            textbutton("•Перейти в настройки игры"):
+                xpos 903
+                ypos 644
+                background None
+                text_style "sch_keys_reversed"
+                style "sch_keys_reversed"
+                hovered [ToggleVariable(hide_back, true_value=False, false_value=True), "По нажатию этой кнопки\nВы можете перейти в настройки игры,\nЧтобы изменить настройки громкости и прочее." style='sch_desc' pos(400, 362)]
+                action [ShowMenu('preferences')]
+
+            showif not hide_back:
+                textbutton("/Назад/"):
+                    xpos 400
+                    ypos 519
+                    text_style "sch_keys_reversed"
+                    style "sch_keys_reversed"
+                    action [Hide("sch_menu"), Jump("sch_settings_out")]
+
+
+
+
+
+
+
+
+
+label sch_settings_out:
+    $ overriding_on = True
+
+    window hide
+
+    scene white
+    show square:
+        xalign 0.5 yalign 0.5 xzoom 0.12 yzoom 3.62 xanchor 111
+
+    with Dissolve(0.25)
+    pause(0.25)
+
+    show sch_begin:
+        pos(363, 414)
+    show sch_continue:
+        pos(363, 484)
+    show sch_settings:
+        pos(363, 554)
+    show sch_achievements:
+        pos(363, 624)
+    show exit_idle:
+        pos (-72, 1008)
+        easein 0.25 pos(0, 1008)
+
+    with Dissolve(0.25)
+
+    $ overriding_on = False
+
+    jump screen sch_menu

@@ -10,7 +10,7 @@ label sichium: # Меню
     $ prolog_time()
     $ name_sch()
 
-    scene black
+    scene white
     $ renpy.movie_cutscene(preroll)
 
     play sound whiteflash
@@ -25,7 +25,6 @@ label sichium: # Меню
 
     if deathflag:
         return
-
 
     pause(1)
 

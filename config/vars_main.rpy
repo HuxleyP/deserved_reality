@@ -49,7 +49,8 @@ init -1:
     $ limb = False # Лимб, имя "дефолта", чтобы не путать с Иваном и не писать ГГ, ибо каждый из них ГГ (Тоха уже сказал, что отсылка на один мод, но чёрта с два!)
     $ prophet = False # Пророк, он же трушник, но при этом он выносится как отдельный игрок, ибо Пророк не может выйти на обычные руты, а только на нуара с небольшими изменениями и дополненным тру и на саму тру-ветку
     $ cycled = False
-    $ reference_7dl = True
+    if persistent.sch_difficulty:
+        $ sch_hard = True
     if ((persistent.mi_good_sch) and (persistent.dv_good_sch) and (persistent.sl_good_sch) and (persistent.us_good_sch) and (persistent.un_good_sch) and (persistent.iv_good_sch) and (persistent.nr_good_sch)):
         $ sch_bound = True
     if ((persistent.mi_true_sch) and (persistent.dv_true_sch) and (persistent.sl_true_sch) and (persistent.us_true_sch) and (persistent.un_true_sch) and (persistent.iv_true_sch) and (persistent.nr_ussr_true_sch) and (persistent.nr_rf_true_sch)):
@@ -154,11 +155,6 @@ init -1000:
     image day6 = gui_sch('day6.png')
     image day7 = gui_sch('day7.png')
 
-    #menu
-
-    image bg white = "#fff"
-    image white2 = "#ffffff"
-    image black_square = 'deserved_reality/source/images/gui/menu/square.png'
 
 
     # А тут Мику-диджей крутит музыку :3
@@ -377,41 +373,6 @@ init 999 python:
     reload_names()
 
 #QTE
-#Не используется за неимением сурса
-#call screen sch_qte_day3 #для вызова
-#screen sch_qte_day3:
-    # add qte_idle xalign 0.5 yalign 0.5
-    # key "q" action [Hide("sch_qte_day3"), call #лейбл хорошего ]
-    # key "Q" action [Hide("sch_qte_day3"), call #лейбл хорошего ]
-    # key "й" action [Hide("sch_qte_day3"), call #лейбл хорошего ]
-    # key "Й" action [Hide("sch_qte_day3"), call #лейбл хорошего ]
-    # timer 1 action [Hide("sch_qte_day3"), call #лейбл плохой]
-
-
-
-#screen sch_day1_sl_out:
-#    key "q" action [Hide ("sch_day1_sl_out"), SetVariable ('sch_day1_sl_out_suc', '1')]
-#    key "Q" action [Hide ("sch_day1_sl_out"), SetVariable ('sch_day1_sl_out_suc', '1')]
-#    key "й" action [Hide ("sch_day1_sl_out"), SetVariable ('sch_day1_sl_out_suc', '1')]
-#    key "Й" action [Hide ("sch_day1_sl_out"), SetVariable ('sch_day1_sl_out_suc', '1')]
-
-#screen sch_day1_walker:
-#    key "q" action [Hide ("sch_day1_walker"), SetVariable ('sch_day1_walker_suc', '1')]
-#    key "Q" action [Hide ("sch_day1_walker"), SetVariable ('sch_day1_walker_suc', '1')]
-#    key "й" action [Hide ("sch_day1_walker"), SetVariable ('sch_day1_walker_suc', '1')]
-#    key "Й" action [Hide ("sch_day1_walker"), SetVariable ('sch_day1_walker_suc', '1')]
-
-
-label sch_defaultsettings:
-    $ persistent.sch_widget = False # Виджет ЛП, надо поработать над ним
-    #$ persistent.sch_butterfly = False # Эффект бабочки
-    $ persistent.sch_difficulty = 'Normal'
-    $ persistent.sch_sprites = 'Default' # custom для сочетания двух стилей
-    $ persistent.undone_jumper = False # Прыгалка на незаконченные руты, при False герой заведомо не будет выходить
-    $ persistent.sch_launched = True
-    return
-
-
 
 
 # screen sch_day1_qte:
@@ -431,23 +392,6 @@ label sch_defaultsettings:
 #        hover (image_sch("qte_hover.png") #при наведение
 #        action [] #действие при нажатие , пиши через запятую
 #timer 1 action [Hide("gas_action")] #что произойдет, через указанное время, пиши через запятую
-
-
-#init python:
-#    def name_sch():
-#        # 920202 - тёмно-красный
-#        # 295f48 - тёмно-зелёный
-#        # 5B5BE5 - синий
-#        if sch_name == u"Иван":
-#            globals()["sch_colorname"] = "#295f48" # green
-#        elif sch_name == u"Ваня":
-#            globals()["sch_colorname"] = "#5B5BE5" # blue
-#        else:
-#            globals()["sch_colorname"] = "#920202" # red
-#
-#        globals()["name_sch"] = sch_name
-#        globals()["ivan"] = Character("[name_sch]", color = sch_colorname, what_color = "#E2C778", drop_shadow = [ (2, 2) ], drop_shadow_color = "#000", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
-
 
 
 init -1:
@@ -572,6 +516,21 @@ init:
         ease 0.2 pos (0, 0)
         ease 0.2 pos(-50,50)
         repeat
+
+
+
+init python:
+    import os
+
+init python:
+    sch_overriding_on = None
+    def overriding_overlay():
+        if not overriding_on:
+            return
+        ui.keymap(mousedown_1=ui.returns(None))
+        ui.keymap(mouseup_1=ui.returns(None))
+        ui.keymap(I=ui.returns('False'))
+
 
 
 # КОММЕНТАРИИ К КОДУ
