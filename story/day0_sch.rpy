@@ -1,6 +1,6 @@
 label sch_day0_prehistory:
     $ prolog_time()
-    $ persisent.sprite_time = 'Night'
+    $ persistent.sprite_time = 'Night'
 
     play music distant fadein 2
     $ renpy.pause(1, hard = True)
@@ -130,7 +130,7 @@ label sch_day0_prehistory:
 
 label sch_day0_keys:
     $ prolog_time()
-    $ persisent.sprite_time = 'Night'
+    $ persistent.sprite_time = 'Night'
 
     #TODO
 
@@ -146,7 +146,7 @@ label sch_day0_keys:
 
 label sch_prologue_chose:
     $ prolog_time()
-    $ persisent.sprite_time = 'Night'
+    $ persistent.sprite_time = 'Night'
 
     play music cassiopeia fadein 1
 
@@ -247,7 +247,7 @@ label sch_prologue_chose:
 
 label sch_prologue_normal:
     $ prolog_time()
-    $ persisent.sprite_time = 'Night'
+    $ persistent.sprite_time = 'Night'
 
     $ set_mode_nvl()
 
@@ -597,7 +597,7 @@ label sch_prologue_normal:
 
 label sch_prologue_true:
     $ prolog_time()
-    $ persisent.sprite_time = 'Night'
+    $ persistent.sprite_time = 'Night'
 
     "Я не протагонист, и не враг мира. Я враг самого себя."
     "Персонаж второго плана."
@@ -635,7 +635,7 @@ label sch_prologue_true:
 
 label sch_prologue_normal_end:
     $ prolog_time()
-    $ persisent.sprite_time = 'Night'
+    $ persistent.sprite_time = 'Night'
 
     play ambience ambience_camp_center_night fadein 2
 
@@ -739,7 +739,7 @@ label sch_prologue_normal_end:
 
 label sch_prologue_true_end:
     $ prolog_time()
-    $ persisent.sprite_time = 'Night'
+    $ persistent.sprite_time = 'Night'
 
     play music finale fadein 1
 
@@ -785,7 +785,7 @@ label sch_prologue_true_end:
 
 label sch_prologue_death:
     $ prolog_time()
-    $ persisent.sprite_time = 'Night'
+    $ persistent.sprite_time = 'Night'
 
     $ sch_chapter(0, u"Game over.")
 

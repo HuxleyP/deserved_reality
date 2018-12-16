@@ -556,7 +556,7 @@ label sch_day1_camp_slavya:
 
     hide sl
 
-    wuth dissolve
+    with dissolve
 
     play sound sfx_knock_door7_polite
 
@@ -855,7 +855,7 @@ label sch_day1_med:
                 ivan "Ещё утром был в Москве."
                 sl "Тогда понятно."
                 #TODO
-            else:
+            #else:
                 #Славя незнакома
                 #TODO
         else:

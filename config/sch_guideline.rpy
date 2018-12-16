@@ -19,6 +19,8 @@ label sichium: # Меню
     call sch_menu_anim_mm
     call screen sch_menu
 
+label sch_game_start:
+
     stop music fadeout 1
 
     call sch_day0_cr
