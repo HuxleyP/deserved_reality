@@ -12,22 +12,21 @@ label sch_day0_cr:
 
 
     if sch_true:
-        $ sch_chapter(0, u"Последний путь.", new_day=True, sch_part=1)
+        $ sch_chapter(0, u"Последний путь.", new_day=True)
 
     elif sch_bound:
-        $ sch_chapter(0, u"Правильный выбор.", new_day=True, sch_part=1)
+        $ sch_chapter(0, u"Правильный выбор.", new_day=True)
 
     else:
-        $ sch_chapter(0, u"Сквозь время и пространство.", new_day=True, sch_part=1)
+        $ sch_chapter(0, u"Сквозь время и пространство.", new_day=True)
 
-    call sch_day0_prehistory_part_1 # Часть 1
+    call sch_prologue_chose
     pause(1)
 
-    if not true_prologue:
-        call sch_day0_prehistory_true # Тру Пролог
 
-    else:
-        call sch_day0sch_day0_prehistory_part_2 # Часть 2
+    if not true_prologue:
+        call sch_day0_prehistory
+        pause(1)
 
     if (persistent.mi_good_sch) or (persistent.dv_good_sch) or (persistent.sl_good_sch) or (persistent.us_good_sch) or (persistent.un_good_sch) or (persistent.iv_good_sch) or (persistent.ln_good_sch):
         call sch_day0_keys

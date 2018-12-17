@@ -117,6 +117,7 @@ label sch_vars_day3:
     $ god = Character(u'Харон', color="#00fa9a", what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
     $ chat = Character(u'Друг', color="#6e3961", what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
     $ mother = Character(u'Мама', color="#f9106b", what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
+    $ ami = Character(u"Амина", color="#06c251", what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000"
     # $ glitch = Character(u'Глюк', color="#556b2f", what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000") Рест ин пис, бесполезная заглушка.
 
 init -1000:
@@ -189,6 +190,7 @@ init -1000:
     $ wind = sfx_sch("wind.ogg")
     $ watersplash = sfx_sch("watersplash.ogg")
     $ whisper = sfx_sch('whisper.ogg')
+    $ click = sft_sch('click.ogg')
 
     #Шрифт
     $ dr_font = image_sch("LemonTuesday.otf")
@@ -426,14 +428,14 @@ init -1:
 
 
 init -10 python: # главы
-    def sch_chapter(sch_dayNo, sch_ch_name, new_day=False):
+    def sch_chapter(sch_dayNo, sch_ch_name, new_day=False, sch_part=0):
         global save_name # название сейва
         global routetag_sch # руттэг
         renpy.block_rollback()
 
 
         renpy.scene()
-        renpy.music.play('whisper', channel=sound, fadein=0.5, fadeout = 0.25)
+        renpy.music.play('whisper', channel='sound', fadein=0.5, fadeout = 0.25)
         renpy.show(gui_sch('[persistent.timeofday]_chapter.png'))
         renpy.pause(1)
         renpy.transition(fade)
@@ -443,8 +445,10 @@ init -10 python: # главы
                 dayname = (u"{size=80}{font=[csn]}{color=#FFFFFF}Заслуженная | {/color}{color=#999999}Реальность{/color} - {color=#afafaf}День{/font} {font=[dr_font]}%d{/font}{/color}{/size}") % (sch_dayNo)
             elif sch_dayNo >= 8:
                 dayname = (u"{size=80}{font=[csn]}{color=#FFFFFF}Заслуженная | {/color}{color=#999999}Реальность{/color} - {color=#afafaf}Эпилог. День{/font} {font=[dr_font]}%d{/font}{/color}{/size}") % (sch_dayNo)
+            elif sch_dayNo == 0 and sch_part !=0:
+                dayname = (u"{size=80}{font=[csn]}{color=#FFFFFF}Заслуженная | {/color}{color=#999999}Реальность{/color} -{color=#afafaf}Часть %d{/font}{/color}{/size}") % (sch_part)
             else:
-                dayname = (u"{size=80}{font=[csn]}{color=#FFFFFF}Заслуженная | {/color}{color=#999999}Реальность{/color}{/font}")
+                dayname = (u"{size=80}{font=[csn]}{color=#FFFFFF}Заслуженная | {/color}{color=#999999}Реальность.{/font}{/color}{/size}") % (sch_part)
 
         savename = (u'Заслуженная | Реальность')
 
