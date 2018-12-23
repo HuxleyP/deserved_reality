@@ -99,7 +99,9 @@ label sch_vars_day1:
 #Второй день
 label sch_vars_day2:
 
-    #
+    $ sch_day2_od_photo = False
+    $ sch_day2_od_failed = False
+    $ sch_day2_forest = False
 
     return
 
