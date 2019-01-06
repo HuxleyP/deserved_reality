@@ -1,4 +1,4 @@
-
+# Карта слизана с 7ДЛ чуть более, чем полностью, но я всё равно умудрился накосячить
 
 # отключение чибиков - непонятно, зачем в этом месте - слишком рано.
 init -1001 python:
@@ -14,8 +14,45 @@ init -1001 python:
 init -997 python:
     store.map_pics_sch = {
         "bgpic_sch": gui_sch("maps/map_bg.png"),
-        "avaliable_sch": gui_sch("mps/map_avaliable.png"),
+        "avaliable_sch": gui_sch("maps/map_avaliable.png"),
         "selected_sch": gui_sch("maps/map_selected.png")
+
+    }
+
+    store.map_chibi_sch = {
+        "?" : maps_sch("chibi/map_icon_n00.png"),
+        "me": maps_sch("chibi/map_icon_n01.png"),
+        "mi": maps_sch("chibi/map_icon_n02.png"),
+        "sh": maps_sch("chibi/map_icon_n03.png"),
+        "el": maps_sch("chibi/map_icon_n04.png"),
+        "mz": maps_sch("chibi/map_icon_n05.png"),
+        "mt": maps_sch("chibi/map_icon_n06.png"),
+        "uv": maps_sch("chibi/map_icon_n07.png"),
+        "un": maps_sch("chibi/map_icon_n08.png"),
+        "us": maps_sch("chibi/map_icon_n09.png"),
+        "dv": maps_sch("chibi/map_icon_n10.png"),
+        "sl": maps_sch("chibi/map_icon_n11.png"),
+        "cs": maps_sch("chibi/map_icon_n12.png"),
+    }
+
+    store.map_decale_sch = {
+        "catacombs1": im.Scale(maps_sch("overlays/catacombs-1.png"), 1920, 1080)
+        "catacombs2": im.Scale(maps_sch("overlays/catacombs-2.png"), 1920, 1080)
+        "catacombs12": im.Scale(maps_sch("overlays/catacombs-12.png"), 1920, 1080)
+        "catacombs13": im.Scale(maps_sch("overlays/catacombs-13.png"), 1920, 1080)
+        "catacombs124": im.Scale(maps_sch("overlays/catacombs-124.png"), 1920, 1080)
+        "noir-cat1": im.Scale(maps_sch("overlays/noir-cat1.png"), 1920, 1080)
+        "noir-cat2": im.Scale(maps_sch("overlays/noir-cat2.png"), 1920, 1080)
+        "noir-cat3": im.Scale(maps_sch("overlays/noir-cat3.png"), 1920, 1080)
+        "map_default": im.Scale(maps_sch("overlays/map_default.png"), 1920, 1080)
+        "note-FFR": im.Scale(maps_sch("overlays/map_frontForestRoute.png"), 1920, 1080)
+        "note-FFRN-in": im.Scale(maps_sch("overlays/maps_frontForestRouteNoteIn.png"), 1920, 1080)
+        "note-FFRN-out": im.Scale(maps_sch("overlays/maps_frontForestRouteNoteOut.png"), 1920, 1080)
+        "noir-note-clubs": im.Scale(maps_sch("overlays/noir_note-clubs.png"), 1920, 1080)
+        "noir-note-forest": im.Scale(maps_sch("overlays/noir_note-forest.png"), 1920, 1080)
+        "noir-note-infroad": im.Scale(maps_sch("overlays/noir_note-infiniteRoad.png"), 1920, 1080)
+        "noir-note-infroute": im.Scale(maps_sch("overlays/noir_note-infiniteRoute.png"), 1920, 1080)
+        "noir-note-island": im.Scale(maps_sch("overlays/noir_note-island.png"), 1920, 1080)
     }
 
 # Определяем ключи и координаты локаций данной карты:
@@ -75,10 +112,11 @@ init -51 python:
             data["been_here"] = 0
 
     class Map_sch(renpy.Displayable):
-        def __init__(self,pics,chibi,default):
+        def __init__(self,pics,chibi,decale,default):
             renpy.Displayable.__init__(self)
             self.pics=pics
             self.chibi=chibi
+            self.decale=decale
             self.default=default
             config.overlay_functions.append(self.overlay)
 
@@ -123,6 +161,15 @@ init -51 python:
                 global_zones_sch[name]["chibi"] = None
         def reset_chibi(self,name):
             self.set_chibi(name,"")
+        # Своя фигня TODO
+        def set_decale(self,name,decale):
+            if  decale in self.decale:
+                global_zones_sch[name]["decale"] = self.decale[decale]
+            else:
+                global_zones_sch[name]["decale"] = None
+        def reset_decale(self,name):
+            self.set_decale(name, "")
+        #конец
         def event(self, ev, x, y, st):
             return
         def render(self, width, height, st, at):
@@ -165,10 +212,17 @@ init -51 python:
                                 xpos = pos[0],
                                 ypos = pos[1]
                             )
+                        if data["decale"] != None: # тоже своё TODO
+                            decale_final = data["chibi"]
+                            ui.imagebutton(
+                                clicked = renpy.curry(self,zoneclick)(name),
+                                xpos = pos[0]
+                                ypos = pos[0]
+                            )
                 ui.close()
 
 # … и создаем новый объект класса
-    store.map_sch = Map_sch(store.map_pics_sch, store.map_chibi, default)
+    store.map_sch = Map_sch(store.map_pics_sch, store.map_chibi, store.map_decale_sch, default)
 
 # Ниже кусок из pyclasses.rpy; возможно, есть и лишние строки - но без этого карта работать отказывалась
     import pygame
@@ -215,6 +269,11 @@ init 5 python:
             ui.jumps("_show_map_sch")()
         def init_map_zones_sch():
             init_map_zones_realization_sch(store.map_zones_sch,"nothing_here")
+        # Мои бесполезные попытки
+        def set_decale_sch(name,decale):
+            store.map_sch.set_decale(name,decale)
+        def reset_decale_sch(name):
+            store.map.sch.reset_decale(name)
 
 # определяем подосновы нашей карты (widget и bg) - собственно, подоснова карты:
 
@@ -240,12 +299,3 @@ label _show_map_sch:
     $ store.map_enabled_sch = True #
     $ ui.interact()
     jump _show_map_sch
-
-#    ЗАМЕЧАНИЯ ПО РЕАЛИЗАЦИИ
-#-------------------------------
-#    Чукча не писатель, чукча читатель.
-#    Чукча не погромист (точнее, таки да, но совсем в другой области и на других языках).
-#    Чукча две недели назад не умел ни в Питон, ни в Ренпай, от слова "совсем", да и сейчас не умеет.
-#
-#    Но вышенаписанное вроде бы как работает.
-#    Скорее всего - в этом коде можно выкинуть что-то без потери функционала.
