@@ -83,7 +83,7 @@ label sch_final_router:
         jump sch_day4_dv_sabotage_cr
     elif routetag_sch == "dv_peace":
         jump sch_day4_dv_negotiator_cr
-    elif routetag_sch == "dv_":
+    elif routetag_sch == "dv":
         jump sch_day_dv_cr
 
     elif routetag_sch == "sl":
