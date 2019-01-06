@@ -4,6 +4,7 @@ label sch_day0_cr:
 
     $ prolog_time()
     $ persistent.sprite_time = "night"
+    $ sch_forgeteveryone()
 
     scene bg white with dissolve
     stop music fadeout 1

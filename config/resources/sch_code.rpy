@@ -6,51 +6,20 @@ init -1:
             return Fade(.25, 0, .75, color=color)
 
 
+
+
 init -10 python: # главы
-    def sch_chaper_init(sch_tmh_name):
+    def sch_chaper_init(sch_char_name):
         global save_name
-        save_name = (u"{font=[csn]}{color=#FFFFFF}Заслуженная | {/color}{color=#999999}Реальность{/color}%s ver.%s/%s; codename \"%s\: пролог %s.{/font}") % (sch_state, sch_version, sch_hotfix, sch_codename, sch_tmh_name)
+        if sch_char_name != None:
+            save_name = (u"{font=[csn]}{color=#FFFFFF}Заслуженная | {/color}{color=#999999}Реальность{/color}%s ver.%s/%s; codename \"%s\: пролог %s.{/font}") % (sch_state, sch_version, sch_hotfix, sch_codename, sch_char_name)
+        else:
+            save_name = (u"{font=[csn]}{color=#FFFFFF}Заслуженная | {/color}{color=#999999}Реальность{/color}%s ver.%s/%s; codename \"%s\: пролог.{/font}") % (sch_state, sch_version, sch_hotfix, sch_codename)
 
 
-    def sch_chapter(sch_dayNo, sch_ch_name, new_day=False, sch_part=0): #dayNo - номер дня, ch_name - название главы,ы, new_day - новый день, sch_part
+    def sch_chapter(sch_dayNo=0, sch_ch_name=" ", new_day=False, sch_part=0): #dayNo - номер дня (>=8 - пролог), ch_name - название главы,ы, new_day - новый день
         global save_name # название сейва
         global routetag_sch # руттэг
-        renpy.block_rollback()
-
-
-        renpy.scene()
-        renpy.music.play('whisper', channel='sound', fadein=0.5, fadeout = 0.25)
-        renpy.show(gui_sch('[persistent.timeofday]_chapter.png'))
-        renpy.pause(1)
-        renpy.transition(fade)
-        save_name = (u"{size=80}{font=[csn]}{color=#FFFFFF}Заслуженная | {/color}{color=#999999}Реальность{/color}{/font}") # так надо, иначе ошибка
-        if new_day:
-            if sch_dayNo != 0:
-                save_name = (u"{size=80}{font=[csn]}{color=#FFFFFF}Заслуженная | {/color}{color=#999999}Реальность{/color} - {color=#afafaf}День{/font} {font=[dr_font]}%d{/font}{/color}{/size}") % (sch_dayNo)
-            elif sch_dayNo >= 8:
-                save_name = (u"{size=80}{font=[csn]}{color=#FFFFFF}Заслуженная | {/color}{color=#999999}Реальность{/color} - {color=#afafaf}Эпилог.{/font}{/color}{/size}")
-            elif sch_dayNo == 0 and sch_part !=0:
-                save_name = (u"{size=80}{font=[csn]}{color=#FFFFFF}Заслуженная | {/color}{color=#999999}Реальность{/color} -{color=#afafaf}Часть %d{/font}{/color}{/size}") % (sch_part)
-            else:
-                save_name = (u"{size=80}{font=[csn]}{color=#FFFFFF}Заслуженная | {/color}{color=#999999}Реальность.{/font}{/color}{/size}") % (sch_part)
-
-        renpy.show('day_num', what=Text(dayname, xcenter=0.5,ycenter=0.25))
-        renpy.pause(3)
-        renpy.scene()
-        renpy.show('bg black')
-        renpy.transition(fade)
-        dayname = (u"{size=70}{font=[csn]}{color=#afafaf}%s{/color}{/font}{/size}") % (sch_ch_name)
-        renpy.show('day_num', what=Text(dayname, xcenter=0.5,ycenter=0.45))
-
-        renpy.pause(3)
-        renpy.scene()
-        renpy.show('bg black')
-        renpy.transition(fade)
-        renpy.pause(1.5)
-        set_mode_adv()
-
-    def sch_newday(sch_dayNo):
-        renpy.block_rollback()
         global pt_dv #Алиса
         global pt_un #Лена
         global pt_us #Ульяна
@@ -58,43 +27,87 @@ init -10 python: # главы
         global pt_iv #ГГ
         global pt_mi #Мику
         global pt_nr #Нуар
-        renpy.scene()
-        if sch_dayNo != 0:
-            if (pt_dv or pt_un or pt_us or pt_sl or pt_iv or pt_mi or pt_nr) == max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr):
-                renpy.show("Color(hsv=(0, 1.0, [0.1 + pt_iv*0.06]))") # для 15 поинтов у Сыча
-            elif pt_us == max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr): #Уля
-                renpy.show("Color(hsv=(0, 1.0, [pt_us*0.04]))")
-            elif pt_dv == max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr): # Алиса
-                renpy.show("Color(hsv=(.06666, 1.0, [pt_dv*0.04]))")
-            elif pt_sl == max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr): # Славя
-                renpy.show("Color(hsv=(.12222, 1.0, [pt_sl*0.04]))")
-            elif pt_mt == max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr): # ОД - DLC not included in pack, sry(
-                renpy.show("Color(hsv=(.33333, 1.0, [pt_mt*0.04]))")
-            elif pt_mi == max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr): # Мику
-                renpy.show("Color(hsv=(.5, 1.0, [pt_mi*0.04]))")
-            elif pt_nr == max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr): # Нуар
-                renpy.show("Color(hsv=(.75833333, 1.0, [pt_nr*0.04]))")
+        renpy.block_rollback()
+
+        if new_day:
+            renpy.scene()
+            if sch_dayNo >=1 and sch_dayNo <=7:
+                renpy.show('day[sch_dayNo]')
+            renpy.scene()
+            if sch_dayNo > 1:
+                if max(pt_dv, pt_un, pt_us, pt_sl, pt_mi) >=8 and max(pt_dv, pt_un, pt_us, pt_sl, pt_mi) != 0 and sch_dayNo <=3
+                    if (pt_dv or pt_un or pt_us or pt_sl or pt_iv or pt_mi or pt_nr) == max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr):
+                        pt_overall = max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr)
+                        renpy.show("Color(hsv=(0.9722222, [pt_overall*0.03], 1.0))") # Если очков столько
+                    else:
+                        renpy.show("#a6a6a6")
+                elif pt_us == max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr): #Уля
+                    renpy.show("Color(hsv=(0, 1.0, [0.5+pt_us*0.04]))")
+                elif pt_dv == max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr): # Алиса
+                    renpy.show("Color(hsv=(.06666, 1.0, [pt_dv*0.04]))")
+                elif pt_sl == max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr): # Славя
+                    renpy.show("Color(hsv=(.12222, 1.0, [pt_sl*0.04]))")
+                elif pt_mt == max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr): # ОД
+                    renpy.show("Color(hsv=(.33333, 1.0, [pt_mt*0.04]))")
+                elif pt_mi == max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr): # Мику
+                    renpy.show("Color(hsv=(.5, 1.0, [pt_mi*0.04]))")
+                elif pt_nr == max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr): # Нуар
+                    renpy.show("Color(hsv=(.75833333, 1.0, [pt_nr*0.04]))")
+                else:
+                    renpy.show("#a6a6a6")
+            elif sch_dayNo == 1:
+                renpy.show('day1')
             else:
-                renpy.show("#a6a6a6")
-        if not sch_dayNo == 0:
-            renpy.show('day[sch_dayNo]')
-        renpy.transition(fade)
+                renpy.show('a6a6a6')
+            renpy.show('dr_pattern')
+
+                #Бекдроп со вкусом костылей (наверное)
+                #US - 0
+                #DV -  24
+                #SL - 44
+                #MT - 120
+                #MI - 180
+                #UN - 273
+                #IV - 0-0-x
+                #LN - 215
+                #Совпадение очков - 0,97222
+
+        else:
+            renpy.scene()
+            renpy.music.play('whisper', channel='sound', fadein=0.5, fadeout = 0.25)
+            renpy.show('black')
+            renpy.pause(1)
+            renpy.transition(fade)
+            save_name = (u"{size=80}{font=[csn]}{color=#FFFFFF}Заслуженная | {/color}{color=#999999}Реальность{/color}{/font}") # так надо, иначе ошибка
+            if new_day:
+                if sch_dayNo != 0:
+                    save_name = (u"{size=80}{font=[csn]}{color=#FFFFFF}Заслуженная | {/color}{color=#999999}Реальность{/color} - {color=#afafaf}День{/font} {font=[dr_font]}%d{/font}{/color}{/size}") % (sch_dayNo)
+                elif sch_dayNo >= 8:
+                    if sch_dayNo >=9:
+                        sch_part = sch_dayNo - 7
+                        save_name = (u"{size=80}{font=[csn]}{color=#FFFFFF}Заслуженная | {/color}{color=#999999}Реальность{/color} - {color=#afafaf} Эпилог. Часть %d{/font}{/color}{/size}") % (sch_part)
+                    else:
+                        save_name = (u"{size=80}{font=[csn]}{color=#FFFFFF}Заслуженная | {/color}{color=#999999}Реальность{/color} - {color=#afafaf}Эпилог.{/font}{/color}{/size}")
+                elif sch_dayNo == 0 and sch_part !=0:
+                    save_name = (u"{size=80}{font=[csn]}{color=#FFFFFF}Заслуженная | {/color}{color=#999999}Реальность{/color} - {color=#afafaf}Часть %d{/font}{/color}{/size}") % (sch_part)
+                else:
+                    save_name = (u"{size=80}{font=[csn]}{color=#FFFFFF}Заслуженная | {/color}{color=#999999}Реальность.{/font}{/color}{/size}") % (sch_part)
+
+            if sch_ch_name != " ":
+                renpy.show('day_num', what=Text(save_name, xcenter=0.5,ycenter=0.25))
+            renpy.pause(2)
+            renpy.scene()
+            renpy.show('bg black')
+            renpy.transition(fade)
+            dayname = (u"{size=70}{font=[csn]}{color=#afafaf}%s{/color}{/font}{/size}") % (sch_ch_name)
+            renpy.show('day_num', what=Text(dayname, xcenter=0.5,ycenter=0.45))
+
         renpy.pause(3)
         renpy.scene()
         renpy.show('bg black')
         renpy.transition(fade)
+        renpy.pause(1.5)
         set_mode_adv()
-
-        #Бекдроп со вкусом костылей (наверное)
-        #US - 0
-        #DV -  24
-        #SL - 44
-        #MT - 120
-        #MI - 180
-        #UN - 273
-        #IV - 0-0-x
-        #LN - 215
-
 
 init:
     transform sch_running:

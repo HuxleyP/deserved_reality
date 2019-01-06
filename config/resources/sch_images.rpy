@@ -24,10 +24,7 @@ init -1000:
     image cg uvao_d0_2 = image_sch("cg/d1_uv_2.jpg")
 
     #gui
-    image day_chapter = gui_sch("day_chapter.png")
-    image sunset_chapter = gui_sch("sunset_chapter.png")
-    image night_chapter = gui_sch("night_chapter.png")
-    image prolog_chapter = gui_sch("prolog_chapter.png")
+    image dr_pattern = gui_sch('pattern.png')
 
     image day1 = gui_sch('day1.png')
     image day2 = gui_sch('day2.png')

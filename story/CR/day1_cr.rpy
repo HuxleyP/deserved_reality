@@ -8,36 +8,13 @@ label sch_day1_cr:
     call sch_day1_arrival
     pause(1)
 
-    if sch_day1_info_check: # Walker
-        $ list_sch_ch_known.append['sl']
+    $ list_sch_ch_known.append['sl']
 
-        call sch_day1_p1_sl_1 # Встреча со Славей
+    call sch_day1_p1_sl_1 # Встреча со Славей
 
-        pause(1)
+    pause(1)
 
-        if not 'sl' in list_sch_day1_together: # Если попрощался
-            call sch_day1_p1_dv  # Алиса штрафует, КОНЕЦ Алиса-ветки
-
-        else:
-            call sch_day1_p1_sl_2
-
-            pause(1)
-
-            if sch_day1_sl_runaway: #Если Сбежал от Слави
-                call sch_day1_p1_mi_1 # Встреча с Мику
-
-                pause(1)
-
-                if not 'mi' in list_sch_day1_together: # Если не помог Мику
-                    call sch_day1_p1_dv # Алиса штрафует, КОНЕЦ Алиса-ветки
-
-                else:
-                    call sch_day1_pi_mi_2 # Если помог, КОНЕЦ Мику-ветки
-
-            else:
-                call sch_day1_p1_sl_3 # Если остался со Славей до конца, КОНЕЦ Славя-ветки
-
-    else: #Waiter
+    if not 'sl' in list_sch_day1_together: # Если сказал "Это всё?"
 
         call sch_day1_p1_un_1 #Встреча с Леной, кусок "поздороваться" относится к этому лейблу
 
@@ -59,7 +36,27 @@ label sch_day1_cr:
                 call sch_day1_p1_un_2
 
             else:
-                call sch_day1_med
+                call sch_day1_med  # Ульяна пугает, путь в медпункт
+
+    else: # Если сказал "Какой домик у вожатой"
+        call sch_day1_p1_sl_2
+
+        pause(1)
+
+        if sch_day1_sl_runaway: #Если Сбежал от Слави
+            call sch_day1_p1_mi_1 # Встреча с Мику
+
+            pause(1)
+
+            if not 'mi' in list_sch_day1_together: # Если не помог Мику
+                call sch_day1_p1_dv # Алиса штрафует, КОНЕЦ Алиса-ветки
+
+            else:
+                call sch_day1_pi_mi_2 # Если помог, КОНЕЦ Мику-ветки
+
+        else:
+            call sch_day1_p1_sl_3 # Если остался со Славей до конца, КОНЕЦ Славя-ветки
+
 
     pause(1)
 
