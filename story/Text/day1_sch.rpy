@@ -386,7 +386,10 @@ label sch_day1_p1_sl_3:
 
 label sch_day1_p1_un_1:
     $ sch_chapter(1, "Тет-а-тет с лагерем.")
+    $ persistent.sprite_time = "day"
+    $ day_time()
     iv "Наконец-то я избавился от Слави и её навязчивого желания помочь."
+    # Описание окружающего его места
     menu:
         "Поздороваться":
             $ pt_un +=1

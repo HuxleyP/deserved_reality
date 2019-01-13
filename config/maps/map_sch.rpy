@@ -35,25 +35,25 @@ init -997 python:
         "cs": maps_sch("chibi/map_icon_n12.png"),
     }
 
-    store.map_decale_sch = {
-        "catacombs1": im.Scale(maps_sch("overlays/catacombs-1.png"), 1920, 1080)
-        "catacombs2": im.Scale(maps_sch("overlays/catacombs-2.png"), 1920, 1080)
-        "catacombs12": im.Scale(maps_sch("overlays/catacombs-12.png"), 1920, 1080)
-        "catacombs13": im.Scale(maps_sch("overlays/catacombs-13.png"), 1920, 1080)
-        "catacombs124": im.Scale(maps_sch("overlays/catacombs-124.png"), 1920, 1080)
-        "noir-cat1": im.Scale(maps_sch("overlays/noir-cat1.png"), 1920, 1080)
-        "noir-cat2": im.Scale(maps_sch("overlays/noir-cat2.png"), 1920, 1080)
-        "noir-cat3": im.Scale(maps_sch("overlays/noir-cat3.png"), 1920, 1080)
-        "map_default": im.Scale(maps_sch("overlays/map_default.png"), 1920, 1080)
-        "note-FFR": im.Scale(maps_sch("overlays/map_frontForestRoute.png"), 1920, 1080)
-        "note-FFRN-in": im.Scale(maps_sch("overlays/maps_frontForestRouteNoteIn.png"), 1920, 1080)
-        "note-FFRN-out": im.Scale(maps_sch("overlays/maps_frontForestRouteNoteOut.png"), 1920, 1080)
-        "noir-note-clubs": im.Scale(maps_sch("overlays/noir_note-clubs.png"), 1920, 1080)
-        "noir-note-forest": im.Scale(maps_sch("overlays/noir_note-forest.png"), 1920, 1080)
-        "noir-note-infroad": im.Scale(maps_sch("overlays/noir_note-infiniteRoad.png"), 1920, 1080)
-        "noir-note-infroute": im.Scale(maps_sch("overlays/noir_note-infiniteRoute.png"), 1920, 1080)
-        "noir-note-island": im.Scale(maps_sch("overlays/noir_note-island.png"), 1920, 1080)
-    }
+    #store.map_decale_sch = {
+    #    "catacombs1": im.Scale(maps_sch("overlays/catacombs-1.png"), 1920, 1080)
+    #    "catacombs2": im.Scale(maps_sch("overlays/catacombs-2.png"), 1920, 1080)
+    #    "catacombs12": im.Scale(maps_sch("overlays/catacombs-12.png"), 1920, 1080)
+    #    "catacombs13": im.Scale(maps_sch("overlays/catacombs-13.png"), 1920, 1080)
+    #    "catacombs124": im.Scale(maps_sch("overlays/catacombs-124.png"), 1920, 1080)
+    #    "noir-cat1": im.Scale(maps_sch("overlays/noir-cat1.png"), 1920, 1080)
+    #    "noir-cat2": im.Scale(maps_sch("overlays/noir-cat2.png"), 1920, 1080)
+    #    "noir-cat3": im.Scale(maps_sch("overlays/noir-cat3.png"), 1920, 1080)
+    #    "map_default": im.Scale(maps_sch("overlays/map_default.png"), 1920, 1080)
+    #    "note-FFR": im.Scale(maps_sch("overlays/map_frontForestRoute.png"), 1920, 1080)
+    #    "note-FFRN-in": im.Scale(maps_sch("overlays/maps_frontForestRouteNoteIn.png"), 1920, 1080)
+    #    "note-FFRN-out": im.Scale(maps_sch("overlays/maps_frontForestRouteNoteOut.png"), 1920, 1080)
+    #    "noir-note-clubs": im.Scale(maps_sch("overlays/noir_note-clubs.png"), 1920, 1080)
+    #    "noir-note-forest": im.Scale(maps_sch("overlays/noir_note-forest.png"), 1920, 1080)
+    #    "noir-note-infroad": im.Scale(maps_sch("overlays/noir_note-infiniteRoad.png"), 1920, 1080)
+    #    "noir-note-infroute": im.Scale(maps_sch("overlays/noir_note-infiniteRoute.png"), 1920, 1080)
+    #    "noir-note-island": im.Scale(maps_sch("overlays/noir_note-island.png"), 1920, 1080)
+    #}
 
 # Определяем ключи и координаты локаций данной карты:
 #     дополнительно добавлены РАЗДЕЛЬНЫЕ локации спорткомплекса и клубов.
@@ -162,13 +162,13 @@ init -51 python:
         def reset_chibi(self,name):
             self.set_chibi(name,"")
         # Своя фигня TODO
-        def set_decale(self,name,decale):
-            if  decale in self.decale:
-                global_zones_sch[name]["decale"] = self.decale[decale]
-            else:
-                global_zones_sch[name]["decale"] = None
-        def reset_decale(self,name):
-            self.set_decale(name, "")
+        #def set_decale(self,name,decale):
+        #    if  decale in self.decale:
+        #        global_zones_sch[name]["decale"] = self.decale[decale]
+        #    else:
+        #        global_zones_sch[name]["decale"] = None
+        #def reset_decale(self,name):
+        #    self.set_decale(name, "")
         #конец
         def event(self, ev, x, y, st):
             return
@@ -212,13 +212,13 @@ init -51 python:
                                 xpos = pos[0],
                                 ypos = pos[1]
                             )
-                        if data["decale"] != None: # тоже своё TODO
-                            decale_final = data["chibi"]
-                            ui.imagebutton(
-                                clicked = renpy.curry(self,zoneclick)(name),
-                                xpos = pos[0]
-                                ypos = pos[0]
-                            )
+                        #if data["decale"] != None: # тоже своё TODO
+                        #    decale_final = data["chibi"]
+                        #    ui.imagebutton(
+                        #        clicked = renpy.curry(self,zoneclick)(name),
+                        #        xpos = pos[0]
+                        #        ypos = pos[1]
+                        #    )
                 ui.close()
 
 # … и создаем новый объект класса
@@ -270,10 +270,10 @@ init 5 python:
         def init_map_zones_sch():
             init_map_zones_realization_sch(store.map_zones_sch,"nothing_here")
         # Мои бесполезные попытки
-        def set_decale_sch(name,decale):
-            store.map_sch.set_decale(name,decale)
-        def reset_decale_sch(name):
-            store.map.sch.reset_decale(name)
+        #def set_decale_sch(name,decale):
+        #    store.map_sch.set_decale(name,decale)
+        #def reset_decale_sch(name):
+        #    store.map.sch.reset_decale(name)
 
 # определяем подосновы нашей карты (widget и bg) - собственно, подоснова карты:
 

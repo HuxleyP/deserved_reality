@@ -1,4 +1,4 @@
-label sichium: # Меню
+label sichium_start: # Меню
 
     $ sch_forgeteveryone()
 
@@ -22,6 +22,8 @@ label sichium: # Меню
 label sch_game_start:
 
     stop music fadeout 1
+
+    call sch_day0_vars
 
     call sch_day0_cr
 

@@ -35,7 +35,7 @@ init -10 python: # главы
                 renpy.show('day[sch_dayNo]')
             renpy.scene()
             if sch_dayNo > 1:
-                if max(pt_dv, pt_un, pt_us, pt_sl, pt_mi) >=8 and max(pt_dv, pt_un, pt_us, pt_sl, pt_mi) != 0 and sch_dayNo <=3
+                if max(pt_dv, pt_un, pt_us, pt_sl, pt_mi) >=8 and max(pt_dv, pt_un, pt_us, pt_sl, pt_mi) != 0 and sch_dayNo <=3:
                     if (pt_dv or pt_un or pt_us or pt_sl or pt_iv or pt_mi or pt_nr) == max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr):
                         pt_overall = max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr)
                         renpy.show("Color(hsv=(0.9722222, [pt_overall*0.03], 1.0))") # Если очков столько
@@ -218,8 +218,6 @@ python early: # переписать
         config.overlay_functions.append(editoverlay)
 
 
-python
-
 
 
 init 999 python:
@@ -291,6 +289,7 @@ init -1001 python:
 
 
 init -1000 python: # Пути
+    config_session = False
     if renpy.version(tuple=False) == "Ren'Py 6.16.3.502":
         sch_path = 'deserved_reality/'
     elif (renpy.version(tuple=False) == "Ren'Py 6.18.3.761") or (persistent.nonsteam_7dl == True):
@@ -299,8 +298,7 @@ init -1000 python: # Пути
         if renpy.mobile:
             sch_path = 'deserved_reality/'
         else:
-            #sch_path = '../ТУТ БУДУТ ЦИФРЫ/deserved_reality/'
-    config_session = False
+            sch_path = '../deserved_reality/' # изменить на выходе
     sch_path = 'deserved_reality/'
     source_sch = sch_path+'source/'
     #def sources_sch(file):

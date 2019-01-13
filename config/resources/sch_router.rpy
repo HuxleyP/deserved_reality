@@ -49,7 +49,7 @@ label sch_un_router:
         call sch_un_vars
         return
     else:
-        jump sch_us_router:
+        jump sch_us_router
 
 label sch_us_router:
     if pt_us >=8 and sch_sabotage == 5:
@@ -58,7 +58,7 @@ label sch_us_router:
         call sch_us_vars
         return
     else:
-        jump sch_loner_router:
+        jump sch_loner_router
 
 label sch_loner_router:
     if noir_flag == 3:
@@ -85,14 +85,13 @@ label sch_final_router:
         jump sch_day4_dv_negotiator_cr
     elif routetag_sch == "dv":
         jump sch_day_dv_cr
-
     elif routetag_sch == "sl":
         jump sch_day4_sl_cr
     elif routetag_sch == "mi":
         jump sch_day4_mi_cr
-    elif routetag_sch == "un"
+    elif routetag_sch == "un":
         jump sch_day4_un_cr
-    elif routetag_sch == "us"
+    elif routetag_sch == "us":
         jump sch_day4_us_cr
     elif routetag_sch == "nr":
         jump sch_day4_nr_cr

@@ -71,7 +71,7 @@ init:
     image sch_es_settings = Text("•Перейти в настройки игры", style="sch_keys_white")
 
 screen sch_placeholder_desc:
-window:
+    window:
         text "Данная опция позволяет включить заглушки,\nКоторые препятствуют переходу на незаконченный рут."
         style 'sch_desc'
         pos(400, 362)
@@ -149,80 +149,200 @@ screen sch_menu:
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+label sch_savescreen: # Загрузить игру
+    scene undone with dissolve
+    $ renpy.pause(3)
+    $ sch_ingame = True
+    jump sichium
+
+label sch_achievements: # Достижения
+    scene undone with dissolve
+    $ renpy.pause(3)
+    $ sch_ingame = True
+    jump sichium
+
+label sch_settings_in: # Переход в настройки
+
+    scene white
+    show blacksquare:
+        xalign 0.5 yalign 0.5
+        xanchor 111 xzoom 0.12 yzoom 3.62
+    show sch_begin:
+        pos(363, 414)
+    show sch_continue:
+        pos(363, 484)
+    show sch_achievements:
+        pos(363, 624)
+    show exit_idle:
+        pos(0, 1008)
+
+    show sch_settings_pressed:
+        pos(363, 554)
+
+    with Dissolve(0.001)
+
+    scene gray
+
+    show whitesquare:
+        xalign 0.5 yalign 0.5
+        xanchor 111 xzoom 0.12 yzoom 3.62
+
+    with Dissolve(0.25)
+
+    pause(0.25)
+
+    show sch_back_white:
+        pos(400, 519)
+
+    if persistent.undone_jumper:
+        show sch_placeholder_on:
+            pos(903, 362)
+    else:
+        show sch_placeholder_off:
+            pos(903, 362)
+
+    if persistent.sch_widget:
+        show sch_widget_on:
+            pos(903, 442)
+    else:
+        show sch_widget_off:
+            pos(903, 442)
+
+    show sch_es_settings:
+        pos(903, 644)
+
+    with Dissolve(0.25)
+
+    scene screen sch_settings_menu
+
+
+
+screen sch_settings_menu:
+    tag menu
+    modal True
+    add '#171717'
+    add 'whitesquare' xalign 0.5 yalign 0.5 xzoom 0.12 yzoom 3.62 xanchor 111
+
+    vbox:
+        showif persistent.undone_jumper: #Заглушки
+            textbutton ("•Заглушки - ON"):
+                xpos 903
+                ypos 362
+                background None
+                text_style "sch_keys_white"
+                style "sch_keys_white"
+                hovered [ToggleVariable(hide_back, true_value=False, false_value=True), Show('sch_placeholder_desc')]
+                action [Hide("sch_menu"), SetField(persistent, 'undone_jumper', False), Jump("sch_settings_between")]
+        else:
+            textbutton ("•Заглушки - OFF"):
+                xpos 903
+                ypos 362
+                background None
+                text_style "sch_keys_white"
+                style "sch_keys_white"
+                hovered [ToggleVariable(hide_back, true_value=False, false_value=True)]
+                action [Hide("sch_menu"), SetField(persistent, 'undone_jumper', True), Jump("sch_settings_between")]
+
+        showif persistent.sch_difficulty: # Сложность
+            textbutton ("•Сложность по умолчанию - Hardmode"):
+                xpos 903
+                ypos 482
+                background None
+                text_style "sch_keys_white"
+                style "sch_keys_white"
+                hovered [ToggleVariable(hide_back, true_value=False, false_value=True), Show('sch_difficulty_desc')]
+                action [Hide("sch_menu"), SetField(persistent, 'sch_difficulty', False), Jump("sch_settings_between")]
+        showif persistent.sch_difficulty == False:
+            textbutton ("•Сложность по умолчанию - Обычная"):
+                xpos 903
+                ypos 482
+                background None
+                text_style "sch_keys_white"
+                style "sch_keys_white"
+                hovered [ToggleVariable(hide_back, true_value=False, false_value=True), Show('sch_difficulty_desc')]
+                action [Hide("sch_menu"), SetField(persistent, 'sch_difficulty', None), Jump("sch_settings_between")]
+        else:
+            textbutton ("•Сложность по умолчанию - не установлено"):
+                xpos 903
+                ypos 482
+                background None
+                text_style "sch_keys_white"
+                style "sch_keys_white"
+                hovered [ToggleVariable(hide_back, true_value=False, false_value=True), Show('sch_difficulty_desc')]
+                action [Hide("sch_menu"), SetField(persistent, 'sch_difficulty', True), Jump("sch_settings_between")]
+
+        showif persistent.sch_widget: # Виджет ОП
+            textbutton("•Виджет ОП - ON"):
+                xpos 903
+                ypos 542
+                background None
+                text_style "sch_keys_white"
+                style "sch_keys_white"
+                hovered [ToggleVariable(hide_back, true_value=False, false_value=True), Show('sch_widget_desc')]
+                action [Hide("sch_menu"), SetField(persistent, 'sch_widget', False), Jump("sch_settings_between")]
+        else:
+            textbutton("•Виджет ОП - OFF"):
+                xpos 903
+                ypos 542
+                background None
+                text_style "sch_keys_white"
+                style "sch_keys_white"
+                hovered [ToggleVariable(hide_back, true_value=False, false_value=True), Show('sch_widget_desc')]
+                action [Hide("sch_menu"), SetField(persistent, 'sch_widget', True), Jump("sch_settings_between")]
+
+        textbutton("•Перейти в настройки игры"):
+            xpos 903
+            ypos 644
+            background None
+            text_style "sch_keys_white"
+            style "sch_keys_white"
+            hovered [ToggleVariable(hide_back, true_value=False, false_value=True), Show('sch_es_settings_desc')]
+            action [ShowMenu('preferences')]
+
+        showif not hide_back:
+            textbutton("/Назад/"):
+                xpos 400
+                ypos 519
+                text_style "sch_keys_white"
+                style "sch_keys_white"
+                action [Hide("sch_menu"), Jump("sch_settings_out")]
+
+
+
+
+
+
+
+
+label sch_settings_out:
+    $ overriding_on = True
+
+    window hide
+
+    scene white
+    show square:
+        xalign 0.5 yalign 0.5 xzoom 0.12 yzoom 3.62 xanchor 111
+
+    with Dissolve(0.25)
+    pause(0.25)
+
+    show sch_begin:
+        pos(363, 414)
+    show sch_continue:
+        pos(363, 484)
+    show sch_settings:
+        pos(363, 554)
+    show sch_achievements:
+        pos(363, 624)
+    show exit_idle:
+        pos (-72, 1008)
+        easein 0.25 pos(0, 1008)
+
+    with Dissolve(0.25)
+
+    $ overriding_on = False
+
+    show screen sch_settings_menu
 
 
 
@@ -261,7 +381,7 @@ label sch_main_menu_intro:
         linear 0.75 pos(0, 1008)
     pause(0.75)
 
-    jump screen sch_menu
+    scene screen sch_menu
 
 
 

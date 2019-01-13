@@ -25,7 +25,7 @@ init -1: # Version data
     $ sch_codename = "arctic apricot"
 
 init 2:
-    mods['sichium'] = u"{font=[dr_font]}{color=#FFFFFF}Заслуженная | {/color}{color=#999999}Реальность{/color}{/font}"
+    mods["sichium"] = u"{font=[csn]}{color=#FFFFFF}Заслуженная {/font}{font=[dr_font]}|{/font} {font=[csn]}{/color}{color=#999999}Реальность{/color}{/font}"
 
 
 label sichium:
@@ -91,6 +91,7 @@ label sch_vars: # Основные переменные, без которых �
         $ cycled = True
 
     return
+
 
 label sch_day0_vars:
 

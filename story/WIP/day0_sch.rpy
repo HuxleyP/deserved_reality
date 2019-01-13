@@ -1,4 +1,4 @@
-label sch_prologue_prehistory:
+label sch_prologue_prehistory_part_1:
     $ persistent.sprite_time = 'night'
     $ prolog_time()
     $ name_sch('Я')
