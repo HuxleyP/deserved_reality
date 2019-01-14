@@ -112,11 +112,10 @@ init -51 python:
             data["been_here"] = 0
 
     class Map_sch(renpy.Displayable):
-        def __init__(self,pics,chibi,decale,default):
+        def __init__(self,pics,chibi,default):
             renpy.Displayable.__init__(self)
             self.pics=pics
             self.chibi=chibi
-            self.decale=decale
             self.default=default
             config.overlay_functions.append(self.overlay)
 
@@ -222,7 +221,7 @@ init -51 python:
                 ui.close()
 
 # … и создаем новый объект класса
-    store.map_sch = Map_sch(store.map_pics_sch, store.map_chibi, store.map_decale_sch, default)
+    store.map_sch = Map_sch(store.map_pics_sch, store.map_chibi, default)
 
 # Ниже кусок из pyclasses.rpy; возможно, есть и лишние строки - но без этого карта работать отказывалась
     import pygame

@@ -1,7 +1,7 @@
 label sichium_start: # Меню
 
     $ sch_forgeteveryone()
-
+    
     if sch_launch == 0:
         call sch_defaultsettings
         $ persistent.sch_launched = True
@@ -16,8 +16,7 @@ label sichium_start: # Меню
     play sound whiteflash
     play music honor fadein 1
 
-    call sch_menu_anim_mm
-    call screen sch_menu
+    jump sch_menu_anim_intro
 
 label sch_game_start:
 

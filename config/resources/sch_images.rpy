@@ -16,6 +16,7 @@ init -1000:
     image bg ext_warehouse_night_sch = image_sch("bg/ext_warehouse_night_sch.jpg")
     image bg int_home_lift_sch = image_sch("bg/int_home_lift_sch.png")
     image bg ext_winterpark = image_sch("bg/ext_winterpark.jpg")
+    image bg speaker_room = image_sch('bg/speaker_room.jpg')
 
 
     #CG

@@ -25,7 +25,7 @@ init -1: # Version data
     $ sch_codename = "arctic apricot"
 
 init 2:
-    mods["sichium"] = u"{font=[csn]}{color=#FFFFFF}Заслуженная {/font}{font=[dr_font]}|{/font} {font=[csn]}{/color}{color=#999999}Реальность{/color}{/font}"
+    $ mods["sichium"] = u"{size=60}{font=[csn]}{color=#FFFFFF}Заслуженная {/font}{font=[dr_font]}{color=#999999}|{/color}{/font} {font=[csn]}{/color}{color=#999999}Реальность{/color}{/font}{/size}"
 
 
 label sichium:
@@ -37,16 +37,13 @@ label sichium:
         $ config.version = config.version + "Deserved Reality %s, %s %s codename %s" % (sch_state, sch_version, sch_hotfix, sch_codename)
 
     # Переименовываем игрушку во имя всех богов
-    $ config.developer = True # В релиз попасть не должно
+    $ config.developer = True #TODO В релиз попасть не должно
     $ config.window_title = u"Заслуженная | Реальность"
-    $ config.name = u"Заслуженная | Реальность"
 
     jump sichium_start
 
 init 3:
     call sch_vars # от вылетов подальше
-
-    call sch_features
 
     call sch_day0_vars
 

@@ -1,6 +1,6 @@
 label sch_day0_cr:
 
-    call sch_vars_day0
+    call sch_day0_vars
 
     $ prolog_time()
     $ persistent.sprite_time = "night"

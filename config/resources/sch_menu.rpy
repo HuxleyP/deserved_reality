@@ -350,7 +350,7 @@ label sch_settings_out:
 
 
 
-label sch_main_menu_intro:
+label sch_menu_anim_intro:
 
     scene bg white
     show blacksquare:

@@ -144,9 +144,14 @@ init python:
         elif sch_name == "Ваня":
             globals()["ivan"] = Character("Ваня", color = "#5B5BE5", what_color = "#E2C778", drop_shadow = [ (2, 2) ], drop_shadow_color = "#000", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
         else:
-            globals()["ivan"] = DynamicCharacter(sch_name, color = "#920202", what_color = "#E2C778", drop_shadow = [ (2, 2) ], drop_shadow_color = "#000", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
+            globals()["ivan"] = Character("Я", color = "#920202", what_color = "#E2C778", drop_shadow = [ (2, 2) ], drop_shadow_color = "#000", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
 
-
+init:
+    $ iv = Character(color="#E2C778", what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000", what_italic = True)
+    $ god = Character(u'Харон', color="#00fa9a", what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
+    $ chat = Character(u'Собеседник', color="#6e3961", what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
+    $ mother = Character(u'Мама', color="#f9106b", what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
+    $ ami = Character(u'Амина', color="#cd6c2e", what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
 
 #Поинты
 python early: # переписать
@@ -227,6 +232,7 @@ init 999 python:
         gl[who + "_name"] = name
         store.names[who] = name
 
+
     def save_name_known():
         gl = globals()
         global store
@@ -252,6 +258,7 @@ init 999 python:
         meet('god' u'Харон')
         meet('chat', u'Ребёнок')
         meet('mother', u"Мама")
+        meet('ami', u"Амина")
 
     def sch_forgeteveryone():
         global store
@@ -266,10 +273,11 @@ init 999 python:
         meet('el', u"Электроник")
         meet('pi', u"Пионер")
         meet('sh', u"Шурик")
-        meet('uv', u"Юля")
-        meet('god', u'Харон')
+        meet('uv', u"Харон")
+        meet('god', u'Бог')
         meet('chat', u'Друг')
         meet('mother', u"Мама")
+        meet('ami', u"Девушка")
 
     sch_forgeteveryone()
     set_mode_adv()
