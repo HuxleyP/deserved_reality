@@ -1,7 +1,5 @@
 label sch_day1_cr:
 
-    call sch_vars_day1
-
     $ day_time()
     $ persisent.sprite_time = 'day'
 
@@ -76,3 +74,5 @@ label sch_day1_cr:
     pause(1)
 
     call sch_day1_aftersupper # После ужина
+
+    jump sch_day2

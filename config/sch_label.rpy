@@ -1,3 +1,127 @@
+label sichium:
+    $ sch_save_version = sch_version  # создаём имя сохранению при запуске новой игры
+
+    $ init_map_zones_sch() # По заветам 7ДЛ инициализируем карту единожны, чтобы сохранкам не приходил армаггедец
+
+    if not "Deserved Reality" in config.version: # закидываем себя в трейс на случай армаггедеца игре
+        $ config.version = config.version + "Deserved Reality %s, %s %s codename %s" % (sch_state, sch_version, sch_hotfix, sch_codename)
+
+    # Переименовываем игрушку во имя всех богов
+    $ config.developer = True #TODO В релиз попасть не должно
+    $ config.window_title = u"Заслуженная | Реальность"
+
+    jump sichium_start
+
+
+label sichium_start: # Меню
+
+    $ sch_forgeteveryone()
+
+    $ persistent.sprite_time = "night"
+    $ prolog_time()
+    $ name_sch()
+
+    scene white
+    $ renpy.movie_cutscene(preroll)
+
+    play sound whiteflash
+    play music honor fadein 1
+
+    $ save_name = "Заслуженная Реальность. Меню."
+
+    call screen sch_menu
+
+label sch_settings_in: # Переход в настройки
+
+
+
+    call screen sch_settings_menu
+
+
+label sch_settings_out:
+
+    scene gray
+
+    show whitesquare:
+       xalign 0.5 yalign 0.5
+       xanchor 111 xzoom 0.12 yzoom 3.62
+
+    pause(0.25)
+
+    scene white
+    show blacksquare:
+        xalign 0.5 yalign 0.5 xzoom 0.12 yzoom 3.62 xanchor 111
+
+    show sch_begin:
+        pos(363, 414)
+    show sch_continue:
+        pos(363, 484)
+    show sch_settings:
+        pos(363, 554)
+    show sch_achievements:
+        pos(363, 624)
+    show exit_idle:
+        pos (-72, 1008)
+        easein 0.25 pos(0, 1008)
+
+    with Dissolve(0.5)
+    pause(0.5)
+
+
+    call screen sch_menu
+
+label sch_newgame:
+    scene white
+    show blacksquare:
+        xalign 0.5 yalign 0.5
+        xanchor 111 xzoom 0.12 yzoom 3.62
+    show sch_begin:
+        pos(363, 414)
+    show sch_continue:
+        pos(363, 484)
+    show sch_achievements:
+        pos(363, 624)
+    show exit_idle:
+        pos(0, 1008)
+
+    show white2:
+        xpos 861
+
+    show blacksquare:
+        xalign 0.5 yalign 0.5 xanchor 111 xzoom 0.12 yzoom 3.62
+        linear 0.75 xanchor 0
+        easein 0.75 yzoom 1.0
+        linear 0.75 xzoom 1.0
+        pause(1.75)
+        easein 1.0 zoom 20.0
+        pause(1)
+
+    jump sch_game_start
+
+    return
+
+label sch_game_start:
+
+    stop music fadeout 1
+
+    pause(1)
+
+    call sch_day1_cr
+
+    pause(1)
+
+    call sch_day2_cr
+
+    pause(1)
+
+    call sch_tbc
+
+    pause(1)
+
+    return
+
+# Распределитель, пока бесполезен
+
 label sch_router:
     scene anim prolog2 with fade
     stop music fadeout 1
