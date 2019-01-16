@@ -29,9 +29,39 @@ label sichium_start: # Меню
 
     $ save_name = "Заслуженная Реальность. Меню."
 
+    scene bg white
+    show blacksquare:
+        xalign 0.5 yalign 0.5
+        zoom 20.0
+        pause 2.0
+        ease 1.0 zoom 1.0
+        linear 0.75 xzoom 0.12
+        easein 0.75 yzoom 3.62
+        linear 0.75 xanchor 111
+    pause(5.25)
+    show white2:
+        xpos 861
+    show sch_begin behind white2:
+        pos(861, 382)
+        linear 0.75 xanchor 498
+    show sch_continue behind white2:
+        pos(861, 462)
+        linear 0.75 xanchor 498
+    show sch_settings behind white2:
+        pos(861, 542)
+        linear 0.75 xanchor 498
+    show sch_achievements behind white2:
+        pos(861, 622)
+        linear 0.75 xanchor 498
+    show exit_idle:
+        pos (-72, 1008)
+        linear 0.75 pos(0, 1008)
+    pause(0.75)
+
     call screen sch_menu
 
 label sch_settings_in: # Переход в настройки
+    $ renpy.block_rollback()
 
 
 
@@ -39,6 +69,7 @@ label sch_settings_in: # Переход в настройки
 
 
 label sch_settings_out:
+    $ renpy.block_rollback()
 
     scene gray
 
@@ -53,48 +84,62 @@ label sch_settings_out:
         xalign 0.5 yalign 0.5 xzoom 0.12 yzoom 3.62 xanchor 111
 
     show sch_begin:
-        pos(363, 414)
+        pos(363, 382)
     show sch_continue:
-        pos(363, 484)
+        pos(363, 462)
     show sch_settings:
-        pos(363, 554)
+        pos(363, 542)
     show sch_achievements:
-        pos(363, 624)
+        pos(363, 622)
+
+    with Dissolve(0.25)
+    pause(0.25)
+
     show exit_idle:
         pos (-72, 1008)
-        easein 0.25 pos(0, 1008)
+        linear 0.25 pos(0, 1008)
 
-    with Dissolve(0.5)
-    pause(0.5)
+    pause(0.25)
 
 
     call screen sch_menu
 
 label sch_newgame:
+    $ renpy.block_rollback()
     scene white
     show blacksquare:
         xalign 0.5 yalign 0.5
         xanchor 111 xzoom 0.12 yzoom 3.62
-    show sch_begin:
-        pos(363, 414)
-    show sch_continue:
-        pos(363, 484)
-    show sch_achievements:
-        pos(363, 624)
+    show white2 behind blacksquare:
+        xpos 861
+    show sch_begin behind white2:
+        pos(363, 382)
+        linear 0.75 xanchor -498
+    show sch_continue behind white2:
+        pos(363, 462)
+        linear 0.75 xanchor -498
+    show sch_achievements behind white2:
+        pos(363, 622)
+        linear 0.75 xanchor -498
+    show sch_settings behind white2:
+        pos(363, 542)
+        linear 0.75 xanchor -498
     show exit_idle:
         pos(0, 1008)
+        linear 0.75 xpos -72
 
-    show white2:
-        xpos 861
+    pause(0.75)
+
 
     show blacksquare:
         xalign 0.5 yalign 0.5 xanchor 111 xzoom 0.12 yzoom 3.62
-        linear 0.75 xanchor 0
         easein 0.75 yzoom 1.0
         linear 0.75 xzoom 1.0
-        pause(1.75)
+        xalign 0.5 yalign 0.5
         easein 1.0 zoom 20.0
-        pause(1)
+
+
+    pause(2.75)
 
     jump sch_game_start
 
@@ -103,6 +148,8 @@ label sch_newgame:
 label sch_game_start:
 
     stop music fadeout 1
+
+    call sch_day0_cr
 
     pause(1)
 

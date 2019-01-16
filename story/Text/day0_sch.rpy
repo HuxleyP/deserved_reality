@@ -8,7 +8,7 @@ label sch_day0_prehistory_part_1:
     play sound whisper
 
     with flash
-    stop sound fadeout 1.0
+    stop sound fadeout 2.0
 
     pause(1)
 

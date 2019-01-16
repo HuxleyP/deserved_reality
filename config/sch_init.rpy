@@ -275,12 +275,12 @@ init python:
 
 
 init -10 python: # главы
-    def sch_chaper_init(sch_char_name):
+    def sch_savename_init(sch_char_name):
         global save_name
         if sch_char_name != None:
-            save_name = (u"{font=[csn]}{color=#FFFFFF}Заслуженная | {/color}{color=#999999}Реальность{/color}%s ver.%s/%s; codename \"%s\: пролог %s.{/font}") % (sch_state, sch_version, sch_hotfix, sch_codename, sch_char_name)
+            save_name = (u" Заслуженная | Реальность\n%s ver.%s/%s; codename \"%s\:\nПролог %s.") % (sch_state, sch_version, sch_hotfix, sch_codename, sch_char_name)
         else:
-            save_name = (u"{font=[csn]}{color=#FFFFFF}Заслуженная | {/color}{color=#999999}Реальность{/color}%s ver.%s/%s; codename \"%s\: пролог.{/font}") % (sch_state, sch_version, sch_hotfix, sch_codename)
+            save_name = (u" Заслуженная | Реальность\n%s ver.%s/%s; codename \"%s\:\nПролог.") % (sch_state, sch_version, sch_hotfix, sch_codename)
 
 
     def sch_chapter(sch_dayNo=0, sch_ch_name=" ", new_day=False, sch_part=0): #dayNo - номер дня (>=8 - пролог), ch_name - название главы,ы, new_day - новый день
@@ -295,20 +295,36 @@ init -10 python: # главы
         global pt_nr #Нуар
         renpy.block_rollback()
 
-        save_name = (u"{size=80}{font=[csn]}{color=#FFFFFF}Заслуженная | {/color}{color=#999999}Реальность{/color}{/font}") # так надо, иначе ошибка
+        save_name = (u"Заслуженная | Реальность.") # так надо, иначе ошибка
         if new_day:
             if sch_dayNo != 0:
-                save_name = (u"{size=80}{font=[csn]}{color=#FFFFFF}Заслуженная | {/color}{color=#999999}Реальность{/color} - {color=#afafaf}День{/font} {font=[dr_font]}%d{/font}{/color}{/size}") % (sch_dayNo)
+                save_name = (u"Заслуженная | Реальность - День %d.") % (sch_dayNo)
             elif sch_dayNo >= 8:
                 if sch_dayNo >=9:
                     sch_part = sch_dayNo - 7
-                    save_name = (u"{size=80}{font=[csn]}{color=#FFFFFF}Заслуженная | {/color}{color=#999999}Реальность{/color} - {color=#afafaf} Эпилог. Часть %d{/font}{/color}{/size}") % (sch_part)
+                    save_name = (u"Заслуженная | Реальность. \nЭпилог. Часть %d.") % (sch_part)
                 else:
-                    save_name = (u"{size=80}{font=[csn]}{color=#FFFFFF}Заслуженная | {/color}{color=#999999}Реальность{/color} - {color=#afafaf}Эпилог.{/font}{/color}{/size}")
+                    save_name = (u"Заслуженная | Реальность.\nЭпилог.")
             elif sch_dayNo == 0 and sch_part !=0:
-                save_name = (u"{size=80}{font=[csn]}{color=#FFFFFF}Заслуженная | {/color}{color=#999999}Реальность{/color} - {color=#afafaf}Часть %d{/font}{/color}{/size}") % (sch_part)
+                save_name = (u"Заслуженная | Реальность.\nЧасть %d.") % (sch_part)
             else:
-                save_name = (u"{size=80}{font=[csn]}{color=#FFFFFF}Заслуженная | {/color}{color=#999999}Реальность.{/font}{/color}{/size}") % (sch_part)
+                save_name = (u"Заслуженная | Реальность.\n%d.") % (sch_part)
+
+
+        chapter_name = (u"{size=80}{font=[csn]}{color=#FFFFFF}Заслуженная | {/color}{color=#999999}Реальность{/color}{/font}") # так надо, иначе ошибка
+        if new_day:
+            if sch_dayNo != 0:
+                chapter_name = (u"{size=80}{font=[csn]}{color=#FFFFFF}Заслуженная | {/color}{color=#999999}Реальность{/color} - {color=#afafaf}День{/font} {font=[dr_font]}%d{/font}{/color}{/size}") % (sch_dayNo)
+            elif sch_dayNo >= 8:
+                if sch_dayNo >=9:
+                    sch_part = sch_dayNo - 7
+                    chapter_name = (u"{size=80}{font=[csn]}{color=#FFFFFF}Заслуженная | {/color}{color=#999999}Реальность{/color} - {color=#afafaf} Эпилог. Часть %d{/font}{/color}{/size}") % (sch_part)
+                else:
+                    chapter_name = (u"{size=80}{font=[csn]}{color=#FFFFFF}Заслуженная | {/color}{color=#999999}Реальность{/color} - {color=#afafaf}Эпилог.{/font}{/color}{/size}")
+            elif sch_dayNo == 0 and sch_part !=0:
+                chapter_name = (u"{size=80}{font=[csn]}{color=#FFFFFF}Заслуженная | {/color}{color=#999999}Реальность{/color} - {color=#afafaf}Часть %d{/font}{/color}{/size}") % (sch_part)
+            else:
+                chapter_name = (u"{size=80}{font=[csn]}{color=#FFFFFF}Заслуженная | {/color}{color=#999999}Реальность.{/font}{/color}{/size}") % (sch_part)
 
         if new_day:
             renpy.scene()
@@ -360,13 +376,13 @@ init -10 python: # главы
             renpy.pause(1)
             renpy.transition(fade)
             if sch_ch_name != " ":
-                renpy.show('day_num', what=Text(save_name, xcenter=0.5,ycenter=0.25))
+                renpy.show('day_num', what=Text(chapter_name, xcenter=0.5,ycenter=0.25))
             renpy.pause(2)
             renpy.scene()
             renpy.show('bg black')
             renpy.transition(fade)
             dayname = (u"{size=70}{font=[csn]}{color=#afafaf}%s{/color}{/font}{/size}") % (sch_ch_name)
-            renpy.show('day_num', what=Text(dayname, xcenter=0.5,ycenter=0.45))
+            renpy.show('day_num', what=Text(chapter_name, xcenter=0.5,ycenter=0.45))
 
         renpy.pause(3)
         renpy.scene()
@@ -597,5 +613,5 @@ init -998:
     $ style.sch_desc = Style(style.default)
     $ style.sch_desc.color = "#ffffff"
     $ style.sch_desc.hover_color = "#800000"
-    $ style.sch_desc.size = 40
+    $ style.sch_desc.size = 60
     $ style.sch_desc.font = csn
