@@ -64,8 +64,72 @@ label sch_settings_in: # Переход в настройки
     $ renpy.block_rollback()
 
 
+    scene white
+    show blacksquare:
+        xalign 0.5 yalign 0.5
+        xanchor 111 xzoom 0.12 yzoom 3.62
+    show sch_begin:
+        pos(363, 382)
+    show sch_continue:
+        pos(363, 462)
+    show sch_settings_pressed:
+        pos(363, 542)
+    show sch_achievements:
+        pos(363, 622)
+    show exit_idle:
+        pos(0, 1008)
 
-    call screen sch_settings_menu
+
+
+    with Dissolve(0.001)
+
+    scene '#171717'
+
+    show whitesquare:
+        xalign 0.5 yalign 0.5
+        xanchor 111 xzoom 0.12 yzoom 3.62
+
+    with Dissolve(0.25)
+
+    pause(0.25)
+
+    show sch_back_white:
+        pos(400, 519)
+
+    if persistent.undone_jumper:
+        show sch_placeholder_on:
+            pos(903, 382)
+    else:
+        show sch_placeholder_off:
+            pos(903, 382)
+
+    if persistent.sch_widget:
+        show sch_widget_on:
+            pos(903, 442)
+    else:
+        show sch_widget_off:
+            pos(903, 442)
+
+    if persistent.sch_difficulty == True:
+        show sch_difficulty_Hard:
+            pos(903, 436)
+    elif persistent.sch_difficulty == False:
+        show sch_difficulty_normal:
+            pos(903, 436)
+    elif persistent.sch_difficulty == None:
+        show sch_difficulty_undefined:
+            pos(903, 436)
+
+    show sch_es_settings:
+        pos(903, 644)
+
+    with Dissolve(0.25)
+
+    show screen sch_settings_menu
+
+    show screen sch_settings_back
+
+
 
 
 label sch_settings_out:

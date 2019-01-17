@@ -32,7 +32,7 @@ screen sch_menu:
             background None
             text_style "sch_keys"
             style "sch_keys"
-            action [Hide("sch_menu"), Jump("sch_settings")]
+            action [Hide("sch_menu"), Jump("sch_settings_in")]
 
     vbox:        #Ачивки
         textbutton ("•Достижения"):
@@ -49,17 +49,6 @@ screen sch_menu:
         xpos 0
         ypos 1008
         action [Hide("sch_menu"), Jump("original_mm")]
-
-
-
-label sch_settings: # Переход в настройки
-
-
-
-    call screen sch_settings_menu
-
-    call screen sch_settings_back
-
 
 
 screen sch_settings_menu:
@@ -93,7 +82,7 @@ screen sch_settings_menu:
         showif persistent.sch_difficulty: # Сложность
             textbutton ("•Сложность по умолчанию - Hardmode"):
                 xpos 880
-                ypos 462
+                ypos 436
                 background None
                 text_style "sch_keys_white"
                 style "sch_keys_white"
@@ -103,7 +92,7 @@ screen sch_settings_menu:
         showif persistent.sch_difficulty == False:
             textbutton ("•Сложность по умолчанию - Обычная"):
                 xpos 880
-                ypos 462
+                ypos 436
                 background None
                 text_style "sch_keys_white"
                 style "sch_keys_white"
@@ -113,7 +102,7 @@ screen sch_settings_menu:
         showif persistent.sch_difficulty == None:
             textbutton ("•Сложность по умолчанию - не установлено"):
                 xpos 880
-                ypos 462
+                ypos 436
                 background None
                 text_style "sch_keys_white"
                 style "sch_keys_white"
@@ -124,7 +113,7 @@ screen sch_settings_menu:
         showif persistent.sch_widget: # Виджет ОП
             textbutton("•Виджет ОП - ON"):
                 xpos 880
-                ypos 542
+                ypos 492
                 background None
                 text_style "sch_keys_white"
                 style "sch_keys_white"
@@ -134,7 +123,7 @@ screen sch_settings_menu:
         else:
             textbutton("•Виджет ОП - OFF"):
                 xpos 880
-                ypos 542
+                ypos 492
                 background None
                 text_style "sch_keys_white"
                 style "sch_keys_white"
@@ -144,7 +133,7 @@ screen sch_settings_menu:
 
         textbutton("•Перейти в настройки игры"):
             xpos 880
-            ypos 632
+            ypos 582
             background None
             text_style "sch_keys_white"
             style "sch_keys_white"
