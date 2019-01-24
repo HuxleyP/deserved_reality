@@ -19,6 +19,8 @@ init 2:
 
     $ hide_back = False # Меню - Убрать кнопку Назад при True
 
+    $ sch_name = u"Я"
+
     $ pt_iv = 0
     $ pt_sl = 0
     $ pt_un = 0
@@ -69,11 +71,10 @@ init 2:
 
 # День 1
 
-    $ sch_day1_sl_runaway = False #сбежал от Слави
-    $ day1_info_check = False # Проверка связи
 
     $ list_sch_ch_known = [] # Знакомые персонажи
     $ list_sch_day1_together = [] # С кем пошёл к ОД
+    $ list_sch_day1_help = []
     $ list_sch_day1_supper = []
 
     $ list_sch_day1_map_visited = [] # Посещённые места на карте
@@ -143,6 +144,7 @@ init -998:
     image blacksquare = 'deserved_reality/source/images/gui/menu/square.png'
     image whitesquare = im.MatrixColor("deserved_reality/source/images/gui/menu/square.png", im.matrix.colorize("#fff", "#fff"))
     image gray = "#171717"
+    image beige = "#fbf0b3"
 
     # Объявляем текст для анимаций
 
@@ -176,22 +178,25 @@ init -998:
 
     # А тут Мику-диджей крутит музыку :3
     #Music
-    $ aire = music_sch("aire.ogg")
-    $ cassiopeia = music_sch("cassiopeia.ogg")
-    $ connor = music_sch("connor.ogg")
-    $ distant = music_sch("distant.ogg")
-    $ drowninrain = music_sch("drowninrain.ogg")
-    $ dust = music_sch("dust.ogg")
-    $ faunts = music_sch("faunts.ogg")
-    $ finale = music_sch("finale.ogg")
-    $ hallways = music_sch("hallways.ogg")
-    $ honor = music_sch("honor.ogg")
-    $ lastdawn = music_sch("lastdawn.ogg")
-    $ markus = music_sch("markus.ogg")
-    $ nullspace = music_sch("nullspace.ogg")
-    $ prologue = music_sch("prologue.ogg")
-    $ static = music_sch("static.ogg")
-    $ sunpatterns = music_sch("sunpatterns.ogg")
+
+    #$ musiclist_sch = []
+
+    #$ aire = musiclist_sch("aire.ogg")
+    #$ cassiopeia = musiclist_sch("cassiopeia.ogg")
+    #$ connor = musiclist_sch("connor.ogg")
+    #$ distant = musiclist_sch("distant.ogg")
+    #$ drowninrain = musiclist_sch("drowninrain.ogg")
+    #$ dust = musiclist_sch("dust.ogg")
+    #$ faunts = musiclist_sch("faunts.ogg")
+    #$ finale = musiclist_sch("finale.ogg")
+    #$ hallways = musiclist_sch("hallways.ogg")
+    #$ honor = musiclist_sch("honor.ogg")
+    #$ lastdawn = musiclist_sch("lastdawn.ogg")
+    #$ markus = musiclist_sch("markus.ogg")
+    #$ nullspace = musiclist_sch("nullspace.ogg")
+    #$ prologue = musiclist_sch("prologue.ogg")
+    #$ static = musiclist_sch("static.ogg")
+    #$ sunpatterns = musiclist_sch("sunpatterns.ogg")
 
     #Ambience
     $ dream = ambience_sch("ambience_safe.ogg")
@@ -241,36 +246,6 @@ init:
 
 
 
-init python:
-
-    def double_vision_on(picture):
-
-
-        renpy.scene()
-
-        renpy.show(picture)
-
-
-
-        renpy.show(picture, at_list=[transpa,randmotion], tag="blur_image")
-
-
-        renpy.with_statement(dissolve)
-
-
-    def double_vision_off():
-
-        # renpy.hide() is like "hide"
-
-        renpy.hide("blur_image")
-
-        renpy.with_statement(dissolve)
-
-    # цветная вспышка
-    # with flash("#822")
-    def flash(color="#fff"):
-        return Fade(.25, 0, .75, color=color)
-
 
 
 
@@ -296,35 +271,25 @@ init -10 python: # главы
         renpy.block_rollback()
 
         save_name = (u"Заслуженная | Реальность.") # так надо, иначе ошибка
-        if new_day:
-            if sch_dayNo != 0:
-                save_name = (u"Заслуженная | Реальность - День %d.") % (sch_dayNo)
-            elif sch_dayNo >= 8:
-                if sch_dayNo >=9:
-                    sch_part = sch_dayNo - 7
-                    save_name = (u"Заслуженная | Реальность. \nЭпилог. Часть %d.") % (sch_part)
-                else:
-                    save_name = (u"Заслуженная | Реальность.\nЭпилог.")
-            elif sch_dayNo == 0 and sch_part !=0:
-                save_name = (u"Заслуженная | Реальность.\nЧасть %d.") % (sch_part)
-            else:
-                save_name = (u"Заслуженная | Реальность.\n%d.") % (sch_part)
+        if sch_dayNo != 0:
+            save_name = (u"Заслуженная | Реальность - День %d.") % (sch_dayNo)
+        elif sch_dayNo >= 8:
+            save_name = (u"Заслуженная | Реальность. \nЭпилог.")
+        elif sch_dayNo == 0 and sch_part !=0:
+            save_name = (u"Заслуженная | Реальность.\nЧасть %d.") % (sch_part)
+        else:
+            save_name = (u"Заслуженная | Реальность.\n%d.") % (sch_part)
 
 
         chapter_name = (u"{size=80}{font=[csn]}{color=#FFFFFF}Заслуженная | {/color}{color=#999999}Реальность{/color}{/font}") # так надо, иначе ошибка
-        if new_day:
-            if sch_dayNo != 0:
-                chapter_name = (u"{size=80}{font=[csn]}{color=#FFFFFF}Заслуженная | {/color}{color=#999999}Реальность{/color} - {color=#afafaf}День{/font} {font=[dr_font]}%d{/font}{/color}{/size}") % (sch_dayNo)
-            elif sch_dayNo >= 8:
-                if sch_dayNo >=9:
-                    sch_part = sch_dayNo - 7
-                    chapter_name = (u"{size=80}{font=[csn]}{color=#FFFFFF}Заслуженная | {/color}{color=#999999}Реальность{/color} - {color=#afafaf} Эпилог. Часть %d{/font}{/color}{/size}") % (sch_part)
-                else:
-                    chapter_name = (u"{size=80}{font=[csn]}{color=#FFFFFF}Заслуженная | {/color}{color=#999999}Реальность{/color} - {color=#afafaf}Эпилог.{/font}{/color}{/size}")
-            elif sch_dayNo == 0 and sch_part !=0:
-                chapter_name = (u"{size=80}{font=[csn]}{color=#FFFFFF}Заслуженная | {/color}{color=#999999}Реальность{/color} - {color=#afafaf}Часть %d{/font}{/color}{/size}") % (sch_part)
-            else:
-                chapter_name = (u"{size=80}{font=[csn]}{color=#FFFFFF}Заслуженная | {/color}{color=#999999}Реальность.{/font}{/color}{/size}") % (sch_part)
+        if sch_dayNo >= 1 or sch_dayNo <= 7:
+            chapter_name = (u"{size=80}{font=[csn]}{color=#FFFFFF}Заслуженная | {/color}{color=#999999}Реальность{/color} - {color=#afafaf}День{/font} {font=[dr_font]}%d{/font}{/color}{/size}") % (sch_dayNo)
+        elif sch_dayNo >=8 and sch_part !=0:
+            chapter_name = (u"{size=80}{font=[csn]}{color=#FFFFFF}Заслуженная | {/color}{color=#999999}Реальность{/color} - {color=#afafaf}Часть %d{/font}{/color}{/size}") % (sch_part)
+        elif sch_dayNo == 8:
+                chapter_name = (u"{size=80}{font=[csn]}{color=#FFFFFF}Заслуженная | {/color}{color=#999999}Реальность{/color} - {color=#afafaf} Эпилог.{/font}{/color}{/size}")
+        else:
+            chapter_name = (u"{size=80}{font=[csn]}{color=#FFFFFF}Заслуженная | {/color}{color=#999999}Реальность.{/font}{/color}{/size}") % (sch_part)
 
         if new_day:
             renpy.scene()
@@ -371,7 +336,7 @@ init -10 python: # главы
 
         else:
             renpy.scene()
-            renpy.music.play('whisper', channel='sound', fadein=0.5, fadeout = 0.25)
+            renpy.music.play('deserved_reality/source/Sound/sfx/whisper.ogg', channel='sound', fadein=1.5, fadeout = 0.25)
             renpy.show('black')
             renpy.pause(1)
             renpy.transition(fade)

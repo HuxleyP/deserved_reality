@@ -1,5 +1,5 @@
-
-label sch_day1_arrival:
+label sch_day1_sl:
+    # Прибыл, Славя
     $ persistent.sprite_time = "day"
     $ day_time()
     $ sch_chapter(1, "Предсмертное тепло.")
@@ -124,19 +124,7 @@ label sch_day1_arrival:
 
     "Повторить мой путь \"проверить связь - оглянуться - не увидеть автобус - потерять сознание\" помогло новое действующее лицо."
 
-    $ renpy.pause(2, hard=True)
-
-    return
-
-label sch_day1_p1_sl_1:
-    $ sch_chapter(1, new_day=True)
-    $ persistent.sprite_time = "day"
-    $ day_time()
-
-    scene bg ext_camp_entrance_day
-    show sl normal pioneer
-    with dissolve
-
+    show sl normal pioneer with dissolve
 
     "На моём пути, чуть ли не у самых дверей Икаруса, стояла какая-то девушка. Лет восемнадцать, не больше - золотые волосы, по-детски гладкое лицо, яркие голубые глаза и смесь недовольства и заботы одновременно. И это всё в оболочке из синей юбки и белой рубашки с галстуком, как у пионеров."
     iv "Пионерский галстук? Я серьёзно попал в СССР третьего (лишь бы не второго!) миллениума?"
@@ -247,6 +235,7 @@ label sch_day1_p1_sl_1:
                     extend "."
             else:
                 "Только субтитры к диалогам в линзах. Больше ничего."
+            return
 
 
         "Какой номер домика у вожатой?":
@@ -258,15 +247,6 @@ label sch_day1_p1_sl_1:
             $ meet(mt, 'Ольга Дмитриевна')
             ivan "А, ну окей. Я не против."
             sl "Тогда пойдём."
-    return
-
-label sch_day1_p1_sl_2:
-    $ persistent.sprite_time = "day"
-    $ day_time()
-    $ name_sch()
-
-    play ambience ambience_camp_center_day
-    #музыка
 
     scene bg ext_camp_entrance_day
 
@@ -287,6 +267,7 @@ label sch_day1_p1_sl_2:
 
     menu:
         "Согласиться подождать":
+            $ list_sch_day1_together.append('sl')
             $ pt_ka +=10
             if not sch_hard:
                 $ pt_sl +=1
@@ -297,6 +278,7 @@ label sch_day1_p1_sl_2:
             sl "Я быстро!"
 
             hide sl with dissolve
+
         "Отказаться":
             $ pt_ka -=10
             if sch_hard:
@@ -316,11 +298,8 @@ label sch_day1_p1_sl_2:
             scene bg ext_houses_day with dissolve
 
             iv "Наконец-то я свободен!"
-            # ГГ говорит что не собирается ждать, идёт один, идёт на mi_1
 
-    return
-
-label sch_day1_p1_sl_3:
+            return
 
     "Славя скрылась за дверями \"Клубов\", оставляя меня копать трещины в асфальте."
     "Ну а я что, кукла какая-то? Могу и сам передвигаться."
@@ -389,39 +368,119 @@ label sch_day1_p1_sl_3:
 
     with fade
 
-    "Мы завернули в ряд домиков, каждый из которых по-своему отличался от других - и только один из них, в третьем ряду, имел другую форму."
+    "Мы завернули в ряд домиков, каждый из которых по-своему отличался от других - и только один из них - тот, что в третьем ряду, имел другую форму."
 
     return
 
 
-label sch_day1_p1_un_1:
-    $ sch_chapter(1, "Тет-а-тет с лагерем.")
-    $ persistent.sprite_time = "day"
+label sch_day1_un:
     $ day_time()
-    iv "Наконец-то я избавился от Слави и её навязчивого желания помочь."
-    # Описание окружающего его места
-    menu:
-        "Поздороваться":
-            $ pt_un +=1
-            $ list_sch_ch_known.append('un')
-            # Герой здоровается с Леной, Лена уходит в режим патризана, однако говорит ему своё имя
-            menu:
-                "Продолжить разговор":
-                    # Герой продолжает разговор, говорит, что не знает, куда ему идти (хотя у него есть карта), Лена соглашается
-                    $ list_sch_day1_together.append('un')
+    $ persistent.sprite_time = 'day'
+    # Лена
 
+    menu:
+        "Идти дальше":
+            $ pt_pi +=10
+            $ pt_ka -=10
+            # Проходит мимо
+
+            return
+
+        "Поздороваться":
+            $ list_sch_ch_known.append('un')
+            # Здоровается со скрипом
+            menu:
                 "Попрощаться":
                     if sch_hard:
                         $ pt_un -=1
-                    #Герой прощается с Леной, но как только отойдёт дальше, его Ульянка пугает до усрачки и потери сознания
+                    # Прощается
+                    return
 
-        "Идти дальше":
-            if sch_day1_sl_runaway:
-                pass
-            else:
-                $ pt_pi +=10
-                $ pt_ka -=10
-            ivan "Привет!"
-            "Девочка, проходящая мимо меня, залилась краской и лишь застенчиво что-то промямлила в ответ."
+                "Попросить отвести к вожатой":
+                    $ list_sch_day1_together.append('un')
+                    $ pt_un +=1
+                    # Говорит
+    # Лена отводит
+    return
+
+label sch_day1_mi:
+    $ day_time()
+    $ persistent.sprite_time = 'day'
+    $ list_sch_ch_known.append('mi')
+    # Мику
+
+    menu:
+
+        "Согласиться помочь":
+            $ list_sch_day1_together.append('mi')
+            $ pt_mi +=1
+            $ pt_pi +=10
+            # Мику рада
+
+        "Отказаться":
+            # Уходит
+            return
+
+    # Помогает
+    return
+
+
+label sch_day1_dv:
+    # Алиса
+
+    if persistent.dv_good_sch or persistent.dv_bad_sch or persistent.dv_reject_sch or persistent.dv_neutral_sch or persistent.dv_true_sch or persistent.dv_transit_good_sch:
+        $ pt_dv +=1
+        $ list_sch_day1_together.append('dv_good')
+        # Говорит, ""афера не удалась, Алисхен" а та ему в ответ и "NANIIIIIIIIIIII" а потом Мику всех убила вот так
+
+    else:
+        menu:
+            "Уйти":
+                $ list_sch_day1_together.append('dv')
+                # Отходит, афера не удаётся
+            "Пожождать":
+                $ list_sch_day1_together.append('dv_sl')
+                # Обливается, его находит Славя
 
     return
+
+
+label sch_day1_od:
+    # ОД
+    if 'sl' in list_sch_day1_together:
+        # Приходит со Славей, она не покидает ГГ
+        pass
+    elif 'un' in list_sch_day1_together:
+        # Лена покидает ГГ
+        pass
+    elif 'mi' in list_sch_day1_together:
+        # Мику не покидает ГГ
+        pass
+    elif 'dv_good' in list_sch_day1_together:
+        # Заводит силой Алису, шутит мол "благодарить её надо, она мой проводник (отсылка-игра слов-метафора)"
+        pass
+    elif 'dv' in list_sch_day1_together:
+        # Идёт один
+        pass
+    elif 'dv_sl' in list_sch_day1_together:
+        # Славя приводит ГГ, по факту та же 'sl'
+        pass
+
+
+    menu:
+        "Познакомлюсь с лагерем":
+            $ pt_wi +=10
+            # бла-бла
+            menu:
+                "Пойду на площадь - вдруг что интересное!":
+                    $ pt_sl +=1
+                "Может, на сцену?" if not 'mi' in list_sch_day1_together:
+                    # Идёт, там Мику
+                    pass
+
+                "Меня Мику к себе в клуб звала..." if 'mi' in list_sch_day1_help:
+                    pass
+
+
+        "Могу помочь":
+            pass

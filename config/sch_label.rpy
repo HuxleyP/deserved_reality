@@ -83,7 +83,7 @@ label sch_settings_in: # Переход в настройки
 
     with Dissolve(0.001)
 
-    scene '#171717'
+    scene gray
 
     show whitesquare:
         xalign 0.5 yalign 0.5
@@ -170,6 +170,8 @@ label sch_settings_out:
 
 label sch_newgame:
     $ renpy.block_rollback()
+    hide screen sch_settings_back
+    hide screen sch_menu
     scene white
     show blacksquare:
         xalign 0.5 yalign 0.5
@@ -213,9 +215,9 @@ label sch_game_start:
 
     stop music fadeout 1
 
-    call sch_day0_cr
+    #call sch_day0_cr
 
-    pause(1)
+    #pause(1)
 
     call sch_day1_cr
 
