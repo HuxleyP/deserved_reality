@@ -358,27 +358,6 @@ init -10 python: # главы
 
 
 
-init python:
-    def name_sch(sch_name='Я'):
-        # 920202 - тёмно-красный
-        # 295f48 - тёмно-зелёный
-        # 5B5BE5 - синий
-        if sch_name == "Иван":
-            globals()["ivan"] = Character("Иван", color = "#295f48", what_color = "#E2C778", drop_shadow = [ (2, 2) ], drop_shadow_color = "#000", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
-        elif sch_name == "Ваня":
-            globals()["ivan"] = Character("Ваня", color = "#5B5BE5", what_color = "#E2C778", drop_shadow = [ (2, 2) ], drop_shadow_color = "#000", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
-        elif sch_name == "Протагонист":
-            globals()["ivan"] = Character("Протагонист", color = "#5b5b5b", what_color = "#E2C778", drop_shadow = [ (2, 2) ], drop_shadow_color = "#000", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
-        else:
-            globals()["ivan"] = Character("Я", color = "#920202", what_color = "#E2C778", drop_shadow = [ (2, 2) ], drop_shadow_color = "#000", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
-
-init:
-    $ iv = Character(None, color="#E2C778", what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000", what_italic = True)
-    $ god = Character(u'Харон', color="#00fa9a", what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
-    $ chat = Character(u'Собеседник', color="#6e3961", what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
-    $ mother = Character(u'Мама', color="#f9106b", what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
-    $ ami = Character(u'Амина', color="#cd6c2e", what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
-
 #Поинты
 python early: #TODO переписать
     def CycleCounter():
@@ -449,7 +428,47 @@ python early: #TODO переписать
         config.overlay_functions.append(editoverlay)
 
 
+init python:
+    def name_sch(sch_name='Я'):
+        # 920202 - тёмно-красный
+        # 295f48 - тёмно-зелёный
+        # 5B5BE5 - синий
+        if sch_name == "Иван":
+            globals()["ivan"] = Character("Иван", color = "#295f48", what_color = "#E2C778", drop_shadow = [ (2, 2) ], drop_shadow_color = "#000", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
+        elif sch_name == "Ваня":
+            globals()["ivan"] = Character("Ваня", color = "#5B5BE5", what_color = "#E2C778", drop_shadow = [ (2, 2) ], drop_shadow_color = "#000", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
+        elif sch_name == "Протагонист":
+            globals()["ivan"] = Character("Протагонист", color = "#5b5b5b", what_color = "#E2C778", drop_shadow = [ (2, 2) ], drop_shadow_color = "#000", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
+        else:
+            globals()["ivan"] = Character("Я", color = "#920202", what_color = "#E2C778", drop_shadow = [ (2, 2) ], drop_shadow_color = "#000", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
 
+init 2:
+    $ iv = Character(None, color="#E2C778", what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000", what_italic = True)
+    $ god = Character(u'Харон', color="#00fa9a", what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
+    $ chat = Character(u'Собеседник', color="#6e3961", what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
+    $ mother = Character(u'Мама', color="#f9106b", what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
+    $ ami = Character(u'Амина', color="#cd6c2e", what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
+
+    #Day - базис
+    #Sunset - 94%, 82%, 100%
+    #Night - 58%, 67%, 67%
+    #Prologue - 84%, 72%, 100%
+    #RGBA
+
+    $ colors['ai'] = {'night': (41, 164, 1, 255), 'sunset': (67, 201, 2, 255), 'day': (72, 246, 2, 255), 'prolog': (60, 177, 2, 255)}
+    $ store.names_list.append('ai')#Собеседник, ИИ
+
+    $ colors['chat'] = {'night': (), 'sunset': (), 'day': (110, 57, 97, 255) 'prolog': ()}
+    $ colors['ivan'] = {'night': (), 'sunset': (), 'day': () 'prolog': ()}
+    $ colors['mother'] = {'night': (), 'sunset': (), 'day': () 'prolog': ()}
+    $ colors['ami'] = {'night': (), 'sunset': (), 'day': () 'prolog': ()}
+    #$ colors[''] = {'night': (), 'sunset': (), 'day': () 'prolog': ()}
+
+
+    $ names['chat'] = u'Собеседник'
+    $ names['mother'] = u"Мама"
+    $ names['ami'] = u"Амина"
+    $ names['ivan'] = u"Я"
 
 init 999 python:
     def meet(who, name):
