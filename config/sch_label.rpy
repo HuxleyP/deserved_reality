@@ -34,29 +34,29 @@ label sichium_start: # Меню
         xalign 0.5 yalign 0.5
         zoom 20.0
         pause 2.0
-        ease 1.0 zoom 1.0
-        linear 0.75 xzoom 0.12
-        easein 0.75 yzoom 3.62
-        linear 0.75 xanchor 111
-    pause(5.25)
+        ease 0.75 zoom 1.0
+        linear 0.5 xzoom 0.12
+        easein 0.5 yzoom 3.62
+        linear 0.5 xanchor 111
+    pause(4.35)
     show white2:
         xpos 861
     show sch_begin behind white2:
         pos(861, 382)
-        linear 0.75 xanchor 498
+        linear 0.5 xanchor 498
     show sch_continue behind white2:
         pos(861, 462)
-        linear 0.75 xanchor 498
+        linear 0.5 xanchor 498
     show sch_settings behind white2:
         pos(861, 542)
-        linear 0.75 xanchor 498
+        linear 0.5 xanchor 498
     show sch_achievements behind white2:
         pos(861, 622)
-        linear 0.75 xanchor 498
+        linear 0.5 xanchor 498
     show exit_idle:
         pos (-72, 1008)
-        linear 0.75 pos(0, 1008)
-    pause(0.75)
+        linear 0.5 pos(0, 1008)
+    pause(0.5)
 
     call screen sch_menu
 

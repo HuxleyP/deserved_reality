@@ -1,3 +1,36 @@
+screen sch_fuchsia_widget:
+    modal False
+    imagemap:
+        ground 'bg_empty'
+        if not (persistent.sch_widget or save_name == ('"Заслуженная Реальность. Меню."') or sch_hard):
+            add sch_path + 'source/images/gui/pile.png' anchor(0.5, 0.0) xalign 0.5 yalign 0.0
+            alpha False
+            hotspot (0, 0, 1920, 50) hovered [SetVariable("sch_WidgetVisible", True), Show("sch_widget_screen", transition=dspr)] action NullAction
+
+
+#screen sch_widget_screen:
+#    modal False
+#    imagemap:
+        #idle sch_path + "source/images/gui/widget_case.png"
+        #hover sch_path + "source/images/gui/widget_case.png"
+        #anchor(0.5, 0.0)
+        #xalign 0.5
+        #yalign 0.0
+        #hovered NullAction
+        #unhovered [Hide("sch_widget_screen", transition=dspr), SetVariable("sch_WidgetVisible", False)]
+        #action [Hide("sch_widget_screen", transition=dspr), SetVariable("sch_WidgetVisible", False)]
+
+    #    if sch_true:
+        #    showif routetag_sch == 'noir':
+
+
+    #    showif list_sch_ch_known[0] != None:
+
+
+
+
+
+# Ниже меню. Нихрена не откалибровано
 screen sch_menu:
     tag menu
     modal True

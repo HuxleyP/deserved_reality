@@ -407,7 +407,10 @@ label sch_day1_mi:
     $ day_time()
     $ persistent.sprite_time = 'day'
     $ list_sch_ch_known.append('mi')
-    # Мику
+
+    scene bg ext_houses_day with dissolve
+
+    ""
 
     menu:
 

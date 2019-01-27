@@ -41,6 +41,10 @@ init 2:
 
     $ sch_launch = 0
 
+    $ sch_karma_shown = False
+
+    $ sch_WidgetVisible = False
+
     if sch_launch == 0 and persistent.sch_launcher == None:
         $ persistent.sch_widget = False # Виджет ОП, надо поработать над ним
         $ persistent.sch_difficulty = False # False для Noraml
@@ -63,6 +67,8 @@ init 2:
     if (persistent.mi_good_sch or persistent.mi_bad_sch or persistent.mi_reject_sch or persistent.mi_neutral_sch or persistent.mi_true_sch or persistent.mi_transit_good_sch or persistent.mi_transit_bad_sch or persistent.dv_good_sch or persistent.dv_bad_sch or persistent.dv_reject_sch or persistent.dv_neutral_sch or persistent.dv_true_sch or persistent.dv_transit_good_sch or persistent.dv_transit_bad_sch or persistent.sl_good_sch or persistent.sl_bad_sch or persistent.sl_reject_sch or persistent.sl_neutral_sch or persistent.sl_true_sch or persistent.sl_transit_good_sch or persistent.sl_transit_bad_sch or persistent.un_good_sch or persistent.un_bad_sch or persistent.un_reject_sch or persistent.un_neutral_sch or persistent.un_true_sch or persistent.un_transit_good_sch or persistent.un_transit_bad_sch or persistent.us_good_sch or persistent.us_bad_sch or persistent.us_neutral_sch or persistent.us_true_sch or persistent.iv_good_sch or persistent.iv_bad_sch or persistent.iv_transit_good_sch or persistent.iv_transit_bad_sch or persistent.nr_good_sch or persistent.nr_bad_sch or persistent.nr_rf_true_sch or persistent.nr_ussr_true_sch): # Как же долго я искал ошибку...
         $ cycled = True
 
+    if sch_true:
+        $ sch_karma_shown = True
 
 # Пролог
 
@@ -128,6 +134,8 @@ init -998:
 
     #gui
     image dr_pattern = gui_sch('pattern.png')
+
+    image fuchsia_case = gui_sch('widget_case.png')
 
     image day1 = gui_sch('day1.png')
     image day2 = gui_sch('day2.png')
@@ -213,6 +221,7 @@ init -998:
     #Шрифт
     $ dr_font = fonts_sch("LemonTuesday.otf")
     $ csn = fonts_sch("csn.ttf") # computer says no.
+    $ roboto = fonts_sch("Roboto-Thin.ttf")
 
 
 
@@ -359,6 +368,17 @@ init -10 python: # главы
 
 
 #Поинты
+
+python:
+    def sch_widget_OP():
+        sch_known = len(list_sch_ch_known) # Надо для скрина
+        if u"Заслуженная Реальность" or "Заслуженная | Реальность" in save_name and persistent.sch_widget:
+            renpy.show_screen('sch_widget_pile')
+        else:
+            renpy.hide_screen('sch_widget_pile')
+        config.overlay_functions.append(bac_widgetFunc) #добавление виджета
+
+# Покоится на японской горе К Ху Ям
 python early: #TODO переписать
     def CycleCounter():
         def editoverlay():
@@ -442,6 +462,10 @@ init python:
         else:
             globals()["ivan"] = Character("Я", color = "#920202", what_color = "#E2C778", drop_shadow = [ (2, 2) ], drop_shadow_color = "#000", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
 
+        if sch_name == 1:
+            global colors
+            global names
+
 init 2:
     $ iv = Character(None, color="#E2C778", what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000", what_italic = True)
     $ god = Character(u'Харон', color="#00fa9a", what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
@@ -458,10 +482,10 @@ init 2:
     $ colors['ai'] = {'night': (41, 164, 1, 255), 'sunset': (67, 201, 2, 255), 'day': (72, 246, 2, 255), 'prolog': (60, 177, 2, 255)}
     $ store.names_list.append('ai')#Собеседник, ИИ
 
-    $ colors['chat'] = {'night': (), 'sunset': (), 'day': (110, 57, 97, 255) 'prolog': ()}
-    $ colors['ivan'] = {'night': (), 'sunset': (), 'day': () 'prolog': ()}
-    $ colors['mother'] = {'night': (), 'sunset': (), 'day': () 'prolog': ()}
-    $ colors['ami'] = {'night': (), 'sunset': (), 'day': () 'prolog': ()}
+    #$ colors['chat'] = {'night': (), 'sunset': (), 'day': (110, 57, 97, 255) 'prolog': ()}
+    #$ colors['ivan'] = {'night': (), 'sunset': (), 'day': () 'prolog': ()}
+    #$ colors['mother'] = {'night': (), 'sunset': (), 'day': () 'prolog': ()}
+    #$ colors['ami'] = {'night': (), 'sunset': (), 'day': () 'prolog': ()}
     #$ colors[''] = {'night': (), 'sunset': (), 'day': () 'prolog': ()}
 
 
@@ -601,3 +625,7 @@ init -998:
     $ style.sch_desc.hover_color = "#800000"
     $ style.sch_desc.size = 60
     $ style.sch_desc.font = csn
+
+    $ style.sch_fuchsia = Style(style.default)
+    $ style.sch_fuchsia.font = roboto
+    $ style.sch_fuchsia.size = 36
