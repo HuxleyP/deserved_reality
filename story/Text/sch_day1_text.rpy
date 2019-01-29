@@ -486,4 +486,3 @@ label sch_day1_od:
 
 
         "Могу помочь":
-            pass

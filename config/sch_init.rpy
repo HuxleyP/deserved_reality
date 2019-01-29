@@ -41,6 +41,8 @@ init 2:
 
     $ sch_launch = 0
 
+    $ sch_noir_flag = []
+
     $ sch_karma_shown = False
 
     $ sch_WidgetVisible = False
@@ -93,10 +95,12 @@ init 2:
 
 # День 2
 
+    $ list_sch_day2_walk = []
 
     $ sch_day2_od_photo = False
     $ sch_day2_od_failed = False
     $ sch_day2_forest = False
+
 
 
 # День 3
@@ -187,24 +191,23 @@ init -998:
     # А тут Мику-диджей крутит музыку :3
     #Music
 
-    #$ musiclist_sch = []
 
-    #$ aire = musiclist_sch("aire.ogg")
-    #$ cassiopeia = musiclist_sch("cassiopeia.ogg")
-    #$ connor = musiclist_sch("connor.ogg")
-    #$ distant = musiclist_sch("distant.ogg")
-    #$ drowninrain = musiclist_sch("drowninrain.ogg")
-    #$ dust = musiclist_sch("dust.ogg")
-    #$ faunts = musiclist_sch("faunts.ogg")
-    #$ finale = musiclist_sch("finale.ogg")
-    #$ hallways = musiclist_sch("hallways.ogg")
-    #$ honor = musiclist_sch("honor.ogg")
-    #$ lastdawn = musiclist_sch("lastdawn.ogg")
-    #$ markus = musiclist_sch("markus.ogg")
-    #$ nullspace = musiclist_sch("nullspace.ogg")
-    #$ prologue = musiclist_sch("prologue.ogg")
-    #$ static = musiclist_sch("static.ogg")
-    #$ sunpatterns = musiclist_sch("sunpatterns.ogg")
+    $ aire = music_sch("aire.ogg")
+    $ cassiopeia = music_sch("cassiopeia.ogg")
+    $ connor = music_sch("connor.ogg")
+    $ distant = music_sch("distant.ogg")
+    $ drowninrain = music_sch("drowninrain.ogg")
+    $ dust = music_sch("dust.ogg")
+    $ faunts = music_sch("faunts.ogg")
+    $ finale = music_sch("finale.ogg")
+    $ hallways = music_sch("hallways.ogg")
+    $ honor = music_sch("honor.ogg")
+    $ lastdawn = music_sch("lastdawn.ogg")
+    $ markus = music_sch("markus.ogg")
+    $ nullspace = music_sch("nullspace.ogg")
+    $ prologue = music_sch("prologue.ogg")
+    $ static = music_sch("static.ogg")
+    $ sunpatterns = music_sch("sunpatterns.ogg")
 
     #Ambience
     $ dream = ambience_sch("ambience_safe.ogg")
