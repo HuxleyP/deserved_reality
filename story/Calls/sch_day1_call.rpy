@@ -10,15 +10,12 @@ label sch_day1_cr:
     pause(1)
 
     if pt_ka == -10:
-
         call sch_day1_un
 
     if not 'sl' in list_sch_day1_together or not 'un' in list_sch_day1_together or not 'un' in list_sch_ch_known:
-
         call sch_day1_mi
 
     if ('un' in list_sch_ch_known and not 'un' in list_sch_day1_together) or not 'mi' in list_sch_day1_together:
-
         call sch_day1_dv
 
 
@@ -27,11 +24,9 @@ label sch_day1_cr:
     call sch_day1_od
 
     if 'sl' in list_sch_day1_help:
-
         call sch_day1_sq_sl
 
     if 'un' in list_sch_day1_help:
-
         call sch_day1_med_un
 
     # Ужин!
@@ -44,14 +39,13 @@ label sch_day1_cr:
 
     # Вечерние события
 
-    call sch_day1_aftersupper
+    call sch_day1_aftersupper # Ветка Алисы и Слави
 
     if 'mi' in list_sch_day1_help:
-
-        call sch_day1_mi_boat
+        call sch_day1_mi_boat # Ветка Мику
 
     # Домик
 
-    call sch_day1_home
+    call sch_day1_home # Уже в домике
 
     jump sch_day2_cr

@@ -4,8 +4,8 @@ init -1: # Version data
     $ sch_hotfix = ""
     $ sch_codename = "arctic apricot"
 
-init : # Объявляем мод
-    $ mods["sichium"] = u"{size=60}{font=[csn]}{color=#FFFFFF}Заслуженная {/font}{font=[dr_font]}{color=#999999}|{/color}{/font} {font=[csn]}{/color}{color=#999999}Реальность{/color}{/font}{/size}"
+init: # Объявляем мод
+    $ mods["sichium"] = u"{color=#FFFFFF}Заслуженная {color=#999999}|{/color}{color=#999999}Реальность{/color}{/size}"
 
 
 init 2:
@@ -41,7 +41,6 @@ init 2:
 
     $ sch_launch = 0
 
-    $ sch_noir_flag = []
 
     $ sch_karma_shown = False
 
@@ -79,7 +78,7 @@ init 2:
 
 # День 1
 
-
+    $ list_sch_noir_flag = [] # флаги Нуара
     $ list_sch_ch_known = [] # Знакомые персонажи
     $ list_sch_day1_together = [] # С кем пошёл к ОД
     $ list_sch_day1_help = []

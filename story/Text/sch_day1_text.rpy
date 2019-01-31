@@ -376,7 +376,7 @@ label sch_day1_sl:
 label sch_day1_un:
     $ day_time()
     $ persistent.sprite_time = 'day'
-    # Лена
+
 
     menu:
         "Идти дальше":
@@ -459,8 +459,8 @@ label sch_day1_od:
     elif 'mi' in list_sch_day1_together:
         # Мику не покидает ГГ
         pass
-    elif 'dv_good' in list_sch_day1_together:
-        # Заводит силой Алису, шутит мол "благодарить её надо, она мой проводник (отсылка-игра слов-метафора)"
+    elif 'dv_alone' in list_sch_day1_together:
+        # Заводит силой Алису, шутит мол "благодарить её надо, она мой проводник (отсылка-игра слов-метафора-алиса-молния-ага)"
         pass
     elif 'dv' in list_sch_day1_together:
         # Идёт один
@@ -479,10 +479,38 @@ label sch_day1_od:
                     $ pt_sl +=1
                 "Может, на сцену?" if not 'mi' in list_sch_day1_together:
                     # Идёт, там Мику
-                    pass
+                    menu:
+                        "Да, почему бы и нет?":
+                            # help mi
+                            pass
+                        "Извини, не помогу":
+                            pass
 
                 "Меня Мику к себе в клуб звала..." if 'mi' in list_sch_day1_help:
+                    $ pt_mi +=2
+                    # Идёт в музклуб
                     pass
 
 
         "Могу помочь":
+            # Молодец, пионер. А кому?
+            menu:
+                "Славе":
+                    $ pt_sl +=1
+                    $ list_sch_day2_walk.append('sl')
+                    # На площадь марш
+                "Лене":
+                    $ pt_un +=1
+                    # в медпункт марш
+
+                    menu:
+                        # Эл бежит, ГГ идёт в столовую с Леной
+                        "Отойти в сторону":
+                            $ pt_dv +=1
+                            $ pt_un +=1
+                            $ pt_ka +=10
+                            $ pt_wi +=10
+                            # Эл убегает
+                        "Попытаться сбежать":
+                            $ pt_ka -=10
+                            # Лена останвливает героя и говорит, что Алиса не трогает, если не виновен
