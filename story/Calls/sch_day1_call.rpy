@@ -2,6 +2,8 @@ label sch_day1_cr:
 
     $ day_time()
     $ persistent.sprite_time = 'day'
+    $ name_sch('me')
+    $ sch_forgeteveryone()
 
     # Старт!
 

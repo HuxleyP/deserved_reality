@@ -1,7 +1,7 @@
 init -1: # Version data
-    $ sch_version = "0.0"
+    $ sch_version = "5.4"
     $ sch_state = "alpha"
-    $ sch_hotfix = ""
+    $ sch_hotfix = "hf0"
     $ sch_codename = "arctic apricot"
 
 init: # Объявляем мод
@@ -136,6 +136,10 @@ init -998:
     image cg uvao_d0_2 = image_sch("cg/d1_uv_2.jpg")
 
     #gui
+
+    image map_av =  maps_sch('maps/map_avaliable.jpg')
+    image map_def =  maps_sch('overlays/map_default.png')
+
     image dr_pattern = gui_sch('pattern.png')
 
     image fuchsia_case = gui_sch('widget_case.png')
@@ -213,6 +217,7 @@ init -998:
     $ ambience_elevator = ambience_sch("ambience_elevator")
 
     #SFX
+    $ bang = sfx_sch('bang.ogg')
     $ heartbeat = sfx_sch("heartbeat.ogg")
     $ whiteflash = sfx_sch("flash.ogg")
     $ wind = sfx_sch("wind.ogg")
@@ -251,6 +256,12 @@ init:
         xalign 0.75 #TODO подкорректировать приближение
         yalign 0.1
         zoom 1.5
+
+    transform lil_zoom:
+        zoom 1.0
+        xalign 0.5
+        yalign 0.5
+        linear 0.25 zoom 0.8
 
     # transform sch_easeinleft
 
@@ -515,15 +526,15 @@ init 2:
     $ names['ami'] = u"Амина"
 
 
-init 999 python:
-    def meet(who, name):
+init 3 python:
+    def meet_sch(who, name):
         global store
         gl = globals()
         gl[who + "_name"] = name
         store.names[who] = name
 
 
-    def save_name_known():
+    def save_known_names():
         gl = globals()
         global store
         for x in store.names_list:
@@ -531,43 +542,43 @@ init 999 python:
                 store.names[x] = gl["%s_name"%x]
 
 
-    def sch_meeteveryone():
-        global store
-        meet('mi', u"Азиатка")
-        meet('sl', u"Блондинка")
-        meet('dv', u"Рыжая")
-        meet('us', u"Девочка-СССР")
-        meet('un', u"Стесняшка")
-        meet('mt', u"Вожатая")
-        meet('cs', u"Медсестра")
-        meet('dreamgirl', u"Харон")
-        meet('el', u"Блондин")
-        meet('pi', u"Пионер")
-        meet('sh', u"Очкарик")
-        meet('uv', u"Нэко")
-        meet('chat', u'Ребёнок')
-        meet('mother', u"Мама")
-        meet('ami', u"Амина")
-        meet('ai', u"Механический голос")
-
     def sch_forgeteveryone():
         global store
-        meet('mi', u"Мику")
-        meet('sl', u"Славя")
-        meet('dv', u"Алиса")
-        meet('us', u"Ульяна")
-        meet('un', u"Лена")
-        meet('mt', u"Ольга Дмитриевна")
-        meet('cs', u"Виола")
-        meet('dreamgirl', u"...")
-        meet('el', u"Электроник")
-        meet('pi', u"Пионер")
-        meet('sh', u"Шурик")
-        meet('uv', u"Харон")
-        meet('chat', u'Друг')
-        meet('mother', u"Мама")
-        meet('ami', u"Девушка")
-        meet('ai', u'ИИ')
+        meet_sch('mi', u"Азиатка")
+        meet_sch('sl', u"Блондинка")
+        meet_sch('dv', u"Рыжая")
+        meet_sch('us', u"Девочка-СССР")
+        meet_sch('un', u"Стесняшка")
+        meet_sch('mt', u"Вожатая")
+        meet_sch('cs', u"Медсестра")
+        meet_sch('dreamgirl', u"Харон")
+        meet_sch('el', u"Блондин")
+        meet_sch('pi', u"Пионер")
+        meet_sch('sh', u"Очкарик")
+        meet_sch('uv', u"Нэко")
+        meet_sch('chat', u'Ребёнок')
+        meet_sch('mother', u"Мама")
+        meet_sch('ami', u"Амина")
+        meet_sch('ai', u"Механический голос")
+
+    def sch_meeteveryone():
+        global store
+        meet_sch('mi', u"Мику")
+        meet_sch('sl', u"Славя")
+        meet_sch('dv', u"Алиса")
+        meet_sch('us', u"Ульяна")
+        meet_sch('un', u"Лена")
+        meet_sch('mt', u"Ольга Дмитриевна")
+        meet_sch('cs', u"Виола")
+        meet_sch('dreamgirl', u"...")
+        meet_sch('el', u"Электроник")
+        meet_sch('pi', u"Пионер")
+        meet_sch('sh', u"Шурик")
+        meet_sch('uv', u"Харон")
+        meet_sch('chat', u'Друг')
+        meet_sch('mother', u"Мама")
+        meet_sch('ami', u"Девушка")
+        meet_sch('ai', u'ИИ')
 
     sch_forgeteveryone()
     set_mode_adv()

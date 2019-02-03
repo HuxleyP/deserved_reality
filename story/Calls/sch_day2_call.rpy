@@ -13,5 +13,3 @@ label sch_day2_cr:
         pause(1)
 
     call sch_day2_breakfast
-
-    
