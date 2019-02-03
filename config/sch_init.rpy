@@ -19,7 +19,7 @@ init 2:
 
     $ hide_back = False # Меню - Убрать кнопку Назад при True
 
-    $ sch_name = u"Я"
+    $ sch_name = "me"
 
     $ pt_iv = 0
     $ pt_sl = 0
