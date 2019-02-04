@@ -329,8 +329,8 @@ init -10 python: # главы
                     renpy.show("Color(hsv=(.75833333, 1.0, [pt_nr*0.04]))")
                 else:
                     renpy.show("#a6a6a6")
-            elif sch_dayNo == 1:
-                renpy.show('day1')
+            elif sch_dayNo >=1 and sch_dayNo <=7:
+                renpy.show('day[sch_dayNo]')
             else:
                 renpy.show('a6a6a6')
             renpy.show('dr_pattern')
