@@ -1,11 +1,11 @@
 init -1: # Version data
-    $ sch_version = "0.0"
+    $ sch_version = "5.4.1"
     $ sch_state = "alpha"
-    $ sch_hotfix = ""
+    $ sch_hotfix = "hf0"
     $ sch_codename = "arctic apricot"
 
-init : # Объявляем мод
-    $ mods["sichium"] = u"{size=60}{font=[csn]}{color=#FFFFFF}Заслуженная {/font}{font=[dr_font]}{color=#999999}|{/color}{/font} {font=[csn]}{/color}{color=#999999}Реальность{/color}{/font}{/size}"
+init: # Объявляем мод
+    $ mods["sichium"] = u"{color=#FFFFFF}Заслуженная {color=#999999}|{/color}{color=#999999}Реальность{/color}{/size}"
 
 
 init 2:
@@ -19,7 +19,7 @@ init 2:
 
     $ hide_back = False # Меню - Убрать кнопку Назад при True
 
-    $ sch_name = u"Я"
+    $ sch_name = "me"
 
     $ pt_iv = 0
     $ pt_sl = 0
@@ -41,7 +41,6 @@ init 2:
 
     $ sch_launch = 0
 
-    $ sch_noir_flag = []
 
     $ sch_karma_shown = False
 
@@ -79,7 +78,7 @@ init 2:
 
 # День 1
 
-
+    $ list_sch_noir_flag = [] # флаги Нуара
     $ list_sch_ch_known = [] # Знакомые персонажи
     $ list_sch_day1_together = [] # С кем пошёл к ОД
     $ list_sch_day1_help = []
@@ -137,6 +136,10 @@ init -998:
     image cg uvao_d0_2 = image_sch("cg/d1_uv_2.jpg")
 
     #gui
+
+    image map_av =  maps_sch('maps/map_avaliable.jpg')
+    image map_def =  maps_sch('overlays/map_default.png')
+
     image dr_pattern = gui_sch('pattern.png')
 
     image fuchsia_case = gui_sch('widget_case.png')
@@ -214,6 +217,7 @@ init -998:
     $ ambience_elevator = ambience_sch("ambience_elevator")
 
     #SFX
+    $ bang = sfx_sch('bang.ogg')
     $ heartbeat = sfx_sch("heartbeat.ogg")
     $ whiteflash = sfx_sch("flash.ogg")
     $ wind = sfx_sch("wind.ogg")
@@ -252,6 +256,12 @@ init:
         xalign 0.75 #TODO подкорректировать приближение
         yalign 0.1
         zoom 1.5
+
+    transform lil_zoom:
+        zoom 1.0
+        xalign 0.5
+        yalign 0.5
+        linear 0.25 zoom 0.8
 
     # transform sch_easeinleft
 
@@ -452,29 +462,44 @@ python early: #TODO переписать
 
 
 init python:
-    def name_sch(sch_name='Я'):
-        # 920202 - тёмно-красный
-        # 295f48 - тёмно-зелёный
-        # 5B5BE5 - синий
-        if sch_name == "Иван":
-            globals()["ivan"] = Character("Иван", color = "#295f48", what_color = "#E2C778", drop_shadow = [ (2, 2) ], drop_shadow_color = "#000", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
-        elif sch_name == "Ваня":
-            globals()["ivan"] = Character("Ваня", color = "#5B5BE5", what_color = "#E2C778", drop_shadow = [ (2, 2) ], drop_shadow_color = "#000", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
-        elif sch_name == "Протагонист":
-            globals()["ivan"] = Character("Протагонист", color = "#5b5b5b", what_color = "#E2C778", drop_shadow = [ (2, 2) ], drop_shadow_color = "#000", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
-        else:
-            globals()["ivan"] = Character("Я", color = "#920202", what_color = "#E2C778", drop_shadow = [ (2, 2) ], drop_shadow_color = "#000", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
+    def name_sch(sch_name="me"): #args - me - Я, pr - Протагонист, iv - Иван, van - Ваня
+        global colors
+        global names
+        #if sch_name == "me":
+        #    globals()["ivan"] = Character("Иван", color = "#295f48", what_color = "#E2C778", drop_shadow = [ (2, 2) ], drop_shadow_color = "#000", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
+        #elif sch_name == "van":
+        #    globals()["ivan"] = Character("Ваня", color = "#5B5BE5", what_color = "#E2C778", drop_shadow = [ (2, 2) ], drop_shadow_color = "#000", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
+        #elif sch_name == "pr":
+        #    globals()["ivan"] = Character("Протагонист", color = "#5b5b5b", what_color = "#E2C778", drop_shadow = [ (2, 2) ], drop_shadow_color = "#000", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
+        #else:
+        #    globals()["ivan"] = Character("Я", color = "#920202", what_color = "#E2C778", drop_shadow = [ (2, 2) ], drop_shadow_color = "#000", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
 
-        if sch_name == 1:
-            global colors
-            global names
+        if 'ivan' in store.names_list:
+            store.names_list.remove('ivan')
+        if sch_name == "ivan":
+            colors['ivan'] = {'night': (24, 64, 48, 255), 'sunset': (39, 79, 72, 255), 'day': (41, 96, 72, 255), 'prolog': (34, 69, 72, 255)}
+            names['ivan'] = u"Иван"
+            store.names_list.append('ivan')
+        elif sch_name == "van":
+            colors['ivan'] = {'night': (53, 61, 154, 255), 'sunset': (86, 75, 230, 255), 'day': (91, 91, 230, 255), 'prolog': (76, 66, 230, 255)}
+            names['ivan'] = u"Ваня"
+            store.names_list.append('ivan')
+        elif sch_name == "pr":
+            colors['ivan'] = {'night': (53, 61, 61, 255), 'sunset': (86, 75, 91, 255), 'day': (91, 91, 91, 255), 'prolog': (76, 66, 91, 255)}
+            names['ivan'] = u"Протагонист"
+            store.names_list.append('ivan')
+        else:
+            colors['ivan'] = {'night': (85, 1, 1, 255), 'sunset': (138, 2, 2, 255), 'day': (147, 2, 2, 255), 'prolog': (123, 1, 2, 255)}
+            names['ivan'] = u"Я"
+            store.names_list.append('ivan')
+
+
 
 init 2:
-    $ iv = Character(None, color="#E2C778", what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000", what_italic = True)
-    $ god = Character(u'Харон', color="#00fa9a", what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
-    $ chat = Character(u'Собеседник', color="#6e3961", what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
-    $ mother = Character(u'Мама', color="#f9106b", what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
-    $ ami = Character(u'Амина', color="#cd6c2e", what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
+    $ iv = Character( what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000", what_italic = True)
+    #$ chat = Character(u'Собеседник', color="#6e3961", what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
+    #$ mother = Character(u'Мама', color="#f9106b", what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
+    #$ ami = Character(u'Амина', color="#cd6c2e", what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
 
     #Day - базис
     #Sunset - 94%, 82%, 100%
@@ -482,30 +507,34 @@ init 2:
     #Prologue - 84%, 72%, 100%
     #RGBA
 
-    $ colors['ai'] = {'night': (41, 164, 1, 255), 'sunset': (67, 201, 2, 255), 'day': (72, 246, 2, 255), 'prolog': (60, 177, 2, 255)}
+    $ colors['ai'] = {'night': (42, 165, 1, 255), 'sunset': (68, 202, 2, 255), 'day': (72, 246, 2, 255), 'prolog': (60, 177, 2, 255)} #rgb(72, 246, 2)
     $ store.names_list.append('ai')#Собеседник, ИИ
 
-    #$ colors['chat'] = {'night': (), 'sunset': (), 'day': (110, 57, 97, 255) 'prolog': ()}
-    #$ colors['ivan'] = {'night': (), 'sunset': (), 'day': () 'prolog': ()}
-    #$ colors['mother'] = {'night': (), 'sunset': (), 'day': () 'prolog': ()}
-    #$ colors['ami'] = {'night': (), 'sunset': (), 'day': () 'prolog': ()}
-    #$ colors[''] = {'night': (), 'sunset': (), 'day': () 'prolog': ()}
+    $ colors['chat'] = {'night': (64, 38, 65, 255), 'sunset': (103, 47, 97, 255), 'day': (110, 57, 97, 255), 'prolog': (92, 41, 97, 255)} #rgb(110, 57, 97)
+    $ store.names_list.append('chat')#Собеседник
+
+    $ colors['mother'] = {'night': (144, 11, 72, 255), 'sunset': (234, 13, 107, 255), 'day': (249, 16, 107, 255), 'prolog': (209, 12, 107, 255)}
+    $ store.names_list.append('mother')#Мама
+
+    $ colors['ami'] = {'night': (119, 72, 31, 255), 'sunset': (193, 89, 46, 255), 'day': (205, 108, 46, 255), 'prolog': (172, 78, 46, 255)}
+    $ store.names_list.append('ami')#Амина
 
 
     $ names['chat'] = u'Собеседник'
+    $ names['ai'] = u'ИИ'
     $ names['mother'] = u"Мама"
     $ names['ami'] = u"Амина"
-    $ names['ivan'] = u"Я"
 
-init 999 python:
-    def meet(who, name):
+
+init 3 python:
+    def meet_sch(who, name):
         global store
         gl = globals()
         gl[who + "_name"] = name
         store.names[who] = name
 
 
-    def save_name_known():
+    def save_known_names():
         gl = globals()
         global store
         for x in store.names_list:
@@ -513,43 +542,43 @@ init 999 python:
                 store.names[x] = gl["%s_name"%x]
 
 
-    def sch_meeteveryone():
-        global store
-        meet('mi', u"Азиатка")
-        meet('sl', u"Блондинка")
-        meet('dv', u"Рыжая")
-        meet('us', u"Девочка-СССР")
-        meet('un', u"Стесняшка")
-        meet('mt', u"Вожатая")
-        meet('cs', u"Медсестра")
-        meet('dreamgirl', u"Харон")
-        meet('el', u"Блондин")
-        meet('pi', u"Пионер")
-        meet('sh', u"Очкарик")
-        meet('uv', u"Нэко")
-        meet('god' u'Харон')
-        meet('chat', u'Ребёнок')
-        meet('mother', u"Мама")
-        meet('ami', u"Амина")
-
     def sch_forgeteveryone():
         global store
-        meet('mi', u"Мику")
-        meet('sl', u"Славя")
-        meet('dv', u"Алиса")
-        meet('us', u"Ульяна")
-        meet('un', u"Лена")
-        meet('mt', u"Ольга Дмитриевна")
-        meet('cs', u"Виола")
-        meet('dreamgirl', u"...")
-        meet('el', u"Электроник")
-        meet('pi', u"Пионер")
-        meet('sh', u"Шурик")
-        meet('uv', u"Харон")
-        meet('god', u'Бог')
-        meet('chat', u'Друг')
-        meet('mother', u"Мама")
-        meet('ami', u"Девушка")
+        meet_sch('mi', u"Азиатка")
+        meet_sch('sl', u"Блондинка")
+        meet_sch('dv', u"Рыжая")
+        meet_sch('us', u"Девочка-СССР")
+        meet_sch('un', u"Стесняшка")
+        meet_sch('mt', u"Вожатая")
+        meet_sch('cs', u"Медсестра")
+        meet_sch('dreamgirl', u"Харон")
+        meet_sch('el', u"Блондин")
+        meet_sch('pi', u"Пионер")
+        meet_sch('sh', u"Очкарик")
+        meet_sch('uv', u"Нэко")
+        meet_sch('chat', u'Ребёнок')
+        meet_sch('mother', u"Мама")
+        meet_sch('ami', u"Амина")
+        meet_sch('ai', u"Механический голос")
+
+    def sch_meeteveryone():
+        global store
+        meet_sch('mi', u"Мику")
+        meet_sch('sl', u"Славя")
+        meet_sch('dv', u"Алиса")
+        meet_sch('us', u"Ульяна")
+        meet_sch('un', u"Лена")
+        meet_sch('mt', u"Ольга Дмитриевна")
+        meet_sch('cs', u"Виола")
+        meet_sch('dreamgirl', u"...")
+        meet_sch('el', u"Электроник")
+        meet_sch('pi', u"Пионер")
+        meet_sch('sh', u"Шурик")
+        meet_sch('uv', u"Харон")
+        meet_sch('chat', u'Друг')
+        meet_sch('mother', u"Мама")
+        meet_sch('ami', u"Девушка")
+        meet_sch('ai', u'ИИ')
 
     sch_forgeteveryone()
     set_mode_adv()

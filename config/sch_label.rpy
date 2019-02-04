@@ -38,7 +38,9 @@ label sichium_start: # Меню
         linear 0.5 xzoom 0.12
         easein 0.5 yzoom 3.62
         linear 0.5 xanchor 111
-    pause(4.35)
+    pause(2)
+    play sound whiteflash
+    pause(2.35)
     show white2:
         xpos 861
     show sch_begin behind white2:
@@ -56,6 +58,7 @@ label sichium_start: # Меню
     show exit_idle:
         pos (-72, 1008)
         linear 0.5 pos(0, 1008)
+    play sound whiteflash
     pause(0.5)
 
     call screen sch_menu
@@ -215,9 +218,9 @@ label sch_game_start:
 
     stop music fadeout 1
 
-    #call sch_day0_cr
+    call sch_day0_cr
 
-    #pause(1)
+    pause(1)
 
     call sch_day1_cr
 
