@@ -19,7 +19,7 @@ init 2:
 
     $ hide_back = False # Меню - Убрать кнопку Назад при True
 
-    $ sch_name = "me"
+    $ sch_name = "Я"
 
     $ pt_iv = 0
     $ pt_sl = 0
@@ -462,7 +462,7 @@ python early: #TODO переписать
 
 
 init python:
-    def name_sch(sch_name="me"): #args - me - Я, pr - Протагонист, iv - Иван, van - Ваня
+    def name_sch(sch_name="Я"): #args - me - Я, pr - Протагонист, iv - Иван, van - Ваня
         global colors
         global names
         #if sch_name == "me":
@@ -476,15 +476,15 @@ init python:
 
         if 'ivan' in store.names_list:
             store.names_list.remove('ivan')
-        if sch_name == "ivan":
+        if sch_name == "Иван":
             colors['ivan'] = {'night': (24, 64, 48, 255), 'sunset': (39, 79, 72, 255), 'day': (41, 96, 72, 255), 'prolog': (34, 69, 72, 255)}
             names['ivan'] = u"Иван"
             store.names_list.append('ivan')
-        elif sch_name == "van":
+        elif sch_name == "Ваня":
             colors['ivan'] = {'night': (53, 61, 154, 255), 'sunset': (86, 75, 230, 255), 'day': (91, 91, 230, 255), 'prolog': (76, 66, 230, 255)}
             names['ivan'] = u"Ваня"
             store.names_list.append('ivan')
-        elif sch_name == "pr":
+        elif sch_name == "Протагонист":
             colors['ivan'] = {'night': (53, 61, 61, 255), 'sunset': (86, 75, 91, 255), 'day': (91, 91, 91, 255), 'prolog': (76, 66, 91, 255)}
             names['ivan'] = u"Протагонист"
             store.names_list.append('ivan')
@@ -661,3 +661,21 @@ init -998:
     $ style.sch_fuchsia = Style(style.default)
     $ style.sch_fuchsia.font = roboto
     $ style.sch_fuchsia.size = 36
+
+
+
+
+
+
+
+
+
+#BONUS
+
+label bonus_stich:
+    "Объявим всё, что надо, да?"
+    $ whayDoesThisSymbolMean = "Ничему и никому, это string"
+    if true:
+        "LEAVE THIS SHIT ALONE!" # what
+    else:
+        "MAKE YOUR PROGRAMS WORK" #Oh, man!

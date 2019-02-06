@@ -2,7 +2,7 @@ label sch_day1_cr:
 
     $ day_time()
     $ persistent.sprite_time = 'day'
-    $ name_sch('me')
+    $ name_sch('Я')
     $ sch_forgeteveryone()
 
     # Старт!
@@ -49,5 +49,7 @@ label sch_day1_cr:
     # Домик
 
     call sch_day1_home # Уже в домике
+
+
 
     jump sch_day2_cr
