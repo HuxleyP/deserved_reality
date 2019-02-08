@@ -25,11 +25,6 @@ label sch_day1_cr:
 
     call sch_day1_od
 
-    if 'sl' in list_sch_day1_help:
-        call sch_day1_sq_sl
-
-    if 'un' in list_sch_day1_help:
-        call sch_day1_med_un
 
     # Ужин!
 
