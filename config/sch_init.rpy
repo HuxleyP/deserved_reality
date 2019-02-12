@@ -1,5 +1,5 @@
 init -1: # Version data
-    $ sch_version = "5.4.3"
+    $ sch_version = "5.4.1"
     $ sch_state = "alpha"
     $ sch_hotfix = "hf0"
     $ sch_codename = "arctic apricot"
@@ -19,7 +19,7 @@ init 2:
 
     $ hide_back = False # Меню - Убрать кнопку Назад при True
 
-    $ sch_name = "Я"
+    $ sch_name = "me"
 
     $ pt_iv = 0
     $ pt_sl = 0
@@ -58,13 +58,6 @@ init 2:
     $ limb = False # Лимб, имя "дефолта", чтобы не путать с Иваном и не писать ГГ, ибо каждый из них ГГ (Тоха уже сказал, что отсылка на один мод, но чёрта с два!)
     $ prophet = False # Пророк, он же трушник, но при этом он выносится как отдельный игрок, ибо Пророк не может выйти на обычные руты, а только на нуара с небольшими изменениями и дополненным тру и на саму тру-ветку
 
-
-
-    if sch_true:
-        $ sch_karma_shown = True
-
-# общие
-
     $ cycled = False
     if persistent.sch_difficulty:
         $ sch_hard = True
@@ -75,8 +68,8 @@ init 2:
     if (persistent.mi_good_sch or persistent.mi_bad_sch or persistent.mi_reject_sch or persistent.mi_neutral_sch or persistent.mi_true_sch or persistent.mi_transit_good_sch or persistent.mi_transit_bad_sch or persistent.dv_good_sch or persistent.dv_bad_sch or persistent.dv_reject_sch or persistent.dv_neutral_sch or persistent.dv_true_sch or persistent.dv_transit_good_sch or persistent.dv_transit_bad_sch or persistent.sl_good_sch or persistent.sl_bad_sch or persistent.sl_reject_sch or persistent.sl_neutral_sch or persistent.sl_true_sch or persistent.sl_transit_good_sch or persistent.sl_transit_bad_sch or persistent.un_good_sch or persistent.un_bad_sch or persistent.un_reject_sch or persistent.un_neutral_sch or persistent.un_true_sch or persistent.un_transit_good_sch or persistent.un_transit_bad_sch or persistent.us_good_sch or persistent.us_bad_sch or persistent.us_neutral_sch or persistent.us_true_sch or persistent.iv_good_sch or persistent.iv_bad_sch or persistent.iv_transit_good_sch or persistent.iv_transit_bad_sch or persistent.nr_good_sch or persistent.nr_bad_sch or persistent.nr_rf_true_sch or persistent.nr_ussr_true_sch): # Как же долго я искал ошибку...
         $ cycled = True
 
-    $ sch_uvao_accept = True
-
+    if sch_true:
+        $ sch_karma_shown = True
 
 # Пролог
 
@@ -95,7 +88,6 @@ init 2:
     $ sch_day1_med_asked_alone = False
     $ sch_day1_aidpost = False
     $ sch_day1_un_walk = 0
-    $ sch_day1_watering = False
     $ sch_day1_sl_cleanuphelp = False
     $ sch_sabotage = 0 # 0 -не знает, 1, 2... - этапы, -1 - отказ в начале -2 - отказ при подтверждении, -3 - отказ в середине, -4 - отказ в конце, -6 - переманил Алису на мирную сторону,
     $ sch_day1_hungry = False
@@ -470,7 +462,7 @@ python early: #TODO переписать
 
 
 init python:
-    def name_sch(sch_name="Я"): #args - me - Я, pr - Протагонист, iv - Иван, van - Ваня
+    def name_sch(sch_name="me"): #args - me - Я, pr - Протагонист, iv - Иван, van - Ваня
         global colors
         global names
         #if sch_name == "me":
@@ -484,15 +476,15 @@ init python:
 
         if 'ivan' in store.names_list:
             store.names_list.remove('ivan')
-        if sch_name == "Иван":
+        if sch_name == "ivan":
             colors['ivan'] = {'night': (24, 64, 48, 255), 'sunset': (39, 79, 72, 255), 'day': (41, 96, 72, 255), 'prolog': (34, 69, 72, 255)}
             names['ivan'] = u"Иван"
             store.names_list.append('ivan')
-        elif sch_name == "Ваня":
+        elif sch_name == "van":
             colors['ivan'] = {'night': (53, 61, 154, 255), 'sunset': (86, 75, 230, 255), 'day': (91, 91, 230, 255), 'prolog': (76, 66, 230, 255)}
             names['ivan'] = u"Ваня"
             store.names_list.append('ivan')
-        elif sch_name == "Протагонист":
+        elif sch_name == "pr":
             colors['ivan'] = {'night': (53, 61, 61, 255), 'sunset': (86, 75, 91, 255), 'day': (91, 91, 91, 255), 'prolog': (76, 66, 91, 255)}
             names['ivan'] = u"Протагонист"
             store.names_list.append('ivan')
@@ -514,6 +506,8 @@ init 2:
     #Night - 58%, 67%, 67%
     #Prologue - 84%, 72%, 100%
     #RGBA
+
+    #TODO Олег Степанович (os) и Медсестра (med)
 
     $ colors['ai'] = {'night': (42, 165, 1, 255), 'sunset': (68, 202, 2, 255), 'day': (72, 246, 2, 255), 'prolog': (60, 177, 2, 255)} #rgb(72, 246, 2)
     $ store.names_list.append('ai')#Собеседник, ИИ
@@ -669,21 +663,3 @@ init -998:
     $ style.sch_fuchsia = Style(style.default)
     $ style.sch_fuchsia.font = roboto
     $ style.sch_fuchsia.size = 36
-
-
-
-
-
-
-
-
-
-#BONUS
-
-label bonus_stich:
-    "Объявим всё, что надо, да?"
-    $ whayDoesThisSymbolMean = "Ничему и никому, это string"
-    if true:
-        "LEAVE THIS SHIT ALONE!" # what
-    else:
-        "MAKE YOUR PROGRAMS WORK" #Oh, man!
