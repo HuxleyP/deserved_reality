@@ -124,6 +124,7 @@ init -998:
     image bg semen_room_sunset = image_sch("bg/semen_room_sunset.png")
     image bg sky = im.Scale(image_sch("bg/sky.jpg"), 1920, 1080)
     image bg night_sky = im.Scale(image_sch('bg/night_sky.jpg'), 1920, 1080)
+    image bg int_warehouse_day_sch = image_sch('bg/int_warehouse_day_sch.jpg')
     image bg ext_warehouse_day_sch = image_sch("bg/ext_warehouse_day_sch.jpg")
     image bg ext_warehouse_rain_sch = image_sch("bg/ext_warehouse_rain_sch.jpg")
     image bg ext_warehouse_sunset_sch = image_sch("bg/ext_warehouse_sunset_sch.jpg")
