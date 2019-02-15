@@ -4,7 +4,7 @@ label sichium:
     $ init_map_zones_sch() # По заветам 7ДЛ инициализируем карту единожны, чтобы сохранкам не приходил армаггедец
 
     if not "Deserved Reality" in config.version: # закидываем себя в трейс на случай армаггедеца игре
-        $ config.version = config.version + "Deserved Reality %s, %s %s codename %s" % (sch_state, sch_version, sch_hotfix, sch_codename)
+        $ config.version = config.version + " + Deserved Reality \n%s ver %s; \"%s\"" % (sch_state, sch_version, sch_codename)
 
     # Переименовываем игрушку во имя всех богов
     $ config.developer = True #TODO В релиз попасть не должно
