@@ -1,7 +1,6 @@
 init -1: # Version data
-    $ sch_version = "5.4.1"
+    $ sch_version = "6.3"
     $ sch_state = "alpha"
-    $ sch_hotfix = "hf0"
     $ sch_codename = "arctic apricot"
 
 init: # Объявляем мод
@@ -292,9 +291,9 @@ init -10 python: # главы
     def sch_savename_init(sch_char_name):
         global save_name
         if sch_char_name != None:
-            save_name = (u" Заслуженная | Реальность\n%s ver.%s/%s; codename \"%s\:\nПролог %s.") % (sch_state, sch_version, sch_hotfix, sch_codename, sch_char_name)
+            save_name = (u" Заслуженная | Реальность \n%s ver.%s/; \"%s\":\nПролог %s.") % (sch_state, sch_version, sch_codename, sch_char_name)
         else:
-            save_name = (u" Заслуженная | Реальность\n%s ver.%s/%s; codename \"%s\:\nПролог.") % (sch_state, sch_version, sch_hotfix, sch_codename)
+            save_name = (u" Заслуженная | Реальность \n%s ver.%s/; \"%s\":\nПролог.") % (sch_state, sch_version, sch_codename)
 
 
     def sch_chapter(sch_dayNo=0, sch_ch_name=" ", new_day=False, sch_part=0): #dayNo - номер дня (>=8 - пролог), ch_name - название главы,ы, new_day - новый день
