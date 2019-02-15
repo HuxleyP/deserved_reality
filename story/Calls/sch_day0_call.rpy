@@ -12,6 +12,6 @@ label sch_day0_cr:
     pause(1)
 
     if deathflag:
-        return
+        call sch_day0_prehistory_part_1
 
     jump sch_day1_cr

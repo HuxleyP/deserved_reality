@@ -19,7 +19,7 @@ label sichium_start: # Меню
 
     $ persistent.sprite_time = "night"
     $ prolog_time()
-    $ name_sch()
+    $ name_sch("Я")
 
     scene white
     $ renpy.movie_cutscene(preroll)

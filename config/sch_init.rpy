@@ -19,7 +19,7 @@ init 2:
 
     $ hide_back = False # Меню - Убрать кнопку Назад при True
 
-    $ sch_name = "me"
+    #$ sch_name = "me"
 
     $ pt_iv = 0
     $ pt_sl = 0
@@ -73,6 +73,8 @@ init 2:
 
 # Пролог
 
+    $ sch_violent = False
+    $ sch_escapist = False
     $ deathflag = False # Смерть, невыход в игру
     $ true_prologue = False
 
@@ -114,6 +116,7 @@ init -998:
     image bg bus_stop_summer = image_sch("bg/bus_stop_summer.jpg")
     image bg int_bar = im.Scale(image_sch('bg/int_bar.jpg'), 1920, 1080)
     image bg ext_bar = image_sch('bg/ext_bar.jpg')
+    image bg ext_cityroad_night_sch = image_sch('bg/ext_cityroad_night_sch.png')
     image bg ext_entrance_night_clear_sch = image_sch("bg/ext_entrance_night_clear_sch.png")
     image bg ext_entrance_night_clear_closed_sch = image_sch("bg/ext_entrance_night_clear_closed_sch.png")
     image bg earth = im.Grayscale(im.Scale(image_sch("bg/earth.png"), 1920, 1080))
@@ -133,6 +136,8 @@ init -998:
     image bg ext_winterpark = image_sch("bg/ext_winterpark.jpg")
     image bg speaker_room = image_sch('bg/speaker_room.jpg')
     image bg ext_square_rain_day_sch = image_sch('bg/ext_square_rain_day_sch.jpg')
+    image bg int_hospital_hall_sch = image_sch('bg/int_hospital_hall_sch.jpg')
+    image bg int_hospital_corridor_sch = image_sch('bg/int_hospital_corridor_sch.jpg')
 
 
     #effects
@@ -474,39 +479,47 @@ python early: #TODO переписать
 
 
 init python:
-    def name_sch(sch_name="me"): #args - me - Я, pr - Протагонист, iv - Иван, van - Ваня
+    def name_sch(sch_name): #args - me - Я, pr - Протагонист, iv - Иван, van - Ваня
         global colors
         global names
-        #if sch_name == "me":
-        #    globals()["ivan"] = Character("Иван", color = "#295f48", what_color = "#E2C778", drop_shadow = [ (2, 2) ], drop_shadow_color = "#000", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
-        #elif sch_name == "van":
-        #    globals()["ivan"] = Character("Ваня", color = "#5B5BE5", what_color = "#E2C778", drop_shadow = [ (2, 2) ], drop_shadow_color = "#000", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
-        #elif sch_name == "pr":
-        #    globals()["ivan"] = Character("Протагонист", color = "#5b5b5b", what_color = "#E2C778", drop_shadow = [ (2, 2) ], drop_shadow_color = "#000", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
-        #else:
-        #    globals()["ivan"] = Character("Я", color = "#920202", what_color = "#E2C778", drop_shadow = [ (2, 2) ], drop_shadow_color = "#000", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
-
+        global store
+        gl = globals()
+        if 'ivan' in colors:
+            del colors['ivan']
         if 'ivan' in store.names_list:
             store.names_list.remove('ivan')
-        if sch_name == "Иван":
+        gl['ivan' + "_name"] = sch_name
+        if sch_name == u"Иван":
             colors['ivan'] = {'night': (24, 64, 48, 255), 'sunset': (39, 79, 72, 255), 'day': (41, 96, 72, 255), 'prolog': (34, 69, 72, 255)}
-            names['ivan'] = u"Иван"
+            store.names['ivan'] = u"Иван"
+            #names['ivan'] = u"Иван"
             store.names_list.append('ivan')
-        elif sch_name == "Ваня":
+        elif sch_name == u"Ваня":
             colors['ivan'] = {'night': (53, 61, 154, 255), 'sunset': (86, 75, 230, 255), 'day': (91, 91, 230, 255), 'prolog': (76, 66, 230, 255)}
-            names['ivan'] = u"Ваня"
+            store.names['ivan'] = u"Ваня"
+            #names['ivan'] = u"Ваня"
             store.names_list.append('ivan')
-        elif sch_name == "Протагонист":
+        elif sch_name == u"Протагонист" or sch_name == u"Пророк":
             colors['ivan'] = {'night': (53, 61, 61, 255), 'sunset': (86, 75, 91, 255), 'day': (91, 91, 91, 255), 'prolog': (76, 66, 91, 255)}
-            names['ivan'] = u"Протагонист"
+            store.names['ivan'] = sch_name
+            #names['ivan'] = u"Протагонист"
             store.names_list.append('ivan')
         else:
             colors['ivan'] = {'night': (85, 1, 1, 255), 'sunset': (138, 2, 2, 255), 'day': (147, 2, 2, 255), 'prolog': (123, 1, 2, 255)}
-            names['ivan'] = u"Я"
+            store.names['ivan'] = sch_name
+            #names['ivan'] = sch_name
             store.names_list.append('ivan')
 
+        reload_names()
 
-
+            #if sch_name == "me":
+            #    globals()["ivan"] = Character("Иван", color = "#295f48", what_color = "#E2C778", drop_shadow = [ (2, 2) ], drop_shadow_color = "#000", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
+            #elif sch_name == "van":
+            #    globals()["ivan"] = Character("Ваня", color = "#5B5BE5", what_color = "#E2C778", drop_shadow = [ (2, 2) ], drop_shadow_color = "#000", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
+            #elif sch_name == "pr":
+            #    globals()["ivan"] = Character("Протагонист", color = "#5b5b5b", what_color = "#E2C778", drop_shadow = [ (2, 2) ], drop_shadow_color = "#000", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
+            #else:
+            #    globals()["ivan"] = Character("Я", color = "#920202", what_color = "#E2C778", drop_shadow = [ (2, 2) ], drop_shadow_color = "#000", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
 init 2:
     $ iv = Character(what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000", what_italic = True)
     #$ chat = Character(u'Собеседник', color="#6e3961", what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
@@ -519,7 +532,6 @@ init 2:
     #Prologue - 84%, 72%, 100%
     #RGBA
 
-    #TODO Олег Степанович (os) и Медсестра (med)
 
     $ colors['ai'] = {'night': (42, 165, 1, 255), 'sunset': (68, 202, 2, 255), 'day': (72, 246, 2, 255), 'prolog': (60, 177, 2, 255)} #rgb(72, 246, 2)
     $ store.names_list.append('ai')#Собеседник, ИИ
@@ -536,6 +548,12 @@ init 2:
     $ colors['os'] = {'night': (26, 215, 14, 255), 'sunset': (26, 215, 14, 255), 'day': (26, 215, 14, 255), 'prolog': (26, 215, 14, 255)}
     $ store.names_list.append('os')#Олег Степанович
 
+    $ colors['med'] = {'night': (210, 182, 72, 255), 'sunset': (210, 182, 72, 255), 'day': (210, 182, 72, 255), 'prolog': (210, 182, 72, 255)}
+    $ store.names_list.append('med')#Доктор
+
+    $ colors['guard'] = {'night': (2, 73, 138, 255), 'sunset': (2, 73, 138, 255), 'day': (2, 73, 138, 255), 'prolog': (2, 73, 138, 255)}
+    $ store.names_list.append('guard')#охранник
+
 
 
     $ names['chat'] = u'Собеседник'
@@ -543,6 +561,8 @@ init 2:
     $ names['mother'] = u"Мама"
     $ names['ami'] = u"Амина"
     $ names['os'] = u"Олег Степанович"
+    $ names['med'] = u"Доктор"
+    $ names['guard'] = u"Охранник"
 
 init 3 python:
     def meet_sch(who, name):
@@ -579,6 +599,8 @@ init 3 python:
         meet_sch('ami', u"Амина")
         meet_sch('ai', u"Механический голос")
         meet_sch('os', u'Олег Степанович')
+        meet_sch('med', u'Доктор')
+        meet_sch('guard', u'Охранник')
 
     def sch_meeteveryone():
         global store
@@ -599,6 +621,8 @@ init 3 python:
         meet_sch('ami', u"Девушка")
         meet_sch('ai', u'ИИ')
         meet_sch('os', u'Олег Степанович')
+        meet_sch('med', u'Доктор')
+        meet_sch('guard', u'Охранник')
 
 
     sch_forgeteveryone()
