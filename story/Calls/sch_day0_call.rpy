@@ -7,7 +7,7 @@ label sch_day0_cr:
         call sch_day0_prehistory_true
 
     else:
-        call sch_day0_prehistory_part_2
+        pass
 
     pause(1)
 

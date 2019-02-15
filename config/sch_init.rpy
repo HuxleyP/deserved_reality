@@ -112,15 +112,19 @@ init 2:
 init -998:
     #BG
     image bg bus_stop_summer = image_sch("bg/bus_stop_summer.jpg")
+    image bg int_bar = im.Scale(image_sch('bg/int_bar.jpg'), 1920, 1080)
+    image bg ext_bar = image_sch('bg/ext_bar.jpg')
     image bg ext_entrance_night_clear_sch = image_sch("bg/ext_entrance_night_clear_sch.png")
     image bg ext_entrance_night_clear_closed_sch = image_sch("bg/ext_entrance_night_clear_closed_sch.png")
     image bg earth = im.Grayscale(im.Scale(image_sch("bg/earth.png"), 1920, 1080))
     image bg ext_entrance_night_water_sch = image_sch("bg/ext_enterance_night_water.png")
     image bg underwater = image_sch("bg/underwater.jpg")
-    image bg semen_room_night = image_sch("bg/semen_room_night.png")
+    image bg semen_room_night = image_sch("bg/semen_room_night.jpg")
     image bg semen_room_day = image_sch("bg/semen_room_day.png")
     image bg semen_room_sunset = image_sch("bg/semen_room_sunset.png")
     image bg sky = im.Scale(image_sch("bg/sky.jpg"), 1920, 1080)
+    image bg night_sky = im.Scale(image_sch('bg/night_sky.jpg'), 1920, 1080)
+    image bg int_warehouse_day_sch = image_sch('bg/int_warehouse_day_sch.jpg')
     image bg ext_warehouse_day_sch = image_sch("bg/ext_warehouse_day_sch.jpg")
     image bg ext_warehouse_rain_sch = image_sch("bg/ext_warehouse_rain_sch.jpg")
     image bg ext_warehouse_sunset_sch = image_sch("bg/ext_warehouse_sunset_sch.jpg")
@@ -128,7 +132,12 @@ init -998:
     image bg int_home_lift_sch = image_sch("bg/int_home_lift_sch.png")
     image bg ext_winterpark = image_sch("bg/ext_winterpark.jpg")
     image bg speaker_room = image_sch('bg/speaker_room.jpg')
+    image bg ext_square_rain_day_sch = image_sch('bg/ext_square_rain_day_sch.jpg')
 
+
+    #effects
+    image raineffect = image_sch('effects/raineffect.png')
+    image vignette = image_sch('effects/vignette.png')
 
     #CG
     image uvao_d0 = image_sch("cg/uvao_d0.png")
@@ -239,6 +248,7 @@ init -998:
 
 # Плюшки
 
+
 init:
     transform sch_running:
         anchor (0.1, 0.1)
@@ -265,7 +275,9 @@ init:
 
     # transform sch_easeinleft
 
-
+init python:
+    def Noir(id, brightness = -0.4, tint_r = 0.2126, tint_g = 0.7152, tint_b = 0.0722, saturation = 0.5):
+        return im.MatrixColor(ImageReference(id), im.matrix.brightness(brightness) * im.matrix.tint(tint_r, tint_g, tint_b) * im.matrix.saturation(saturation))
 
 
 
@@ -476,15 +488,15 @@ init python:
 
         if 'ivan' in store.names_list:
             store.names_list.remove('ivan')
-        if sch_name == "ivan":
+        if sch_name == "Иван":
             colors['ivan'] = {'night': (24, 64, 48, 255), 'sunset': (39, 79, 72, 255), 'day': (41, 96, 72, 255), 'prolog': (34, 69, 72, 255)}
             names['ivan'] = u"Иван"
             store.names_list.append('ivan')
-        elif sch_name == "van":
+        elif sch_name == "Ваня":
             colors['ivan'] = {'night': (53, 61, 154, 255), 'sunset': (86, 75, 230, 255), 'day': (91, 91, 230, 255), 'prolog': (76, 66, 230, 255)}
             names['ivan'] = u"Ваня"
             store.names_list.append('ivan')
-        elif sch_name == "pr":
+        elif sch_name == "Протагонист":
             colors['ivan'] = {'night': (53, 61, 61, 255), 'sunset': (86, 75, 91, 255), 'day': (91, 91, 91, 255), 'prolog': (76, 66, 91, 255)}
             names['ivan'] = u"Протагонист"
             store.names_list.append('ivan')
@@ -496,7 +508,7 @@ init python:
 
 
 init 2:
-    $ iv = Character( what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000", what_italic = True)
+    $ iv = Character(what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000", what_italic = True)
     #$ chat = Character(u'Собеседник', color="#6e3961", what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
     #$ mother = Character(u'Мама', color="#f9106b", what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
     #$ ami = Character(u'Амина', color="#cd6c2e", what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
@@ -521,12 +533,16 @@ init 2:
     $ colors['ami'] = {'night': (119, 72, 31, 255), 'sunset': (193, 89, 46, 255), 'day': (205, 108, 46, 255), 'prolog': (172, 78, 46, 255)}
     $ store.names_list.append('ami')#Амина
 
+    $ colors['os'] = {'night': (26, 215, 14, 255), 'sunset': (26, 215, 14, 255), 'day': (26, 215, 14, 255), 'prolog': (26, 215, 14, 255)}
+    $ store.names_list.append('os')#Олег Степанович
+
+
 
     $ names['chat'] = u'Собеседник'
     $ names['ai'] = u'ИИ'
     $ names['mother'] = u"Мама"
     $ names['ami'] = u"Амина"
-
+    $ names['os'] = u"Олег Степанович"
 
 init 3 python:
     def meet_sch(who, name):
@@ -553,15 +569,16 @@ init 3 python:
         meet_sch('un', u"Стесняшка")
         meet_sch('mt', u"Вожатая")
         meet_sch('cs', u"Медсестра")
-        meet_sch('dreamgirl', u"Харон")
+        meet_sch('dreamgirl', u"...")
         meet_sch('el', u"Блондин")
         meet_sch('pi', u"Пионер")
         meet_sch('sh', u"Очкарик")
-        meet_sch('uv', u"Нэко")
+        meet_sch('uv', u"Девушка")
         meet_sch('chat', u'Ребёнок')
         meet_sch('mother', u"Мама")
         meet_sch('ami', u"Амина")
         meet_sch('ai', u"Механический голос")
+        meet_sch('os', u'Олег Степанович')
 
     def sch_meeteveryone():
         global store
@@ -572,7 +589,7 @@ init 3 python:
         meet_sch('un', u"Лена")
         meet_sch('mt', u"Ольга Дмитриевна")
         meet_sch('cs', u"Виола")
-        meet_sch('dreamgirl', u"...")
+        meet_sch('dreamgirl', u"Харон")
         meet_sch('el', u"Электроник")
         meet_sch('pi', u"Пионер")
         meet_sch('sh', u"Шурик")
@@ -581,6 +598,8 @@ init 3 python:
         meet_sch('mother', u"Мама")
         meet_sch('ami', u"Девушка")
         meet_sch('ai', u'ИИ')
+        meet_sch('os', u'Олег Степанович')
+
 
     sch_forgeteveryone()
     set_mode_adv()
