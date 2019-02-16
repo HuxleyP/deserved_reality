@@ -1,5 +1,5 @@
 init -1: # Version data
-    $ sch_version = "6.3"
+    $ sch_version = "6.4.1"
     $ sch_state = "alpha"
     $ sch_codename = "arctic apricot"
 
@@ -151,7 +151,7 @@ init -998:
     #gui
 
     image map_av =  maps_sch('maps/map_avaliable.jpg')
-    image map_def =  maps_sch('overlays/map_default.png')
+    image map_def =  maps_sch('overlays/map_default_fullhd.png')
 
     image dr_pattern = gui_sch('pattern.png')
 
