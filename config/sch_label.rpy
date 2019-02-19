@@ -197,7 +197,7 @@ label sch_newgame:
         pos(0, 1008)
         linear 0.75 xpos -72
 
-    pause(0.75)
+    pause(1.0)
 
 
     show blacksquare:

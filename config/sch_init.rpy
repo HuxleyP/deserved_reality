@@ -1,5 +1,5 @@
 init -1: # Version data
-    $ sch_version = "6.4.1"
+    $ sch_version = "6.4.2"
     $ sch_state = "alpha"
     $ sch_codename = "arctic apricot"
 
@@ -12,13 +12,10 @@ init 2:
 # Общие
 
     $ repeated = 0
-    $ persistent.nonsteam_sch = False
     $ save_name = "Заслуженная | Реальность."
     $ sch_dayNo = 0
 
     $ hide_back = False # Меню - Убрать кнопку Назад при True
-
-    #$ sch_name = "me"
 
     $ pt_iv = 0
     $ pt_sl = 0
@@ -126,11 +123,11 @@ init -998:
     image bg semen_room_sunset = image_sch("bg/semen_room_sunset.png")
     image bg sky = im.Scale(image_sch("bg/sky.jpg"), 1920, 1080)
     image bg night_sky = im.Scale(image_sch('bg/night_sky.jpg'), 1920, 1080)
-    image bg int_warehouse_day_sch = image_sch('bg/int_warehouse_day_sch.jpg')
-    image bg ext_warehouse_day_sch = image_sch("bg/ext_warehouse_day_sch.jpg")
-    image bg ext_warehouse_rain_sch = image_sch("bg/ext_warehouse_rain_sch.jpg")
-    image bg ext_warehouse_sunset_sch = image_sch("bg/ext_warehouse_sunset_sch.jpg")
-    image bg ext_warehouse_night_sch = image_sch("bg/ext_warehouse_night_sch.jpg")
+    image bg int_warehouse_day_sch = image_sch('bg/int_warehouse_day_sch.png')
+    image bg ext_warehouse_day_sch = image_sch("bg/ext_warehouse_day_sch.png")
+    image bg ext_warehouse_rain_sch = image_sch("bg/ext_warehouse_rain_sch.png")
+    image bg ext_warehouse_sunset_sch = image_sch("bg/ext_warehouse_sunset_sch.png")
+    image bg ext_warehouse_night_sch = image_sch("bg/ext_warehouse_night_sch.png")
     image bg int_home_lift_sch = image_sch("bg/int_home_lift_sch.png")
     image bg ext_winterpark = image_sch("bg/ext_winterpark.jpg")
     image bg speaker_room = image_sch('bg/speaker_room.jpg')
@@ -282,6 +279,22 @@ init:
 init python:
     def Noir(id, brightness = -0.4, tint_r = 0.2126, tint_g = 0.7152, tint_b = 0.0722, saturation = 0.5):
         return im.MatrixColor(ImageReference(id), im.matrix.brightness(brightness) * im.matrix.tint(tint_r, tint_g, tint_b) * im.matrix.saturation(saturation))
+
+    # изменяемый ЧБ
+    #def BlackWhite(id, power, brightness = 1.0, saturation = 1.0):
+    #    r = power*0.255
+    #    g = r
+    #    b = r
+    #    return im.MatrixColor(ImageReference(id), im.matrix.brightness(brightness) * im.matrix.tint(r, g, b) * im.matrix.saturation(saturation))
+
+    def BlackWhite(id, saturation):
+        return im.MatrixColor(ImageReference(id), im.matrix.saturation(saturation))
+
+    def Sepia(id):
+        return im.MatrixColor(ImageReference(id), im.matrix.saturation(0.15) * im.matrix.tint(1.0, .94, .76))
+
+    def NeonSepia(id):
+        return im.MatrixColor(ImageReference(id), im.matrix.saturation(0.15) * im.matrix.tint(.7, .3, .1))
 
 
 
@@ -455,7 +468,7 @@ python early: #TODO переписать
                 else:
                     ui.text("%s: %d" % ("Лена", pt_un), style="button_text", size=15, color="#a849e9")
             else:
-                    ui.text("%s: %d" % ("Лена", pt_un), style="button_text", size=13)
+                ui.text("%s: %d" % ("Лена", pt_un), style="button_text", size=13)
 
         config.overlay_functions.append(editoverlay)
 
