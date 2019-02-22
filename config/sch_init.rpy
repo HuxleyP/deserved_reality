@@ -27,6 +27,7 @@ init 2:
     $ pt_wi = 0 # Поинты воли
     $ pt_ka = 0 # Поинты кармы
     $ pt_nr = 0 # Очки Нуара
+    $ pt_overall = max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr) # для удобства
 
     $ girls_pt = [pt_sl, pt_un, pt_us, pt_dv, pt_mi]
 
@@ -82,13 +83,10 @@ init 2:
     $ list_sch_day1_help = []
     $ list_sch_day1_supper = []
 
-    $ list_sch_day1_map_visited = [] # Посещённые места на карте
-    $ sch_day1_med_asked_alone = False
-    $ sch_day1_aidpost = False
-    $ sch_day1_un_walk = 0
-    $ sch_day1_sl_cleanuphelp = False
     $ sch_sabotage = 0 # 0 -не знает, 1, 2... - этапы, -1 - отказ в начале -2 - отказ при подтверждении, -3 - отказ в середине, -4 - отказ в конце, -6 - переманил Алису на мирную сторону,
     $ sch_day1_hungry = False
+    $ sch_sl_keys = False
+    $ sch_day1_ev_mi = False
 
 # День 2
 
