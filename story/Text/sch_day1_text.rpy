@@ -1858,8 +1858,18 @@ label sch_day1_od:
             "Намекнула девушка мне на выход, не обернувшись ни на сантиметр в мою сторону."
         else:
             show mt normal pioneer with dspr
-            mt "Тебе нужно получить форму."
-            if ('sl' or 'dv_sl') in list_sch_day1_together:
+            mt "Тебе нужно получить форму и бельё."
+            if 'sl_dv' in list_sch_day1_together:
+                ivan "Я по пути забрал."
+                "Намекнул я на то, что уже был там по определенной рыжей причине своим красным галстуком."
+                show mt surprise pioneer with dspr
+                mt "А где постельное бельё?"
+                ivan "Так со мной же. Секунду!"
+                scene bg ext_house_of_mt_day with dissolve
+                scene bg int_house_of_mt_day with dissolve
+                show mt surprise pioneer with dissolve
+                "Рулон, разумно оставленный на лежаке, был принесён обратно для досмотра."
+            elif 'sl' in list_sch_day1_together:
                 sl "Я могу его отвести."
                 "Напомнила о себе девочка, прежде, казалось, слившаяся с окружением."
                 mt "Да, Славяна, если тебе не сложно."
@@ -1869,6 +1879,8 @@ label sch_day1_od:
                 mt "Принесёшь сюда - потом решим, куда тебя селить."
                 show sl normal pioneer with dspr
                 sl "Пойдём."
+            else:
+                ivan "А в каком"
 
 
 
@@ -2015,11 +2027,10 @@ label sch_day1_aftersupper
 
 
             "Отказаться":
-                $ sch_day1_ev_mi = True
                 $ pt_dv -=1
                 $ pt_ka -=10
                 $ pt_pi +=10
-                # уходит на пристань
+                # уходит домой
                 return
     if sch_day1_hungry and ((pt_sl >=2 and not sch_hard) or (pt_sl >=3 and sch_hard)):
         # Славя
@@ -2093,6 +2104,7 @@ label sch_day1_aftersupper
                                 $ pt_un +=1
                                 $ list_sch_day2_walk.remove('un_p')
                                 $ list_sch_day2_walk.append('un')
-                            else:
-                                $ list_sch_day2_walk.append('un_p')
-                                # думать до утра
+    return
+
+label sch_day1_home:
+    return
