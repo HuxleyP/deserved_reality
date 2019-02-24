@@ -249,14 +249,27 @@ init -998:
 
 
 init:
-    transform sch_running:
-        anchor (0.1, 0.1)
-        zoom 1.2
-        ease 0.2 pos (0, 0)
-        ease 0.2 pos(50,50)
-        ease 0.2 pos (0, 0)
-        ease 0.2 pos(-50,50)
-        repeat
+    # поиграем в красоту
+    python:
+        def sch_window_hide(pause=True):
+            renpy.show_layer_at(sch_screenhide, layer='screens')
+            if pause:
+                renpy.pause(delay=0.5, hard=True)
+
+        def sch_window_show(pause=True):
+            renpy.show_layer_at(sch_screenshow, layer='screens')
+            if pause:
+                renpy.pause(delay=0.5, hard=True)
+
+    transform sch_screenhide:
+        xpos 0.0 ypos 0.0 alpha 1.0
+        ease 0.5 xpos 0.0 ypos 0.1 alpha 0.0
+
+    transform sch_screenshow:
+        ypos 0.1 alpha 0.0
+        ease 0.5 ypos 0.0 alpha 1.0
+
+    #а дальше история умалчивает
 
     transform transpa:
         alpha 0.5
@@ -272,7 +285,34 @@ init:
         yalign 0.5
         linear 0.25 zoom 0.8
 
-    # transform sch_easeinleft
+
+
+# старый на всякий
+#    transform sch_running:
+#        anchor (0.1, 0.1)
+#        zoom 1.2
+#        ease 0.2 pos (0, 0)
+#        ease 0.2 pos(50,50)
+#        ease 0.2 pos (0, 0)
+#        ease 0.2 pos(-50,50)
+#        repeat
+
+
+    transform sch_running:
+        parallel:
+            # приближаем, унижаем, для красоты
+            xanchor 0.5 yanchor 0.5 xpos 0.5 ypos 0.5
+            ease 0.2 zoom 1.04 xpos 0.5 ypos 0.49
+        parallel:
+            # дергаем экранчик на ничего - 0.1-0.2 (хотя иногда ренпай от таких маленьких изменений заставляет изменяемую вещь в космос улететь)
+            ease 0.2 xpos 0.5 ypos 0.49
+            ease 0.2 xpos 0.48 ypos 0.51
+            ease 0.2 xpos 0.5 ypos 0.49
+            ease 0.2 xpos 0.52 ypos 0.51
+            repeat
+
+    transform sch_running_stop:
+        ease 0.2 zoom 1.0 xanchor 0.5 yanchor 0.5 xpos 0.5 ypos 0.5 # тупа возвращаем всё обратно
 
 init python:
     def Noir(id, brightness = -0.4, tint_r = 0.2126, tint_g = 0.7152, tint_b = 0.0722, saturation = 0.5):
