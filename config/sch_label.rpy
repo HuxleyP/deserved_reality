@@ -4,7 +4,7 @@ label sichium:
     $ init_map_zones_sch() # По заветам 7ДЛ инициализируем карту единожны, чтобы сохранкам не приходил армаггедец
 
     if not "Deserved Reality" in config.version: # закидываем себя в трейс на случай армаггедеца игре
-        $ config.version = config.version + "Deserved Reality %s, %s %s codename %s" % (sch_state, sch_version, sch_hotfix, sch_codename)
+        $ config.version = config.version + " + Deserved Reality \n%s ver %s; \"%s\"" % (sch_state, sch_version, sch_codename)
 
     # Переименовываем игрушку во имя всех богов
     $ config.developer = True #TODO В релиз попасть не должно
@@ -19,7 +19,7 @@ label sichium_start: # Меню
 
     $ persistent.sprite_time = "night"
     $ prolog_time()
-    $ name_sch()
+    $ name_sch("Я")
 
     scene white
     $ renpy.movie_cutscene(preroll)
@@ -197,7 +197,7 @@ label sch_newgame:
         pos(0, 1008)
         linear 0.75 xpos -72
 
-    pause(0.75)
+    pause(1.0)
 
 
     show blacksquare:

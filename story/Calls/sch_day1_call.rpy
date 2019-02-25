@@ -14,10 +14,10 @@ label sch_day1_cr:
     if pt_ka == -10:
         call sch_day1_un
 
-    if not 'sl' in list_sch_day1_together or not 'un' in list_sch_day1_together or not 'un' in list_sch_ch_known:
+    if not (('sl' in list_sch_day1_together) or ('un' in list_sch_day1_together) or ('un' in list_sch_ch_known)):
         call sch_day1_mi
 
-    if ('un' in list_sch_ch_known and not 'un' in list_sch_day1_together) or not 'mi' in list_sch_day1_together:
+    if ('un' in list_sch_ch_known and (not 'un' in list_sch_day1_together)) or not ('mi' in list_sch_day1_together):
         call sch_day1_dv
 
 
@@ -38,7 +38,7 @@ label sch_day1_cr:
 
     call sch_day1_aftersupper # Ветка Алисы и Слави
 
-    if 'mi' in list_sch_day1_help:
+    if sch_day1_ev_mi:
         call sch_day1_mi_boat # Ветка Мику
 
     # Домик
@@ -48,3 +48,5 @@ label sch_day1_cr:
 
 
     jump sch_day2_cr
+
+#TODO TODO !!!!! СДЕЛАТЬ ПРОВЕРКУ СПИСКА ПРОГУЛКИ ВТОРОГО ДНЯ ДЛЯ БЛОКИРОВКИ ЕСЛИ УЖЕ ДОГОВОРИЛСЯ

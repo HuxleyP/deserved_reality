@@ -6,12 +6,14 @@ label sch_day0_cr:
     if true_prologue:
         call sch_day0_prehistory_true
 
-    else:
-        pass
-
     pause(1)
 
     if deathflag:
-        return
+        $ deathflag = False
+        if persistent.sch_died:
+            $ persistent.sch_died +=1
+        else:
+            $ persistent.sch_died = 1
+        call sch_day0_cr
 
     jump sch_day1_cr

@@ -1,7 +1,6 @@
 init -1: # Version data
-    $ sch_version = "5.4.1"
+    $ sch_version = "6.4.2"
     $ sch_state = "alpha"
-    $ sch_hotfix = "hf0"
     $ sch_codename = "arctic apricot"
 
 init: # Объявляем мод
@@ -13,13 +12,10 @@ init 2:
 # Общие
 
     $ repeated = 0
-    $ persistent.nonsteam_sch = False
     $ save_name = "Заслуженная | Реальность."
     $ sch_dayNo = 0
 
     $ hide_back = False # Меню - Убрать кнопку Назад при True
-
-    $ sch_name = "me"
 
     $ pt_iv = 0
     $ pt_sl = 0
@@ -31,6 +27,7 @@ init 2:
     $ pt_wi = 0 # Поинты воли
     $ pt_ka = 0 # Поинты кармы
     $ pt_nr = 0 # Очки Нуара
+    $ pt_overall = max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr) # для удобства
 
     $ girls_pt = [pt_sl, pt_un, pt_us, pt_dv, pt_mi]
 
@@ -73,6 +70,8 @@ init 2:
 
 # Пролог
 
+    $ sch_violent = False
+    $ sch_escapist = False
     $ deathflag = False # Смерть, невыход в игру
     $ true_prologue = False
 
@@ -84,13 +83,10 @@ init 2:
     $ list_sch_day1_help = []
     $ list_sch_day1_supper = []
 
-    $ list_sch_day1_map_visited = [] # Посещённые места на карте
-    $ sch_day1_med_asked_alone = False
-    $ sch_day1_aidpost = False
-    $ sch_day1_un_walk = 0
-    $ sch_day1_sl_cleanuphelp = False
     $ sch_sabotage = 0 # 0 -не знает, 1, 2... - этапы, -1 - отказ в начале -2 - отказ при подтверждении, -3 - отказ в середине, -4 - отказ в конце, -6 - переманил Алису на мирную сторону,
     $ sch_day1_hungry = False
+    $ sch_sl_keys = False
+    $ sch_day1_ev_mi = False
 
 # День 2
 
@@ -114,6 +110,7 @@ init -998:
     image bg bus_stop_summer = image_sch("bg/bus_stop_summer.jpg")
     image bg int_bar = im.Scale(image_sch('bg/int_bar.jpg'), 1920, 1080)
     image bg ext_bar = image_sch('bg/ext_bar.jpg')
+    image bg ext_cityroad_night_sch = image_sch('bg/ext_cityroad_night_sch.png')
     image bg ext_entrance_night_clear_sch = image_sch("bg/ext_entrance_night_clear_sch.png")
     image bg ext_entrance_night_clear_closed_sch = image_sch("bg/ext_entrance_night_clear_closed_sch.png")
     image bg earth = im.Grayscale(im.Scale(image_sch("bg/earth.png"), 1920, 1080))
@@ -124,15 +121,17 @@ init -998:
     image bg semen_room_sunset = image_sch("bg/semen_room_sunset.png")
     image bg sky = im.Scale(image_sch("bg/sky.jpg"), 1920, 1080)
     image bg night_sky = im.Scale(image_sch('bg/night_sky.jpg'), 1920, 1080)
-    image bg int_warehouse_day_sch = image_sch('bg/int_warehouse_day_sch.jpg')
-    image bg ext_warehouse_day_sch = image_sch("bg/ext_warehouse_day_sch.jpg")
-    image bg ext_warehouse_rain_sch = image_sch("bg/ext_warehouse_rain_sch.jpg")
-    image bg ext_warehouse_sunset_sch = image_sch("bg/ext_warehouse_sunset_sch.jpg")
-    image bg ext_warehouse_night_sch = image_sch("bg/ext_warehouse_night_sch.jpg")
+    image bg int_warehouse_day_sch = image_sch('bg/int_warehouse_day_sch.png')
+    image bg ext_warehouse_day_sch = image_sch("bg/ext_warehouse_day_sch.png")
+    image bg ext_warehouse_rain_sch = image_sch("bg/ext_warehouse_rain_sch.png")
+    image bg ext_warehouse_sunset_sch = image_sch("bg/ext_warehouse_sunset_sch.png")
+    image bg ext_warehouse_night_sch = image_sch("bg/ext_warehouse_night_sch.png")
     image bg int_home_lift_sch = image_sch("bg/int_home_lift_sch.png")
     image bg ext_winterpark = image_sch("bg/ext_winterpark.jpg")
     image bg speaker_room = image_sch('bg/speaker_room.jpg')
     image bg ext_square_rain_day_sch = image_sch('bg/ext_square_rain_day_sch.jpg')
+    image bg int_hospital_hall_sch = image_sch('bg/int_hospital_hall_sch.jpg')
+    image bg int_hospital_corridor_sch = image_sch('bg/int_hospital_corridor_sch.jpg')
 
 
     #effects
@@ -147,7 +146,7 @@ init -998:
     #gui
 
     image map_av =  maps_sch('maps/map_avaliable.jpg')
-    image map_def =  maps_sch('overlays/map_default.png')
+    image map_def =  maps_sch('overlays/map_default_fullhd.png')
 
     image dr_pattern = gui_sch('pattern.png')
 
@@ -250,14 +249,27 @@ init -998:
 
 
 init:
-    transform sch_running:
-        anchor (0.1, 0.1)
-        zoom 1.2
-        ease 0.2 pos (0, 0)
-        ease 0.2 pos(50,50)
-        ease 0.2 pos (0, 0)
-        ease 0.2 pos(-50,50)
-        repeat
+    # поиграем в красоту
+    python:
+        def sch_window_hide(pause=True):
+            renpy.show_layer_at(sch_screenhide, layer='screens')
+            if pause:
+                renpy.pause(delay=0.5, hard=True)
+
+        def sch_window_show(pause=True):
+            renpy.show_layer_at(sch_screenshow, layer='screens')
+            if pause:
+                renpy.pause(delay=0.5, hard=True)
+
+    transform sch_screenhide:
+        xpos 0.0 ypos 0.0 alpha 1.0
+        ease 0.5 xpos 0.0 ypos 0.1 alpha 0.0
+
+    transform sch_screenshow:
+        ypos 0.1 alpha 0.0
+        ease 0.5 ypos 0.0 alpha 1.0
+
+    #а дальше история умалчивает
 
     transform transpa:
         alpha 0.5
@@ -273,28 +285,68 @@ init:
         yalign 0.5
         linear 0.25 zoom 0.8
 
-    # transform sch_easeinleft
+
+
+# старый на всякий
+#    transform sch_running:
+#        anchor (0.1, 0.1)
+#        zoom 1.2
+#        ease 0.2 pos (0, 0)
+#        ease 0.2 pos(50,50)
+#        ease 0.2 pos (0, 0)
+#        ease 0.2 pos(-50,50)
+#        repeat
+
+
+    transform sch_running:
+        parallel:
+            # приближаем, унижаем, для красоты
+            xanchor 0.5 yanchor 0.5 xpos 0.5 ypos 0.5
+            ease 0.2 zoom 1.04 xpos 0.5 ypos 0.49
+        parallel:
+            # дергаем экранчик на ничего - 0.1-0.2 (хотя иногда ренпай от таких маленьких изменений заставляет изменяемую вещь в космос улететь)
+            ease 0.2 xpos 0.5 ypos 0.49
+            ease 0.2 xpos 0.48 ypos 0.51
+            ease 0.2 xpos 0.5 ypos 0.49
+            ease 0.2 xpos 0.52 ypos 0.51
+            repeat
+
+    transform sch_running_stop:
+        ease 0.2 zoom 1.0 xanchor 0.5 yanchor 0.5 xpos 0.5 ypos 0.5 # тупа возвращаем всё обратно
 
 init python:
     def Noir(id, brightness = -0.4, tint_r = 0.2126, tint_g = 0.7152, tint_b = 0.0722, saturation = 0.5):
         return im.MatrixColor(ImageReference(id), im.matrix.brightness(brightness) * im.matrix.tint(tint_r, tint_g, tint_b) * im.matrix.saturation(saturation))
 
+    # изменяемый ЧБ
+    #def BlackWhite(id, power, brightness = 1.0, saturation = 1.0):
+    #    r = power*0.255
+    #    g = r
+    #    b = r
+    #    return im.MatrixColor(ImageReference(id), im.matrix.brightness(brightness) * im.matrix.tint(r, g, b) * im.matrix.saturation(saturation))
+
+    def BlackWhite(id, saturation):
+        return im.MatrixColor(ImageReference(id), im.matrix.saturation(saturation))
+
+    def Sepia(id):
+        return im.MatrixColor(ImageReference(id), im.matrix.saturation(0.15) * im.matrix.tint(1.0, .94, .76))
+
+    def NeonSepia(id):
+        return im.MatrixColor(ImageReference(id), im.matrix.saturation(0.15) * im.matrix.tint(.7, .3, .1))
 
 
 
 
-init -10 python: # главы
+
+init -10 python: # главы #TODO к херам
     def sch_savename_init(sch_char_name):
         global save_name
         if sch_char_name != None:
-            save_name = (u" Заслуженная | Реальность\n%s ver.%s/%s; codename \"%s\:\nПролог %s.") % (sch_state, sch_version, sch_hotfix, sch_codename, sch_char_name)
+            save_name = (u" Заслуженная | Реальность \n%s ver.%s/; \"%s\":\nПролог %s.") % (sch_state, sch_version, sch_codename, sch_char_name)
         else:
-            save_name = (u" Заслуженная | Реальность\n%s ver.%s/%s; codename \"%s\:\nПролог.") % (sch_state, sch_version, sch_hotfix, sch_codename)
+            save_name = (u" Заслуженная | Реальность \n%s ver.%s/; \"%s\":\nПролог.") % (sch_state, sch_version, sch_codename)
 
-
-    def sch_chapter(sch_dayNo=0, sch_ch_name=" ", new_day=False, sch_part=0): #dayNo - номер дня (>=8 - пролог), ch_name - название главы,ы, new_day - новый день
-        global save_name # название сейва
-        global routetag_sch # руттэг
+    def sch_newday(sch_dayNo):
         global pt_dv #Алиса
         global pt_un #Лена
         global pt_us #Ульяна
@@ -302,93 +354,79 @@ init -10 python: # главы
         global pt_iv #ГГ
         global pt_mi #Мику
         global pt_nr #Нуар
+        renpy.scene()
+        if sch_dayNo >=1 and sch_dayNo <=7:
+            renpy.show('day[sch_dayNo]')
+            renpy.transition(fade)
+        renpy.scene()
+        if sch_dayNo > 1:
+            if max(pt_dv, pt_un, pt_us, pt_sl, pt_mi) >=8 and max(pt_dv, pt_un, pt_us, pt_sl, pt_mi) != 0 and sch_dayNo <=3:
+                if (pt_dv or pt_un or pt_us or pt_sl or pt_iv or pt_mi or pt_nr) == max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr):
+                    pt_overall = max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr)
+                    renpy.show("Color(hsv=(0.9722222, [pt_overall*0.03], 1.0))") # Если очков столько
+                else:
+                    renpy.show("#a6a6a6")
+            elif pt_us == max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr): #Уля
+                renpy.show("Color(hsv=(0, 1.0, [0.5+pt_us*0.04]))")
+            elif pt_dv == max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr): # Алиса
+                renpy.show("Color(hsv=(.06666, 1.0, [pt_dv*0.04]))")
+            elif pt_sl == max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr): # Славя
+                renpy.show("Color(hsv=(.12222, 1.0, [pt_sl*0.04]))")
+            elif pt_mt == max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr): # ОД
+                renpy.show("Color(hsv=(.33333, 1.0, [pt_mt*0.04]))")
+            elif pt_mi == max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr): # Мику
+                renpy.show("Color(hsv=(.5, 1.0, [pt_mi*0.04]))")
+            elif pt_nr == max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr): # Нуар
+                renpy.show("Color(hsv=(.75833333, 1.0, [pt_nr*0.04]))")
+            else:
+                renpy.show("#a6a6a6")
+        elif sch_dayNo >=1 and sch_dayNo <=7:
+            renpy.show('day[sch_dayNo]')
+        else:
+            renpy.show('a6a6a6')
+        renpy.show('dr_pattern')
+        renpy.transition(fade)
+        #Бекдроп со вкусом костылей (наверное)
+        #US - 0
+        #DV -  24
+        #SL - 44
+        #MT - 120
+        #MI - 180
+        #UN - 273
+        #IV - 0-0-x
+        #LN - 215
+        #Совпадение очков - 0,97222
+
+
+    def sch_chapter(sch_dayNo, sch_ch_name): #dayNo - номер дня (>=8 - пролог), ch_name - название главы,ы, new_day - новый день
+        global save_name # название сейва
+        global routetag_sch # руттэг
         renpy.block_rollback()
 
         save_name = (u"Заслуженная | Реальность.") # так надо, иначе ошибка
         if sch_dayNo != 0:
             save_name = (u"Заслуженная | Реальность - День %d.") % (sch_dayNo)
+            if sch_ch_name != "":
+                save_name = (u"Заслуженная | Реальность - День %d.\n%s.") % (sch_dayNo, sch_ch_name)
         elif sch_dayNo >= 8:
             save_name = (u"Заслуженная | Реальность. \nЭпилог.")
-        elif sch_dayNo == 0 and sch_part !=0:
-            save_name = (u"Заслуженная | Реальность.\nЧасть %d.") % (sch_part)
-        else:
-            save_name = (u"Заслуженная | Реальность.\n%d.") % (sch_part)
 
 
         chapter_name = (u"{size=80}{font=[csn]}{color=#FFFFFF}Заслуженная | {/color}{color=#999999}Реальность{/color}{/font}") # так надо, иначе ошибка
-        if sch_dayNo >= 1 or sch_dayNo <= 7:
-            chapter_name = (u"{size=80}{font=[csn]}{color=#FFFFFF}Заслуженная | {/color}{color=#999999}Реальность{/color} - {color=#afafaf}День{/font} {font=[dr_font]}%d{/font}{/color}{/size}") % (sch_dayNo)
-        elif sch_dayNo >=8 and sch_part !=0:
-            chapter_name = (u"{size=80}{font=[csn]}{color=#FFFFFF}Заслуженная | {/color}{color=#999999}Реальность{/color} - {color=#afafaf}Часть %d{/font}{/color}{/size}") % (sch_part)
-        elif sch_dayNo == 8:
-                chapter_name = (u"{size=80}{font=[csn]}{color=#FFFFFF}Заслуженная | {/color}{color=#999999}Реальность{/color} - {color=#afafaf} Эпилог.{/font}{/color}{/size}")
-        else:
-            chapter_name = (u"{size=80}{font=[csn]}{color=#FFFFFF}Заслуженная | {/color}{color=#999999}Реальность.{/font}{/color}{/size}") % (sch_part)
 
-        if new_day:
-            renpy.scene()
-            if sch_dayNo >=1 and sch_dayNo <=7:
-                renpy.show('day[sch_dayNo]')
-            renpy.scene()
-            if sch_dayNo > 1:
-                if max(pt_dv, pt_un, pt_us, pt_sl, pt_mi) >=8 and max(pt_dv, pt_un, pt_us, pt_sl, pt_mi) != 0 and sch_dayNo <=3:
-                    if (pt_dv or pt_un or pt_us or pt_sl or pt_iv or pt_mi or pt_nr) == max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr):
-                        pt_overall = max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr)
-                        renpy.show("Color(hsv=(0.9722222, [pt_overall*0.03], 1.0))") # Если очков столько
-                    else:
-                        renpy.show("#a6a6a6")
-                elif pt_us == max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr): #Уля
-                    renpy.show("Color(hsv=(0, 1.0, [0.5+pt_us*0.04]))")
-                elif pt_dv == max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr): # Алиса
-                    renpy.show("Color(hsv=(.06666, 1.0, [pt_dv*0.04]))")
-                elif pt_sl == max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr): # Славя
-                    renpy.show("Color(hsv=(.12222, 1.0, [pt_sl*0.04]))")
-                elif pt_mt == max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr): # ОД
-                    renpy.show("Color(hsv=(.33333, 1.0, [pt_mt*0.04]))")
-                elif pt_mi == max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr): # Мику
-                    renpy.show("Color(hsv=(.5, 1.0, [pt_mi*0.04]))")
-                elif pt_nr == max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr): # Нуар
-                    renpy.show("Color(hsv=(.75833333, 1.0, [pt_nr*0.04]))")
-                else:
-                    renpy.show("#a6a6a6")
-            elif sch_dayNo >=1 and sch_dayNo <=7:
-                renpy.show('day[sch_dayNo]')
-            else:
-                renpy.show('a6a6a6')
-            renpy.show('dr_pattern')
 
-                #Бекдроп со вкусом костылей (наверное)
-                #US - 0
-                #DV -  24
-                #SL - 44
-                #MT - 120
-                #MI - 180
-                #UN - 273
-                #IV - 0-0-x
-                #LN - 215
-                #Совпадение очков - 0,97222
-
-        else:
-            renpy.scene()
-            renpy.music.play('deserved_reality/source/Sound/sfx/whisper.ogg', channel='sound', fadein=1.5, fadeout = 0.25)
-            renpy.show('black')
-            renpy.pause(1)
-            renpy.transition(fade)
-            if sch_ch_name != " ":
-                renpy.show('day_num', what=Text(chapter_name, xcenter=0.5,ycenter=0.25))
-            renpy.pause(2)
-            renpy.scene()
-            renpy.show('bg black')
-            renpy.transition(fade)
-            dayname = (u"{size=70}{font=[csn]}{color=#afafaf}%s{/color}{/font}{/size}") % (sch_ch_name)
-            renpy.show('day_num', what=Text(chapter_name, xcenter=0.5,ycenter=0.45))
-
-        renpy.pause(3)
+        renpy.music.play('deserved_reality/source/Sound/sfx/whisper.ogg', channel='sound', fadein=1.5, fadeout = 0.25)
+        renpy.scene()
+        renpy.show('black')
+        renpy.pause(1)
+        renpy.transition(fade)
+        renpy.pause(2)
         renpy.scene()
         renpy.show('bg black')
         renpy.transition(fade)
-        renpy.pause(1.5)
-        set_mode_adv()
+        dayname = (u"{size=70}{font=[csn]}{color=#afafaf}%s{/color}{/font}{/size}") % (sch_ch_name)
+        renpy.show('day_num', what=Text(dayname, xcenter=0.5,ycenter=0.45))
+
 
 
 
@@ -468,45 +506,53 @@ python early: #TODO переписать
                 else:
                     ui.text("%s: %d" % ("Лена", pt_un), style="button_text", size=15, color="#a849e9")
             else:
-                    ui.text("%s: %d" % ("Лена", pt_un), style="button_text", size=13)
+                ui.text("%s: %d" % ("Лена", pt_un), style="button_text", size=13)
 
         config.overlay_functions.append(editoverlay)
 
 
 init python:
-    def name_sch(sch_name="me"): #args - me - Я, pr - Протагонист, iv - Иван, van - Ваня
+    def name_sch(sch_name): #args - me - Я, pr - Протагонист, iv - Иван, van - Ваня
         global colors
         global names
-        #if sch_name == "me":
-        #    globals()["ivan"] = Character("Иван", color = "#295f48", what_color = "#E2C778", drop_shadow = [ (2, 2) ], drop_shadow_color = "#000", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
-        #elif sch_name == "van":
-        #    globals()["ivan"] = Character("Ваня", color = "#5B5BE5", what_color = "#E2C778", drop_shadow = [ (2, 2) ], drop_shadow_color = "#000", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
-        #elif sch_name == "pr":
-        #    globals()["ivan"] = Character("Протагонист", color = "#5b5b5b", what_color = "#E2C778", drop_shadow = [ (2, 2) ], drop_shadow_color = "#000", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
-        #else:
-        #    globals()["ivan"] = Character("Я", color = "#920202", what_color = "#E2C778", drop_shadow = [ (2, 2) ], drop_shadow_color = "#000", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
-
+        global store
+        gl = globals()
+        if 'ivan' in colors:
+            del colors['ivan']
         if 'ivan' in store.names_list:
             store.names_list.remove('ivan')
-        if sch_name == "Иван":
+        gl['ivan' + "_name"] = sch_name
+        if sch_name == u"Иван":
             colors['ivan'] = {'night': (24, 64, 48, 255), 'sunset': (39, 79, 72, 255), 'day': (41, 96, 72, 255), 'prolog': (34, 69, 72, 255)}
-            names['ivan'] = u"Иван"
+            store.names['ivan'] = u"Иван"
+            #names['ivan'] = u"Иван"
             store.names_list.append('ivan')
-        elif sch_name == "Ваня":
+        elif sch_name == u"Ваня":
             colors['ivan'] = {'night': (53, 61, 154, 255), 'sunset': (86, 75, 230, 255), 'day': (91, 91, 230, 255), 'prolog': (76, 66, 230, 255)}
-            names['ivan'] = u"Ваня"
+            store.names['ivan'] = u"Ваня"
+            #names['ivan'] = u"Ваня"
             store.names_list.append('ivan')
-        elif sch_name == "Протагонист":
+        elif sch_name == u"Протагонист" or sch_name == u"Пророк":
             colors['ivan'] = {'night': (53, 61, 61, 255), 'sunset': (86, 75, 91, 255), 'day': (91, 91, 91, 255), 'prolog': (76, 66, 91, 255)}
-            names['ivan'] = u"Протагонист"
+            store.names['ivan'] = sch_name
+            #names['ivan'] = u"Протагонист"
             store.names_list.append('ivan')
         else:
             colors['ivan'] = {'night': (85, 1, 1, 255), 'sunset': (138, 2, 2, 255), 'day': (147, 2, 2, 255), 'prolog': (123, 1, 2, 255)}
-            names['ivan'] = u"Я"
+            store.names['ivan'] = sch_name
+            #names['ivan'] = sch_name
             store.names_list.append('ivan')
 
+        reload_names()
 
-
+            #if sch_name == "me":
+            #    globals()["ivan"] = Character("Иван", color = "#295f48", what_color = "#E2C778", drop_shadow = [ (2, 2) ], drop_shadow_color = "#000", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
+            #elif sch_name == "van":
+            #    globals()["ivan"] = Character("Ваня", color = "#5B5BE5", what_color = "#E2C778", drop_shadow = [ (2, 2) ], drop_shadow_color = "#000", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
+            #elif sch_name == "pr":
+            #    globals()["ivan"] = Character("Протагонист", color = "#5b5b5b", what_color = "#E2C778", drop_shadow = [ (2, 2) ], drop_shadow_color = "#000", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
+            #else:
+            #    globals()["ivan"] = Character("Я", color = "#920202", what_color = "#E2C778", drop_shadow = [ (2, 2) ], drop_shadow_color = "#000", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
 init 2:
     $ iv = Character(what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000", what_italic = True)
     #$ chat = Character(u'Собеседник', color="#6e3961", what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
@@ -519,7 +565,6 @@ init 2:
     #Prologue - 84%, 72%, 100%
     #RGBA
 
-    #TODO Олег Степанович (os) и Медсестра (med)
 
     $ colors['ai'] = {'night': (42, 165, 1, 255), 'sunset': (68, 202, 2, 255), 'day': (72, 246, 2, 255), 'prolog': (60, 177, 2, 255)} #rgb(72, 246, 2)
     $ store.names_list.append('ai')#Собеседник, ИИ
@@ -536,6 +581,12 @@ init 2:
     $ colors['os'] = {'night': (26, 215, 14, 255), 'sunset': (26, 215, 14, 255), 'day': (26, 215, 14, 255), 'prolog': (26, 215, 14, 255)}
     $ store.names_list.append('os')#Олег Степанович
 
+    $ colors['med'] = {'night': (210, 182, 72, 255), 'sunset': (210, 182, 72, 255), 'day': (210, 182, 72, 255), 'prolog': (210, 182, 72, 255)}
+    $ store.names_list.append('med')#Доктор
+
+    $ colors['guard'] = {'night': (2, 73, 138, 255), 'sunset': (2, 73, 138, 255), 'day': (2, 73, 138, 255), 'prolog': (2, 73, 138, 255)}
+    $ store.names_list.append('guard')#охранник
+
 
 
     $ names['chat'] = u'Собеседник'
@@ -543,6 +594,8 @@ init 2:
     $ names['mother'] = u"Мама"
     $ names['ami'] = u"Амина"
     $ names['os'] = u"Олег Степанович"
+    $ names['med'] = u"Доктор"
+    $ names['guard'] = u"Охранник"
 
 init 3 python:
     def meet_sch(who, name):
@@ -577,8 +630,10 @@ init 3 python:
         meet_sch('chat', u'Ребёнок')
         meet_sch('mother', u"Мама")
         meet_sch('ami', u"Амина")
-        meet_sch('ai', u"Механический голос")
+        meet_sch('ai', u"Искин")
         meet_sch('os', u'Олег Степанович')
+        meet_sch('med', u'Доктор')
+        meet_sch('guard', u'Охранник')
 
     def sch_meeteveryone():
         global store
@@ -597,8 +652,10 @@ init 3 python:
         meet_sch('chat', u'Друг')
         meet_sch('mother', u"Мама")
         meet_sch('ami', u"Девушка")
-        meet_sch('ai', u'ИИ')
+        meet_sch('ai', u'Искин')
         meet_sch('os', u'Олег Степанович')
+        meet_sch('med', u'Доктор')
+        meet_sch('guard', u'Охранник')
 
 
     sch_forgeteveryone()
