@@ -1989,7 +1989,7 @@ label sch_day1_supper:
         # Садится один
         pass
 
-label sch_day1_aftersupper
+label sch_day1_aftersupper:
     # герой проходит через умывальники
     if 'mi' in list_sch_day1_help:
         $ sch_day1_ev_mi = True

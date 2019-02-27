@@ -8,12 +8,73 @@ label sichium:
 
     # Переименовываем игрушку во имя всех богов
     $ config.developer = True #TODO В релиз попасть не должно
+    $ config.debug_text_overflow = True #это тоже
+    $ config.conditionswitch_predict_all = True # и это
+    $ config.after_load_callbacks
     $ config.window_title = u"Заслуженная | Реальность"
 
     jump sichium_start
 
 
+# Пролог
+
+label sch_day0_vars:
+
+    $ sch_violent = False # злой
+    $ sch_escapist = False # добрый
+    $ deathflag = False # Смерть, невыход в игру
+    $ true_prologue = False
+
+    return
+
+# День 1
+
+label sch_day1_vars:
+
+    $ list_sch_noir_flag = [] # флаги Нуара
+    $ list_sch_ch_known = [] # Знакомые персонажи
+    $ list_sch_day1_together = [] # С кем пошёл к ОД
+    $ list_sch_day1_help = []
+    $ list_sch_day1_supper = []
+
+    $ sch_sabotage = 0 # 0 -не знает, 1, 2... - этапы, -1 - отказ в начале -2 - отказ при подтверждении, -3 - отказ в середине, -4 - отказ в конце, -6 - переманил Алису на мирную сторону,
+    $ sch_day1_hungry = False
+    $ sch_sl_keys = False
+    $ sch_day1_ev_mi = False
+
+
+    return
+
+# День 2
+
+label sch_day2_vars:
+
+    $ list_sch_day2_walk = []
+
+    $ sch_day2_od_photo = False
+    $ sch_day2_od_failed = False
+    $ sch_day2_forest = False
+
+
+    return
+# День 3
+
+label sch_day3_vars:
+
+    $ list_rootflag_sch = [] #Список рутфлагов, чтобы не писать по 7 переменных
+
+    return
+
+lacel sch_allvars:
+    call sch_day1_vars
+    call sch_day2_vars
+    call sch_day3_vars
+    return
+
+
+
 label sichium_start: # Меню
+    # анимации
 
     $ sch_forgeteveryone()
 
