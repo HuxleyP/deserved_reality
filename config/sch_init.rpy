@@ -63,44 +63,15 @@ init 2:
     if ((persistent.mi_true_sch) and (persistent.dv_true_sch) and (persistent.sl_true_sch) and (persistent.us_true_sch) and (persistent.un_true_sch) and (persistent.iv_true_sch) and (persistent.nr_ussr_true_sch) and (persistent.nr_rf_true_sch)):
         $ sch_true = True
     if (persistent.mi_good_sch or persistent.mi_bad_sch or persistent.mi_reject_sch or persistent.mi_neutral_sch or persistent.mi_true_sch or persistent.mi_transit_good_sch or persistent.mi_transit_bad_sch or persistent.dv_good_sch or persistent.dv_bad_sch or persistent.dv_reject_sch or persistent.dv_neutral_sch or persistent.dv_true_sch or persistent.dv_transit_good_sch or persistent.dv_transit_bad_sch or persistent.sl_good_sch or persistent.sl_bad_sch or persistent.sl_reject_sch or persistent.sl_neutral_sch or persistent.sl_true_sch or persistent.sl_transit_good_sch or persistent.sl_transit_bad_sch or persistent.un_good_sch or persistent.un_bad_sch or persistent.un_reject_sch or persistent.un_neutral_sch or persistent.un_true_sch or persistent.un_transit_good_sch or persistent.un_transit_bad_sch or persistent.us_good_sch or persistent.us_bad_sch or persistent.us_neutral_sch or persistent.us_true_sch or persistent.iv_good_sch or persistent.iv_bad_sch or persistent.iv_transit_good_sch or persistent.iv_transit_bad_sch or persistent.nr_good_sch or persistent.nr_bad_sch or persistent.nr_rf_true_sch or persistent.nr_ussr_true_sch): # Как же долго я искал ошибку...
-        $ cycled = True
+        $ persistent.cycled = True
 
     if sch_true:
-        $ sch_karma_shown = True
-
-# Пролог
-
-    $ sch_violent = False
-    $ sch_escapist = False
-    $ deathflag = False # Смерть, невыход в игру
-    $ true_prologue = False
-
-# День 1
-
-    $ list_sch_noir_flag = [] # флаги Нуара
-    $ list_sch_ch_known = [] # Знакомые персонажи
-    $ list_sch_day1_together = [] # С кем пошёл к ОД
-    $ list_sch_day1_help = []
-    $ list_sch_day1_supper = []
-
-    $ sch_sabotage = 0 # 0 -не знает, 1, 2... - этапы, -1 - отказ в начале -2 - отказ при подтверждении, -3 - отказ в середине, -4 - отказ в конце, -6 - переманил Алису на мирную сторону,
-    $ sch_day1_hungry = False
-    $ sch_sl_keys = False
-    $ sch_day1_ev_mi = False
-
-# День 2
-
-    $ list_sch_day2_walk = []
-
-    $ sch_day2_od_photo = False
-    $ sch_day2_od_failed = False
-    $ sch_day2_forest = False
+        $ persistent.sch_karma_shown = True
 
 
 
-# День 3
-
-    $ list_rootflag_sch = [] #Список рутфлагов, чтобы не писать по 7 переменных
+init 3:
+    call sch_allvars
 
 
 # Визуал, аудио, т.д.
@@ -432,7 +403,7 @@ init -10 python: # главы #TODO к херам
 
 #Поинты
 
-python:
+init python:
     def sch_widget_OP():
         sch_known = len(list_sch_ch_known) # Надо для скрина
         if u"Заслуженная Реальность" or "Заслуженная | Реальность" in save_name and persistent.sch_widget:
@@ -544,17 +515,8 @@ init python:
             store.names_list.append('ivan')
 
         reload_names()
-
-            #if sch_name == "me":
-            #    globals()["ivan"] = Character("Иван", color = "#295f48", what_color = "#E2C778", drop_shadow = [ (2, 2) ], drop_shadow_color = "#000", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
-            #elif sch_name == "van":
-            #    globals()["ivan"] = Character("Ваня", color = "#5B5BE5", what_color = "#E2C778", drop_shadow = [ (2, 2) ], drop_shadow_color = "#000", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
-            #elif sch_name == "pr":
-            #    globals()["ivan"] = Character("Протагонист", color = "#5b5b5b", what_color = "#E2C778", drop_shadow = [ (2, 2) ], drop_shadow_color = "#000", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
-            #else:
-            #    globals()["ivan"] = Character("Я", color = "#920202", what_color = "#E2C778", drop_shadow = [ (2, 2) ], drop_shadow_color = "#000", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
 init 2:
-    $ iv = Character(what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000", what_italic = True)
+    $ iv = Character(what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000", what_italic = True) #TODO перевести в nvl и упорядочить звёздочку
     #$ chat = Character(u'Собеседник', color="#6e3961", what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
     #$ mother = Character(u'Мама', color="#f9106b", what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
     #$ ami = Character(u'Амина', color="#cd6c2e", what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
@@ -739,3 +701,57 @@ init -998:
     $ style.sch_fuchsia = Style(style.default)
     $ style.sch_fuchsia.font = roboto
     $ style.sch_fuchsia.size = 36
+
+init python: # скомунизженно прямиком с сайта доки Ренпая
+        import math
+
+        class Shaker(object):
+
+            anchors = {
+                'top' : 0.0,
+                'center' : 0.5,
+                'bottom' : 1.0,
+                'left' : 0.0,
+                'right' : 1.0,
+                }
+
+            def __init__(self, start, child, dist):
+                if start is None:
+                    start = child.get_placement()
+                #
+                self.start = [ self.anchors.get(i, i) for i in start ]  # central position
+                self.dist = dist    # maximum distance, in pixels, from the starting point
+                self.child = child
+
+            def __call__(self, t, sizes):
+                # Float to integer... turns floating point numbers to
+                # integers.
+                def fti(x, r):
+                    if x is None:
+                        x = 0
+                    if isinstance(x, float):
+                        return int(x * r)
+                    else:
+                        return x
+
+                xpos, ypos, xanchor, yanchor = [ fti(a, b) for a, b in zip(self.start, sizes) ]
+
+                xpos = xpos - xanchor
+                ypos = ypos - yanchor
+
+                nx = xpos + (1.0-t) * self.dist * (renpy.random.random()*2-1)
+                ny = ypos + (1.0-t) * self.dist * (renpy.random.random()*2-1)
+
+                return (int(nx), int(ny), 0, 0)
+
+        def _Shake(start, time, child=None, dist=100.0, **properties):
+
+            move = Shaker(start, child, dist=dist)
+
+            return renpy.display.layout.Motion(move,
+                          time,
+                          child,
+                          add_sizes=True,
+                          **properties)
+
+        Shake = renpy.curry(_Shake)
