@@ -1,6 +1,6 @@
 init -1: # Version data
-    $ sch_version = "6.4.2"
-    $ sch_state = "alpha"
+    $ sch_version = "6.6.2"
+    $ sch_state = "pre-alpha"
     $ sch_codename = "arctic apricot"
 
 init: # Объявляем мод
