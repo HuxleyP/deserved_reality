@@ -410,7 +410,7 @@ init python:
             renpy.show_screen('sch_widget_pile')
         else:
             renpy.hide_screen('sch_widget_pile')
-        config.overlay_functions.append(bac_widgetFunc) #добавление виджета
+        config.overlay_functions.append(sch_widget_OP) #добавление виджета
 
 # Покоится на японской горе К Ху Ям
 python early: #TODO переписать
