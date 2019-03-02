@@ -1,5 +1,5 @@
 init -1: # Version data
-    $ sch_version = "6.4.2"
+    $ sch_version = "6.6.3"
     $ sch_state = "alpha"
     $ sch_codename = "arctic apricot"
 
@@ -79,6 +79,7 @@ init 3:
 init -998:
     #BG
     image bg bus_stop_summer = image_sch("bg/bus_stop_summer.jpg")
+    image bg sch_city = image_sch('bg/city.jpg')
     image bg int_bar = im.Scale(image_sch('bg/int_bar.jpg'), 1920, 1080)
     image bg ext_bar = image_sch('bg/ext_bar.jpg')
     image bg ext_cityroad_night_sch = image_sch('bg/ext_cityroad_night_sch.png')
@@ -187,6 +188,7 @@ init -998:
     $ lastdawn = music_sch("lastdawn.ogg")
     $ markus = music_sch("markus.ogg")
     $ nullspace = music_sch("nullspace.ogg")
+    $ premonition = music_sch("premonition.ogg")
     $ prologue = music_sch("prologue.ogg")
     $ static = music_sch("static.ogg")
     $ sunpatterns = music_sch("sunpatterns.ogg")
@@ -405,15 +407,16 @@ init -10 python: # главы #TODO к херам
 
 init python:
     def sch_widget_OP():
-        sch_known = len(list_sch_ch_known) # Надо для скрина
         if u"Заслуженная Реальность" or "Заслуженная | Реальность" in save_name and persistent.sch_widget:
             renpy.show_screen('sch_widget_pile')
         else:
             renpy.hide_screen('sch_widget_pile')
-        config.overlay_functions.append(bac_widgetFunc) #добавление виджета
+        config.overlay_functions.append(sch_widget_func) #добавление виджета
+
+
 
 # Покоится на японской горе К Ху Ям
-python early: #TODO переписать
+init python early: #TODO переписать
     def CycleCounter():
         def editoverlay():
             ui.button(clicked=None, xpos=0.1, xanchor=0.0, ypos=2, xpadding=6, xminimum=120)

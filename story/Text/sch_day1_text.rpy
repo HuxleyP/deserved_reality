@@ -485,7 +485,8 @@ label sch_day1_sl:
                 if persistent.sch_widget:
                     extend "и показатель отношений людей ко мне. Неточный - но сойдёт и такой."
                     iv "Правда, пока что я ни с кем, кроме Слави, не знаком."
-                    # активация виджета
+                    $ sch_widget_OP
+                    with dissolve
                 else:
                     extend "."
             else:
@@ -607,7 +608,7 @@ label sch_day1_sl:
         if persistent.sch_widget:
             extend "и показатель отношений людей ко мне. Неточный - но сойдёт и такой."
             iv "Правда, пока что я ни с кем, кроме Слави, не знаком."
-            # активация виджета
+            $ sch_widget_OP
         else:
             extend "."
     "Играясь с ассистентом, я окончательно заскучал."
@@ -734,7 +735,7 @@ label sch_day1_un:
         if persistent.sch_widget:
             extend "и показатель отношений людей ко мне. Неточный - но сойдёт и такой."
             iv "Правда, пока что я ни с кем, кроме Слави, не знаком."
-            # активация виджета
+            $ sch_widget_OP
         else:
             extend "."
     "Внезано оттуда кто-то вышел."
@@ -1587,7 +1588,8 @@ label sch_day1_od:
         if ('sl' or 'dv_sl') in list_sch_day1_together:
             $ pt_ka -=10
             $ pt_wi +=10
-            # Omelchuk - Premolition
+            stop music fadeout 2
+            play music premonition fadein 5
             show sl surprise pioneer at cright with dissolve
             "Блондинка приняла свою обычную позу искреннего удивления."
             sl "Ваня, ты хорошо себя чувствуешь?"
@@ -1699,7 +1701,6 @@ label sch_day1_od:
                         "С удивлением константировала вожатая."
                         ivan "Ладно, давайте оставим это на потом."
             show mt normal pioneer with dspr
-            # какая-то нейтрально-напряжённая мелодия
             "Она выдохнула и села заполнять журнал."
             "Вписала моё ФИО, потом оставила пустое место и сделала пометку."
             if not ('dv_sl' in list_sch_day1_together):
@@ -1727,6 +1728,7 @@ label sch_day1_od:
             "Да я договорить не успел."
         show mt rage pioneer at center
         with dspr
+        stop music fadeout 3
         mt "Ив-а-а-ан!!! Ты что себе позволяешь при разговоре с вожатой?! Да я за весь свой опыт работы такого не видела!"
         "Похоже, что она не шутила."
         iv "Неужели я и вправду нарвался на НАСТОЯЩИЙ пионерский лагерь образца 80-х?"
