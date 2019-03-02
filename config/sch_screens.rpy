@@ -5,7 +5,7 @@ screen sch_fuchsia_widget:
     imagemap:
         ground 'bg_empty'
         if not (persistent.sch_widget or save_name == ('"Заслуженная Реальность. Меню."') or sch_hard):
-            add sch_path + 'source/images/gui/pile.png' anchor(0.5, 0.0) xalign 0.5 yalign 0.0
+            add sch_path + 'source/images/gui/arrow.png' anchor(0.5, 0.0) xalign 0.5 yalign 0.0
             alpha False
             hotspot (0, 0, 1920, 50) hovered [SetVariable("sch_WidgetVisible", True), Show("sch_widget_screen", transition=dspr)] action NullAction
 
@@ -27,36 +27,28 @@ screen sch_widget_screen:
         add gui_sch('icons/will_widget.png') xalign 0.785 ypos 10
         add gui_sch('icons/pioneer_widget.png') xalign 0.897 ypos 10
 
-        python:
-            list_sch_screenPos = [] # 5 позиций
-            sch_known = len(list_sch_ch_known) # Надо для скрина
-            k = 0
-            for i in range(len(list_sch_ch_known)):
-                if not ((list_sch_ch_known[i] == 'mt') or list_sch_ch_known[i] == 'cs'):
-                    add gui_sch('icons/[list_sch_ch_known[i]]_widget.png')
-                    text '[list_sch_screenPos[i]]':
-                        xalign list_sch_screenPos[k]
-                        ypos 20
-                        size 36
-                        color '000000'
-                        font font_sch('csn.ttf')
-                    k +=1
-                else:
-                    pass
-
-
-
-    text str(bac_lp_ya):
-        xalign 0.49
-        ypos 20
-        size 36
-        color '#75b15f'
-        font bac_path + "Silent Lips.ttf"
+        $ list_sch_screenPos = [26, 242, 458, 674, 890] # 5 позиций
+        $ sch_known = len(list_sch_ch_known) # Надо для скрина
+        $ k = 0
+        for i in range(len(list_sch_ch_known)):
+            if not ((list_sch_ch_known[i] == 'mt') or list_sch_ch_known[i] == 'cs'):
+                add gui_sch('icons/[list_sch_ch_known[i]]_widget.png')
+                text '[list_sch_screenPos[i]]':
+                    xalign list_sch_screenPos[k]
+                    ypos 20
+                    size 36
+                    color '000000'
+                    font font_sch('csn.ttf')
+                $ k +=1
+            else:
+                pass
 
 
 
 
-# Ниже меню. Нихрена не откалибровано, было заменено по причине дизайна (крайне херового, но ты, копатель по файлам, может заменить вызов скринов и посмотреть на это чудо инженегровой мысли)
+
+
+# Ниже меню. Нихрена не откалибровано, было заменено по причине дизайна (крайне херового, но ты, копатель по файлам, можешь заменить вызов скринов и посмотреть на это чудо инженегровой мысли)
 screen sch_menu:
     tag menu
     modal True

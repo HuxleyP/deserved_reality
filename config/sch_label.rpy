@@ -10,7 +10,7 @@ label sichium:
     $ config.developer = True #TODO В релиз попасть не должно
     $ config.debug_text_overflow = True #это тоже
     $ config.conditionswitch_predict_all = True # и это
-    $ config.after_load_callbacks
+    $ config.after_load_callbacks = True
     $ config.window_title = u"Заслуженная | Реальность"
 
     jump sichium_start
