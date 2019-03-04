@@ -1,11 +1,6 @@
 init -1: # Version data
-<<<<<<< HEAD
     $ sch_version = "6.6.3"
-    $ sch_state = "alpha"
-=======
-    $ sch_version = "6.6.2"
     $ sch_state = "pre-alpha"
->>>>>>> 91e992b5a4e16f799e4cd620a8f4cd2146b27f69
     $ sch_codename = "arctic apricot"
 
 init: # Объявляем мод
@@ -416,13 +411,7 @@ init python:
             renpy.show_screen('sch_widget_pile')
         else:
             renpy.hide_screen('sch_widget_pile')
-<<<<<<< HEAD
-        config.overlay_functions.append(sch_widget_func) #добавление виджета
-
-
-=======
         config.overlay_functions.append(sch_widget_OP) #добавление виджета
->>>>>>> 91e992b5a4e16f799e4cd620a8f4cd2146b27f69
 
 # Покоится на японской горе К Ху Ям
 init python early: #TODO переписать

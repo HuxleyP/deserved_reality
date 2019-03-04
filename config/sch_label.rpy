@@ -65,7 +65,8 @@ label sch_day3_vars:
 
     return
 
-lacel sch_allvars:
+label sch_allvars:
+    call sch_day0_vars
     call sch_day1_vars
     call sch_day2_vars
     call sch_day3_vars
