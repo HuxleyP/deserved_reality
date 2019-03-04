@@ -1,5 +1,5 @@
 init -1: # Version data
-    $ sch_version = "6.6.7"
+    $ sch_version = "6.6.8"
     $ sch_state = "pre-alpha"
     $ sch_codename = "arctic apricot"
 
@@ -79,7 +79,7 @@ init 3:
 init -998:
     #BG
     image bg bus_stop_summer = image_sch("bg/bus_stop_summer.jpg")
-    image bg sch_city = image_sch('bg/city.jpg')
+    image bg sch_city = im.Scale(image_sch('bg/city.jpg'), 1920, 1080)
     image bg int_bar = im.Scale(image_sch('bg/int_bar.jpg'), 1920, 1080)
     image bg ext_bar = image_sch('bg/ext_bar.jpg')
     image bg ext_cityroad_night_sch = image_sch('bg/ext_cityroad_night_sch.png')
@@ -124,13 +124,13 @@ init -998:
 
     image fuchsia_case = gui_sch('widget_case.png')
 
-    image day1 = gui_sch('day1.png')
-    image day2 = gui_sch('day2.png')
-    image day3 = gui_sch('day3.png')
-    image day4 = gui_sch('day4.png')
-    image day5 = gui_sch('day5.png')
-    image day6 = gui_sch('day6.png')
-    image day7 = gui_sch('day7.png')
+    image day1 = im.Scale(gui_sch('/days/day1.png'), 1920, 1080)
+    image day2 = im.Scale(gui_sch('/days/day2.png'), 1920, 1080)
+    image day3 = im.Scale(gui_sch('/days/day3.png'), 1920, 1080)
+    image day4 = im.Scale(gui_sch('/days/day4.png'), 1920, 1080)
+    image day5 = im.Scale(gui_sch('/days/day5.png'), 1920, 1080)
+    image day6 = im.Scale(gui_sch('/days/day6.png'), 1920, 1080)
+    image day7 = im.Scale(gui_sch('/days/day7.png'), 1920, 1080)
 
     # Объявляем основные ассеты
 
@@ -311,7 +311,7 @@ init python:
 
 
 
-init -10 python: # главы #TODO к херам
+init 10 python: # главы #TODO к херам
     def sch_savename_init(sch_char_name):
         global save_name
         if sch_char_name != None:
@@ -320,6 +320,7 @@ init -10 python: # главы #TODO к херам
             save_name = (u" Заслуженная | Реальность \n%s ver.%s/; \"%s\":\nПролог.") % (sch_state, sch_version, sch_codename)
 
     def sch_newday(sch_dayNo):
+        #TODO TODO ЦВЕТА С НУЛЯ, НЕ РАБОТАЕТ
         global pt_dv #Алиса
         global pt_un #Лена
         global pt_us #Ульяна
@@ -329,14 +330,14 @@ init -10 python: # главы #TODO к херам
         global pt_nr #Нуар
         renpy.scene()
         if sch_dayNo >=1 and sch_dayNo <=7:
-            renpy.show('day[sch_dayNo]')
+            renpy.show('day1')
             renpy.transition(fade)
             renpy.pause(3, hard=True)
             renpy.scene()
             renpy.show('black')
             renpy.transition(fade)
         renpy.scene()
-        if sch_dayNo > 1:
+        if (sch_dayNo > 1) and (not sch_hard):
             if sch_noir_flag == 1: # сделать проверку на тян
                 renpy.show("Color(hsv=(0, 0, 0.4875))")
             elif sch_noir_flag == 2:
@@ -373,9 +374,9 @@ init -10 python: # главы #TODO к херам
                 pass
                 #TODO по руттегам, без лого ЗР
             else:
-                renpy.show("#a6a6a6")
+                renpy.show("#a6a6a6") # НЕ РАБОТАЕТ!
         else:
-            renpy.show('a6a6a6')
+            renpy.show('#a6a6a6')
         renpy.show('dr_pattern')
         renpy.transition(fade)
         renpy.pause(3, hard=True)

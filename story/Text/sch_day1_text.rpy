@@ -1,7 +1,7 @@
 label sch_day1_sl:
     $ persistent.sprite_time = "day"
     $ day_time()
-    $ sch_chapter(1, "Предсмертное тепло")
+    $ sch_newday(sch_dayNo=1)
     $ name_sch('Я')
     play ambience ambience_ext_road_day fadein 10
     scene black
