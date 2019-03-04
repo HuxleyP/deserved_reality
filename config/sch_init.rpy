@@ -1,5 +1,5 @@
 init -1: # Version data
-    $ sch_version = "6.6.3"
+    $ sch_version = "6.6.7"
     $ sch_state = "pre-alpha"
     $ sch_codename = "arctic apricot"
 
@@ -331,33 +331,56 @@ init -10 python: # главы #TODO к херам
         if sch_dayNo >=1 and sch_dayNo <=7:
             renpy.show('day[sch_dayNo]')
             renpy.transition(fade)
+            renpy.pause(3, hard=True)
+            renpy.scene()
+            renpy.show('black')
+            renpy.transition(fade)
         renpy.scene()
         if sch_dayNo > 1:
-            if max(pt_dv, pt_un, pt_us, pt_sl, pt_mi) >=8 and max(pt_dv, pt_un, pt_us, pt_sl, pt_mi) != 0 and sch_dayNo <=3:
-                if (pt_dv or pt_un or pt_us or pt_sl or pt_iv or pt_mi or pt_nr) == max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr):
+            if sch_noir_flag == 1: # сделать проверку на тян
+                renpy.show("Color(hsv=(0, 0, 0.4875))")
+            elif sch_noir_flag == 2:
+                renpy.show("Color(hsv=(0, 0, 0.325))")
+            elif sch_noir_flag == 3:
+                renpy.show('Color(hsv=(0, 0, 0.1625))')
+            elif (max(pt_dv, pt_un, pt_us, pt_sl, pt_mi)  >= 0) and (sch_dayNo <=3): # до 4 дня, очков тян больше нуля,
+                if (pt_dv or pt_un or pt_us or pt_sl or pt_iv or pt_mi or pt_nr) == max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr): #если равно
                     pt_overall = max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr)
-                    renpy.show("Color(hsv=(0.9722222, [pt_overall*0.03], 1.0))") # Если очков столько
-                else:
-                    renpy.show("#a6a6a6")
-            elif pt_us == max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr): #Уля
-                renpy.show("Color(hsv=(0, 1.0, [0.5+pt_us*0.04]))")
-            elif pt_dv == max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr): # Алиса
-                renpy.show("Color(hsv=(.06666, 1.0, [pt_dv*0.04]))")
-            elif pt_sl == max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr): # Славя
-                renpy.show("Color(hsv=(.12222, 1.0, [pt_sl*0.04]))")
-            elif pt_mt == max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr): # ОД
-                renpy.show("Color(hsv=(.33333, 1.0, [pt_mt*0.04]))")
-            elif pt_mi == max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr): # Мику
-                renpy.show("Color(hsv=(.5, 1.0, [pt_mi*0.04]))")
-            elif pt_nr == max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr): # Нуар
-                renpy.show("Color(hsv=(.75833333, 1.0, [pt_nr*0.04]))")
+                    renpy.show("Color(hsv=(0.9722222, [pt_overall*0.03], 1.0))") #розовый
+                elif (max(pt_dv, pt_un, pt_us, pt_sl, pt_mi) >=8): #  больше восьми, saturation = 100, изменяется brightness
+                    if pt_us == max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr): #Уля
+                        renpy.show("Color(hsv=(0, [0.5+pt_us*0.04], 1.0))")
+                    elif pt_dv == max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr): # Алиса
+                        renpy.show("Color(hsv=(.06666, [pt_dv*0.04], 1.0))")
+                    elif pt_sl == max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr): # Славя
+                        renpy.show("Color(hsv=(.12222, [pt_sl*0.04], 1.0))")
+                    elif pt_mt == max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr): # ОД
+                        renpy.show("Color(hsv=(.33333, [pt_mt*0.04], 1.0))")
+                    elif pt_mi == max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr): # Мику
+                        renpy.show("Color(hsv=(.5, [pt_mi*0.04], 1.0))")
+                else: # от одного до восьми, brightness = color*0.32, изменяется saturation
+                    if pt_us == max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr): #Уля
+                        renpy.show("Color(hsv=(0, 1.0, [0.5+pt_us*0.04]))")
+                    elif pt_dv == max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr): # Алиса
+                        renpy.show("Color(hsv=(.06666, 1.0, [pt_dv*0.04]))")
+                    elif pt_sl == max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr): # Славя
+                        renpy.show("Color(hsv=(.12222, 1.0, [pt_sl*0.04]))")
+                    elif pt_mt == max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr): # ОД
+                        renpy.show("Color(hsv=(.33333, 1.0, [pt_mt*0.04]))")
+                    elif pt_mi == max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr): # Мику
+                        renpy.show("Color(hsv=(.5, 1.0, [pt_mi*0.04]))")
+            elif sch_dayNo >=4:
+                pass
+                #TODO по руттегам, без лого ЗР
             else:
                 renpy.show("#a6a6a6")
-        elif sch_dayNo >=1 and sch_dayNo <=7:
-            renpy.show('day[sch_dayNo]')
         else:
             renpy.show('a6a6a6')
         renpy.show('dr_pattern')
+        renpy.transition(fade)
+        renpy.pause(3, hard=True)
+        renpy.scene()
+        renpy.show('black')
         renpy.transition(fade)
         #Бекдроп со вкусом костылей (наверное)
         #US - 0

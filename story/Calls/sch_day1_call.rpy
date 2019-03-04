@@ -11,7 +11,7 @@ label sch_day1_cr:
 
     pause(1)
 
-    if pt_ka == -10:
+    if not ('sl' in list_sch_day1_together):
         call sch_day1_un
 
     if not (('sl' in list_sch_day1_together) or ('un' in list_sch_day1_together) or ('un' in list_sch_ch_known)):
@@ -48,5 +48,3 @@ label sch_day1_cr:
 
 
     jump sch_day2_cr
-
-#TODO TODO !!!!! СДЕЛАТЬ ПРОВЕРКУ СПИСКА ПРОГУЛКИ ВТОРОГО ДНЯ ДЛЯ БЛОКИРОВКИ ЕСЛИ УЖЕ ДОГОВОРИЛСЯ
