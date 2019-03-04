@@ -41,6 +41,7 @@ label sch_day1_vars:
     $ sch_day1_hungry = False
     $ sch_sl_keys = False
     $ sch_day1_ev_mi = False
+    $ sch_noir_flag = 0
 
 
     return
@@ -50,7 +51,8 @@ label sch_day1_vars:
 label sch_day2_vars:
 
     $ list_sch_day2_walk = []
-
+    #блокировка
+    $ sch_day2_walk_accepted = False
     $ sch_day2_od_photo = False
     $ sch_day2_od_failed = False
     $ sch_day2_forest = False
