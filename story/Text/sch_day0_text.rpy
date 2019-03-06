@@ -4,26 +4,13 @@ label sch_day0_prehistory_part_1:
     $ name_sch('Я')
     $ sch_forgeteveryone()
 
-    if persistent.sch_died >=1:
+    if deathflag:
+        $ deathflag = False
+        $ sch_chapter(0, "Получивший второй шанс.")
+    else:
         $ sch_chapter(0, "Жить в твоей голове.")
 
-        scene black
-        stop music fadeout 1
-        play music track_01 fadein 3
-        $ volume(0.3, 'music')
-        # фон снега
-        #play sound grochot
-        $ volume(0.5, 'music')
-        pause(0.1)
-        $ volume(0.6, 'music')
-        pause(0.1)
-        $ volume(0.7, 'music')
-        pause(0.1)
-        $ volume(0.8, 'music')
-        pause(0.1)
-        $ volume(0.9, 'music')
-        pause(0.1)
-        $ volume(1.0, 'music')
+    play music followme fadein 3
 
 
     scene bg speaker_room
@@ -710,6 +697,7 @@ label sch_day0_prehistory_part_1:
     "Это было плохой идеей - позволить правительству отсканировать мои мысли."
     "Зря я согласился. Зря."
     $ meet_sch('guard', 'Грубый голос')
+    play music nightshow fadein 3
     guard "А ты хорош."
     ivan "Кто здесь?"
     "Я обернулся и…"
@@ -841,6 +829,7 @@ label sch_day0_prehistory_part_1:
                         "А где-то далеко мерцали звезды."
                     else:
                         $ deathflag = True
+                        stop music fadeout 5
                         "Однако я не успел ничего сделать."
                         "Охранник подбежал ко мне и, выхватив из-за спины резиновую дубинку, с яростным свистом ударил меня по голове."
                         "Я свалился на пол и высек своим телом сноп ярких искр, которые заполнили собой пространство моих зрачков."
@@ -852,7 +841,6 @@ label sch_day0_prehistory_part_1:
                         "Придется начинать все с начала."
                         ivan "Гейм овер."
                         "Засыпает город,\nА тебе не спится,\nКаждый получает\nТо, к чему стремится."
-                        stop music fadeout 1
                         scene bg speaker_room
                         show uvao_d0
                         with flash
@@ -901,6 +889,7 @@ label sch_day0_prehistory_part_1:
         "Не делать ничего":
             $ renpy.block_rollback()
             $ deathflag = True
+            stop music fadeout 5
             "Охранник подбежал ко мне и, выхватив из-за спины резиновую дубинку, с яростным свистом ударил меня по голове."
             "Я свалился на пол и высек своим телом сноп ярких искр, которые заполнили собой пространство моих зрачков."
             show blink

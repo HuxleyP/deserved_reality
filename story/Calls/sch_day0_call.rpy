@@ -1,4 +1,5 @@
 label sch_day0_cr:
+    $ sch_savename_init()
     call sch_day0_prehistory_part_1
 
     pause(1)
@@ -9,7 +10,6 @@ label sch_day0_cr:
     pause(1)
 
     if deathflag:
-        $ deathflag = False
         if persistent.sch_died:
             $ persistent.sch_died +=1
         else:
