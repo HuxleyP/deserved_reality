@@ -1,5 +1,5 @@
 init -1: # Version data
-    $ sch_version = "6.6.8"
+    $ sch_version = "6.6.9"
     $ sch_state = "pre-alpha"
     $ sch_codename = "arctic apricot"
 
@@ -145,7 +145,7 @@ init -998:
 
     # Меню
 
-    image sch_begin = Text("•Продолжить_Игру", style="sch_keys")
+    image sch_begin = Text("•Загрузить", style="sch_keys")
     image sch_continue = Text("•Новая_Игра", style="sch_keys")
     image sch_settings = Text("•Настройки", style="sch_keys")
     image sch_achievements = Text("•Достижения", style="sch_keys")
@@ -316,9 +316,9 @@ init python:
 
 
 init 10 python: # главы #TODO к херам
-    def sch_savename_init(sch_char_name):
+    def sch_savename_init(sch_char_name=" "):
         global save_name
-        if sch_char_name != None:
+        if sch_char_name != " ":
             save_name = (u" Заслуженная | Реальность \n%s ver.%s/; \"%s\":\nПролог %s.") % (sch_state, sch_version, sch_codename, sch_char_name)
         else:
             save_name = (u" Заслуженная | Реальность \n%s ver.%s/; \"%s\":\nПролог.") % (sch_state, sch_version, sch_codename)
@@ -416,17 +416,23 @@ init 10 python: # главы #TODO к херам
         chapter_name = (u"{size=80}{font=[csn]}{color=#FFFFFF}Заслуженная | {/color}{color=#999999}Реальность{/color}{/font}") # так надо, иначе ошибка
 
 
-        renpy.music.play('deserved_reality/source/Sound/sfx/whisper.ogg', channel='sound', fadein=1.5, fadeout = 0.25)
+        renpy.music.play('deserved_reality/source/Sound/sfx/whisper.ogg', channel='sound', fadein=1.5, fadeout=0.5)
         renpy.scene()
         renpy.show('black')
-        renpy.pause(1)
         renpy.transition(fade)
-        renpy.pause(2)
+        renpy.show('day_num', what=Text(chapter_name, xcenter=0.5, ycenter=0.25))
+        renpy.transition(fade)
+        renpy.pause(1.5)
         renpy.scene()
         renpy.show('bg black')
         renpy.transition(fade)
         dayname = (u"{size=70}{font=[csn]}{color=#afafaf}%s{/color}{/font}{/size}") % (sch_ch_name)
         renpy.show('day_num', what=Text(dayname, xcenter=0.5,ycenter=0.45))
+        renpy.pause(1.5)
+        renpy.scene()
+        renpy.show('bg black')
+        renpy.transition(fade)
+        renpy.pause(1.25, hard=True)
 
 
 
@@ -724,7 +730,6 @@ init -998:
     $ style.sch_desc = Style(style.default)
     $ style.sch_desc.color = "#ffffff"
     $ style.sch_desc.hover_color = "#800000"
-    $ style.sch_desc.size = 60
     $ style.sch_desc.font = csn
 
     $ style.sch_fuchsia = Style(style.default)

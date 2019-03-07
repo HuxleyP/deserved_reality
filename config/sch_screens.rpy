@@ -57,15 +57,16 @@ screen sch_menu:
 
     add 'white2' zoom 0.7 xpos 861
 
-
-    vbox:   #Продолжить_Игру
-        textbutton ("•Продолжить_Игру"):
+    # потенциально сделать провекру на хардмод
+    vbox:   #Открыть экран сейвов
+        textbutton ("•Загрузить"):
             xpos 363
             ypos 382
             background None
             text_style "sch_keys"
             style "sch_keys"
-            action [Hide("sch_menu"), Jump("sch_savescreen")]
+            action [Hide("sch_menu"), ShowMenu('load')] # сделать загрузку свою
+            #action [Hide("sch_menu"), Jump("sch_savescreen")]
 
     vbox:        #Новая_Игра
         textbutton ("•Новая_Игра"):
@@ -99,7 +100,7 @@ screen sch_menu:
         auto menu_sch("ButtonExit_%s.png")
         xpos 0
         ypos 1008
-        action [Hide("sch_menu"), Jump("original_mm")]
+        action [Hide("sch_menu", transition=Dissolve(0.35)), Jump("original_mm")]
 
 
 screen sch_settings_menu:
@@ -116,8 +117,8 @@ screen sch_settings_menu:
                 background None
                 text_style "sch_keys_white"
                 style "sch_keys_white"
-                unhovered[ShowTransient('sch_settings_back', transition=Dissolve(0.1)), Hide("sch_placeholder_desc", transition=Dissolve(0.1))]
-                hovered[ShowTransient('sch_placeholder_desc', transition=Dissolve(0.1)), Hide('sch_settings_back', transition=Dissolve(0.1))]
+                unhovered[ShowTransient('sch_settings_back', transition=Dissolve(0.1)), Hide("sch_placeholder_desc")]
+                hovered[ShowTransient('sch_placeholder_desc', transition=Dissolve(0.1)), Hide('sch_settings_back')]
                 action [Hide("sch_menu"), SetField(persistent, 'undone_jumper', False)]
         else:
             textbutton ("•Заглушки - OFF"):
@@ -126,8 +127,8 @@ screen sch_settings_menu:
                 background None
                 text_style "sch_keys_white"
                 style "sch_keys_white"
-                unhovered[ShowTransient('sch_settings_back', transition=Dissolve(0.1)), Hide("sch_placeholder_desc", transition=Dissolve(0.1))]
-                hovered[ShowTransient('sch_placeholder_desc', transition=Dissolve(0.1)), Hide('sch_settings_back', transition=Dissolve(0.1))]
+                unhovered[ShowTransient('sch_settings_back', transition=Dissolve(0.1)), Hide("sch_placeholder_desc")]
+                hovered[ShowTransient('sch_placeholder_desc', transition=Dissolve(0.1)), Hide('sch_settings_back')]
                 action [Hide("sch_menu"), SetField(persistent, 'undone_jumper', True)]
 
         showif persistent.sch_difficulty: # Сложность
@@ -137,8 +138,8 @@ screen sch_settings_menu:
                 background None
                 text_style "sch_keys_white"
                 style "sch_keys_white"
-                unhovered[ShowTransient('sch_settings_back', transition=Dissolve(0.1)), Hide("sch_difficulty_desc", transition=Dissolve(0.1))]
-                hovered[ShowTransient('sch_difficulty_desc', transition=Dissolve(0.1)), Hide('sch_settings_back', transition=Dissolve(0.1))]
+                unhovered[ShowTransient('sch_settings_back', transition=Dissolve(0.1)), Hide("sch_difficulty_desc")]
+                hovered[ShowTransient('sch_difficulty_desc', transition=Dissolve(0.1)), Hide('sch_settings_back')]
                 action [Hide("sch_menu"), SetField(persistent, 'sch_difficulty', False)]
         showif persistent.sch_difficulty == False:
             textbutton ("•Сложность по умолчанию - Обычная"):
@@ -147,8 +148,8 @@ screen sch_settings_menu:
                 background None
                 text_style "sch_keys_white"
                 style "sch_keys_white"
-                unhovered[ShowTransient('sch_settings_back', transition=Dissolve(0.1)), Hide("sch_difficulty_desc", transition=Dissolve(0.1))]
-                hovered[ShowTransient('sch_difficulty_desc', transition=Dissolve(0.1)), Hide('sch_settings_back', transition=Dissolve(0.1))]
+                unhovered[ShowTransient('sch_settings_back', transition=Dissolve(0.1)), Hide("sch_difficulty_desc")]
+                hovered[ShowTransient('sch_difficulty_desc', transition=Dissolve(0.1)), Hide('sch_settings_back')]
                 action [Hide("sch_menu"), SetField(persistent, 'sch_difficulty', None)]
         showif persistent.sch_difficulty == None:
             textbutton ("•Сложность по умолчанию - не установлено"):
@@ -157,8 +158,8 @@ screen sch_settings_menu:
                 background None
                 text_style "sch_keys_white"
                 style "sch_keys_white"
-                unhovered[ShowTransient('sch_settings_back', transition=Dissolve(0.1)), Hide("sch_difficulty_desc", transition=Dissolve(0.1))]
-                hovered[ShowTransient('sch_difficulty_desc', transition=Dissolve(0.1)), Hide('sch_settings_back', transition=Dissolve(0.1))]
+                unhovered[ShowTransient('sch_settings_back', transition=Dissolve(0.1)), Hide("sch_difficulty_desc")]
+                hovered[ShowTransient('sch_difficulty_desc', transition=Dissolve(0.1)), Hide('sch_settings_back')]
                 action [Hide("sch_menu"), SetField(persistent, 'sch_difficulty', True)]
 
         showif persistent.sch_widget: # Виджет ОП
@@ -168,8 +169,8 @@ screen sch_settings_menu:
                 background None
                 text_style "sch_keys_white"
                 style "sch_keys_white"
-                unhovered[ShowTransient('sch_settings_back', transition=Dissolve(0.1)), Hide("sch_widget_desc", transition=Dissolve(0.1))]
-                hovered[ShowTransient('sch_widget_desc', transition=Dissolve(0.1)), Hide('sch_settings_back', transition=Dissolve(0.1))]
+                unhovered[ShowTransient('sch_settings_back', transition=Dissolve(0.1)), Hide("sch_widget_desc")]
+                hovered[ShowTransient('sch_widget_desc', transition=Dissolve(0.1)), Hide('sch_settings_back')]
                 action [Hide("sch_menu"), SetField(persistent, 'sch_widget', False)]
         else:
             textbutton("•Виджет ОП - OFF"):
@@ -178,19 +179,19 @@ screen sch_settings_menu:
                 background None
                 text_style "sch_keys_white"
                 style "sch_keys_white"
-                unhovered[ShowTransient('sch_settings_back', transition=Dissolve(0.1)), Hide("sch_widget_desc", transition=Dissolve(0.1))]
-                hovered[ShowTransient('sch_widget_desc'), Hide('sch_settings_back', transition=Dissolve(0.1))]
+                unhovered[ShowTransient('sch_settings_back', transition=Dissolve(0.1)), Hide("sch_widget_desc")]
+                hovered[ShowTransient('sch_widget_desc'), Hide('sch_settings_back')]
                 action [Hide("sch_menu"), SetField(persistent, 'sch_widget', True)]
 
-        textbutton("•Перейти в настройки игры"):
-            xpos 880
-            ypos 582
-            background None
-            text_style "sch_keys_white"
-            style "sch_keys_white"
-            unhovered[ShowTransient('sch_settings_back', transition=Dissolve(0.1)), Hide('sch_es_settings_desc', transition=Dissolve(0.1))]
-            hovered[ShowTransient('sch_es_settings_desc'), Hide('sch_settings_back', transition=Dissolve(0.1))]
-            action [ShowMenu('preferences')]
+        #textbutton("•Перейти в настройки игры"):
+        #    xpos 880
+        #    ypos 582
+        #    background None
+        #    text_style "sch_keys_white"
+        #    style "sch_keys_white"
+        #    unhovered[ShowTransient('sch_settings_back', transition=Dissolve(0.1)), Hide('sch_es_settings_desc')]
+        #    hovered[ShowTransient('sch_es_settings_desc'), Hide('sch_settings_back')]
+        #    action [ShowMenu('preferences')]
 
 screen sch_settings_back:
             textbutton("/Назад/"):
@@ -200,30 +201,35 @@ screen sch_settings_back:
                 style "sch_keys_white"
                 action [Hide("sch_menu"), Jump("sch_settings_out")]
 
+label sch_achievements:
+    "Undone."
+    call screen sch_menu
+    return
+
 
 
 
 
 screen sch_placeholder_desc:
-    textbutton("Данная опция позволяет включить заглушки,\nКоторые препятствуют переходу на незаконченный рут."):
+    textbutton("Данная опция позволяет включить заглушки,\nкоторые препятствуют переходу\nна незаконченный рут."):
         style 'sch_desc'
-        pos(300, 362)
+        pos(250, 500)
         unhovered[Hide('sch_placeholder_desc', transition=Dissolve(0.1))]
 
 screen sch_difficulty_desc:
-    textbutton("Данная опция позволяет сменить сложность при выборе по умолчанию.\nНормальная сложность - рекомендуется.\nHardmode - сложный режим, меньше ОП, суровее условия.\nНе установлено - выбор при начале игры.\nПо умолчанию - не установлено."):
+    textbutton("Данная опция позволяет сменить сложность\nпри выборе по умолчанию.\nНормальная сложность - рекомендуется.\nHardmode - меньше ОП, сложнее выйти на рут."):
         style 'sch_desc'
-        pos(300, 362)
+        pos(250, 480)
         unhovered[Hide('sch_difficulty_desc', transition=Dissolve(0.1))]
 
 screen sch_widget_desc:
-    textbutton("Данная опция позволяет включить заглушки,\nКоторые препятствуют переходу на незаконченный рут."):
+    textbutton("Данная опция позволяет включить заглушки,\nКоторые препятствуют переходу \nна незаконченный рут."):
         style 'sch_desc'
-        pos(300, 362)
+        pos(250, 500)
         unhovered[Hide('sch_widget_desc', transition=Dissolve(0.1))]
 
 screen sch_es_settings_desc:
     textbutton("По нажатию этой кнопки\nВы можете перейти в настройки игры,\nЧтобы изменить различные настройки."):
         style 'sch_desc'
-        pos(300, 362)
+        pos(250, 500)
         unhovered[Hide('sch_es_settings_desc', transition=Dissolve(0.1))]

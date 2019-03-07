@@ -129,6 +129,8 @@ label sichium_start: # Меню
 
 label sch_settings_in: # Переход в настройки
     $ renpy.block_rollback()
+    hide screen sch_settings_back
+    hide screen sch_menu
 
 
     scene white
@@ -187,19 +189,21 @@ label sch_settings_in: # Переход в настройки
         show sch_difficulty_undefined:
             pos(903, 436)
 
-    show sch_es_settings:
-        pos(903, 644)
+    #show sch_es_settings:
+    #    pos(903, 644)
 
     with Dissolve(0.25)
 
-    show screen sch_settings_menu
-
     show screen sch_settings_back
+    call screen sch_settings_menu
+
 
 
 
 
 label sch_settings_out:
+    hide screen sch_settings_back
+    hide screen sch_menu
     $ renpy.block_rollback()
 
     scene gray
