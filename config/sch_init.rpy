@@ -1,6 +1,6 @@
 init -1: # Version data
-    $ sch_version = "6.6.9"
-    $ sch_state = "pre-alpha"
+    $ sch_version = "6.6.9d"
+    $ sch_state = "Demo"
     $ sch_codename = "arctic apricot"
 
 init: # Объявляем мод
@@ -78,20 +78,22 @@ init 3:
 
 init -998:
     #BG
-    image bg bus_stop_summer = image_sch("bg/bus_stop_summer.jpg")
+    image bg boss_office_sch = image_sch('bg/boss_office_sch.jpg')
+    #image bg bus_stop_summer_sch = image_sch("bg/bus_stop_summer.jpg")
     image bg sch_city = im.Scale(image_sch('bg/city.jpg'), 1920, 1080)
-    image bg int_bar = im.Scale(image_sch('bg/int_bar.jpg'), 1920, 1080)
-    image bg ext_bar = image_sch('bg/ext_bar.jpg')
+    image bg raincity_sch = image_sch('bg/rainycity.jpg')
+    image bg int_bar_sch = im.Scale(image_sch('bg/int_bar.jpg'), 1920, 1080)
+    image bg ext_bar_sch = image_sch('bg/ext_bar.jpg')
     image bg ext_cityroad_night_sch = image_sch('bg/ext_cityroad_night_sch.png')
     image bg ext_entrance_night_clear_sch = image_sch("bg/ext_entrance_night_clear_sch.png")
     image bg ext_entrance_night_clear_closed_sch = image_sch("bg/ext_entrance_night_clear_closed_sch.png")
-    image bg earth = im.Grayscale(im.Scale(image_sch("bg/earth.png"), 1920, 1080))
+    #image bg earth = im.Grayscale(im.Scale(image_sch("bg/earth.png"), 1920, 1080))
     image bg ext_entrance_night_water_sch = image_sch("bg/ext_enterance_night_water.png")
     image bg underwater = image_sch("bg/underwater.jpg")
     image bg semen_room_night = image_sch("bg/semen_room_night.jpg")
     image bg semen_room_day = image_sch("bg/semen_room_day.png")
     image bg semen_room_sunset = image_sch("bg/semen_room_sunset.png")
-    image bg sky = im.Scale(image_sch("bg/sky.jpg"), 1920, 1080)
+    image bg sky_sch = im.Scale(image_sch("bg/sky.jpg"), 1920, 1080)
     image bg night_sky = im.Scale(image_sch('bg/night_sky.jpg'), 1920, 1080)
     image bg int_warehouse_day_sch = image_sch('bg/int_warehouse_day_sch.png')
     image bg ext_warehouse_day_sch = image_sch("bg/ext_warehouse_day_sch.png")
@@ -99,11 +101,22 @@ init -998:
     image bg ext_warehouse_sunset_sch = image_sch("bg/ext_warehouse_sunset_sch.png")
     image bg ext_warehouse_night_sch = image_sch("bg/ext_warehouse_night_sch.png")
     image bg int_home_lift_sch = image_sch("bg/int_home_lift_sch.png")
-    image bg ext_winterpark = image_sch("bg/ext_winterpark.jpg")
+    #image bg ext_winterpark = image_sch("bg/ext_winterpark.jpg")
     image bg speaker_room = image_sch('bg/speaker_room.jpg')
     image bg ext_square_rain_day_sch = image_sch('bg/ext_square_rain_day_sch.jpg')
     image bg int_hospital_hall_sch = image_sch('bg/int_hospital_hall_sch.jpg')
-    image bg int_hospital_corridor_sch = image_sch('bg/int_hospital_corridor_sch.jpg')
+    image bg int_hospital_corridor_sch = image_sch('bg/int_hospital_corridor_sch.png')
+    image bg ward_sch = image_sch("bg/ward.png")
+
+    image bg citybird = image_sch("bg/citybird.jpg")
+    image bg operation_room_sch = image_sch("bg/operation.jpg")
+    image bg int_institute_sch = image_sch("bg/int_institute_sch.jpg")
+    image bg int_institute_corridor_sch = image_sch("bg/corridor_night.png")
+    image bg plain_sch = image_sch("bg/plain.jpg")
+    image bg int_coupe_day_sch = image_sch("bg/int_coupe_day.png")
+    image bg doctor_cabinet_sch = Placeholder("bg")
+    image bg panorama_room = Placeholder("bg")
+
 
 
     #effects
@@ -145,7 +158,7 @@ init -998:
 
     # Меню
 
-    image sch_begin = Text("•Загрузить", style="sch_keys")
+    image sch_begin = Text("•Продолжить_игру", style="sch_keys")
     image sch_continue = Text("•Новая_Игра", style="sch_keys")
     image sch_settings = Text("•Настройки", style="sch_keys")
     image sch_achievements = Text("•Достижения", style="sch_keys")
@@ -163,8 +176,8 @@ init -998:
     image sch_widget_off = Text("•Виджет ОП - OFF", style="sch_keys_white")
     image sch_widget_on = Text("•Виджет ОП - ON", style="sch_keys_white")
 
-    image sch_difficulty_Hard = Text("•Сложность по умолчанию - Hard", style="sch_keys_white")
-    image sch_difficulty_Normal = Text("•Сложность по умолчанию - Обычная", style="sch_keys_white")
+    image sch_difficulty_hard = Text("•Сложность по умолчанию - Hard", style="sch_keys_white")
+    image sch_difficulty_normal = Text("•Сложность по умолчанию - Обычная", style="sch_keys_white")
     image sch_difficulty_undefined = Text("•Сложность по умолчанию - не установлена", style="sch_keys_white")
 
     image sch_es_settings = Text("•Перейти в настройки игры", style="sch_keys_white")
@@ -200,6 +213,7 @@ init -998:
     #Ambience
     $ dream = ambience_sch("ambience_safe.ogg")
     $ ambience_elevator = ambience_sch("ambience_elevator")
+    $ citynoise = ambience_sch("ambience_citynoise.ogg")
 
     #SFX
     $ bang = sfx_sch('bang.ogg')
@@ -209,6 +223,8 @@ init -998:
     $ watersplash = sfx_sch("watersplash.ogg")
     $ whisper = sfx_sch('whisper.ogg')
     $ click = sfx_sch('click.ogg')
+    $ get_shot = sfx_sch("getshot.ogg")
+    $ car_stop = sfx_sch("car_stop.ogg")
 
     #Шрифт
     $ dr_font = fonts_sch("LemonTuesday.otf")
@@ -442,79 +458,11 @@ init 10 python: # главы #TODO к херам
 init python:
     def sch_widget_OP():
         if u"Заслуженная Реальность" or "Заслуженная | Реальность" in save_name and persistent.sch_widget:
-            renpy.show_screen('sch_widget_pile')
+            renpy.show_screen('sch_fuchsia_widget')
         else:
-            renpy.hide_screen('sch_widget_pile')
+            renpy.hide_screen('sch_fuchsia_widget')
         config.overlay_functions.append(sch_widget_OP) #добавление виджета
 
-# Покоится на японской горе К Ху Ям
-init python early: #TODO переписать
-    def CycleCounter():
-        def editoverlay():
-            ui.button(clicked=None, xpos=0.1, xanchor=0.0, ypos=2, xpadding=6, xminimum=120)
-            if pt_wi >= 90:
-                if pt_wi < 150:
-                    ui.text("%s: %d" % ("Воля", pt_wi), style="button_text", size=14, color="#007f00")
-                else:
-                    ui.text("%s: %d" % ("Воля", pt_wi), style="button_text", size=15, color="#009900")
-            else:
-                ui.text("%s: %d" % ("Воля", pt_wi), style="button_text", size=13)
-
-            ui.button(clicked=None, xpos=0.005, xanchor=0.0, ypos=2, xpadding=6, xminimum=120)
-            if pt_pi >= 70:
-                if pt_pi < 150:
-                    ui.text("%s: %d" % ("Очки Пионера", pt_wi), style="button_text", size=14, color="#007f00")
-                else:
-                    ui.text("%s: %d" % ("Очки Пионера", pt_wi), style="button_text", size=15, color="#009900")
-            else:
-                ui.text("%s: %d" % ("Очки Пионера", pt_wi), style="button_text", size=13)
-
-            ui.button(clicked=None, xpos=1.0, xanchor=1.0, ypos=2, xpadding=6, xminimum=120)
-            if pt_us >= 7:
-                if pt_us< 16:
-                    ui.text("%s: %d" % ("Ульяна", pt_mi), style="button_text", size=14, color="#e50000")
-                else:
-                    ui.text("%s: %d" % ("Ульяна", pt_mi), style="button_text", size=15, color="#990000")
-            else:
-                ui.text("%s: %d" % ("Ульяна", pt_mi), style="button_text", size=13)
-
-            ui.button(clicked=None, xpos=0.93, xanchor=1.0, ypos=2, xpadding=6, xminimum=120)
-            if pt_mi >= 9:
-                if pt_mi < 20:
-                    ui.text("%s: %d" % ("Мику", pt_mi), style="button_text", size=14, color="#00bbbb")
-                else:
-                    ui.text("%s: %d" % ("Мику", pt_mi), style="button_text", size=15, color="#00ffff")
-            else:
-                ui.text("%s: %d" % ("Мику", pt_mi), style="button_text", size=13)
-
-            ui.button(clicked=None, xpos=0.86, xanchor=1.0, ypos=2, xpadding=6, xminimum=120)
-            if pt_dv >=11:
-                if pt_dv < 18:
-                    ui.text("%s: %d" % ("Алиса", pt_dv), style="button_text", size=14, color="#bb8800")
-                else:
-                    ui.text("%s: %d" % ("Алиса", pt_dv), style="button_text", size=15, color="#ffaa00")
-            else:
-                ui.text("%s: %d" % ("Алиса", pt_dv), style="button_text", size=13)
-
-            ui.button(clicked=None, xpos=0.79, xanchor=1.0, ypos=2, xpadding=6, xminimum=120)
-            if pt_sl >= 14:
-                if pt_sl < 20:
-                    ui.text("%s: %d" % ("Славя", pt_sl), style="button_text", size=14, color="#bbb200")
-                else:
-                    ui.text("%s: %d" % ("Славя", pt_sl), style="button_text", size=15, color="#ffaa00")
-            else:
-                ui.text("%s: %d" % ("Славя", pt_sl), style="button_text", size=13)
-
-            ui.button(clicked=None, xpos=0.72, xanchor=1.0, ypos=2, xpadding=6, xminimum=120) #Я выпиливаюсь
-            if pt_un >= 12:
-                if pt_un < 20:
-                    ui.text("%s: %d" % ("Лена", pt_un), style="button_text", size=14, color="#9a6eb8")
-                else:
-                    ui.text("%s: %d" % ("Лена", pt_un), style="button_text", size=15, color="#a849e9")
-            else:
-                ui.text("%s: %d" % ("Лена", pt_un), style="button_text", size=13)
-
-        config.overlay_functions.append(editoverlay)
 
 
 init python:

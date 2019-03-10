@@ -1,6 +1,6 @@
 
 # виджет ЛП и музыки
-screen sch_fuchsia_widget:
+screen sch_fuchsia_widget: # = bac_widgetLeaf
     modal False
     imagemap:
         ground 'bg_empty'
@@ -10,7 +10,7 @@ screen sch_fuchsia_widget:
             hotspot (0, 0, 1920, 50) hovered [SetVariable("sch_WidgetVisible", True), Show("sch_widget_screen", transition=dspr)] action NullAction
 
 
-screen sch_widget_screen:
+screen sch_widget_screen: # = bac_widgetScreen
     modal False
     imagebutton:
         idle sch_path + "source/images/gui/widget_case.png"
@@ -27,21 +27,21 @@ screen sch_widget_screen:
     add gui_sch('icons/will_widget.png') xalign 0.785 ypos 10
     add gui_sch('icons/pioneer_widget.png') xalign 0.897 ypos 10
 
-    $ list_sch_screenPos = [26, 242, 458, 674, 890] # 5 позиций
-    $ sch_known = len(list_sch_ch_known) # Надо для скрина
-    $ k = 0
-    for i in range(len(list_sch_ch_known)):
-        if not ((list_sch_ch_known[i] == 'mt') or list_sch_ch_known[i] == 'cs'):
-            add gui_sch('icons/[list_sch_ch_known[i]]_widget.png')
-            text '[list_sch_screenPos[i]]':
-                xalign list_sch_screenPos[k]
-                ypos 20
-                size 36
-                color '000000'
-                font font_sch('csn.ttf')
-            $ k +=1
-        else:
-            pass
+    #$ list_sch_screenPos = [26, 242, 458, 674, 890] # 5 позиций
+    #$ sch_known = len(list_sch_ch_known) # Надо для скрина
+    #$ k = 0
+    #for i in range(len(list_sch_ch_known)):
+    #    if not ((list_sch_ch_known[i] == 'mt') or list_sch_ch_known[i] == 'cs'):
+    #        add gui_sch('icons/[list_sch_ch_known[i]]_widget.png')
+    #        text '[list_sch_screenPos[i]]':
+    #            xalign list_sch_screenPos[k]
+    #            ypos 20
+    #            size 36
+    #            color '000000'
+    #            font font_sch('csn.ttf')
+    #        $ k +=1
+    #    else:
+    #        pass
 
 
 
@@ -59,7 +59,7 @@ screen sch_menu:
 
     # потенциально сделать провекру на хардмод
     vbox:   #Открыть экран сейвов
-        textbutton ("•Загрузить"):
+        textbutton ("•Продолжить_игру"):
             xpos 363
             ypos 382
             background None
@@ -84,7 +84,7 @@ screen sch_menu:
             background None
             text_style "sch_keys"
             style "sch_keys"
-            action [Hide("sch_menu"), Jump("sch_settings_in")]
+            action [Hide("sch_menu"), Show("sch_settings_menu", transition=Dissolve(0.5))]
 
     vbox:        #Ачивки
         textbutton ("•Достижения"):
@@ -100,7 +100,7 @@ screen sch_menu:
         auto menu_sch("ButtonExit_%s.png")
         xpos 0
         ypos 1008
-        action [Hide("sch_menu", transition=Dissolve(0.35)), Jump("original_mm")]
+        action MainMenu()
 
 
 screen sch_settings_menu:
@@ -108,6 +108,11 @@ screen sch_settings_menu:
     modal True
     add '#171717'
     add 'whitesquare' xalign 0.5 yalign 0.5 xzoom 0.12 yzoom 3.62 xanchor 111
+
+    mousearea:
+        area(0, 0, 1920, 1080)
+        hovered[ShowTransient('sch_settings_back', transition=Dissolve(0.1))]
+        unhovered[Hide('sch_settings_back')]
 
     vbox:
         showif persistent.undone_jumper: #Заглушки
@@ -195,11 +200,11 @@ screen sch_settings_menu:
 
 screen sch_settings_back:
             textbutton("/Назад/"):
-                xpos 400
-                ypos 529
+                xpos 500
+                ypos 500
                 text_style "sch_keys_white"
                 style "sch_keys_white"
-                action [Hide("sch_menu"), Jump("sch_settings_out")]
+                action [Show("sch_menu", transition=Dissolve(0.55)), Hide("sch_settings", transition=Dissolve(0.25)), Hide("sch_settings_back", transition=Dissolve(0.25))]
 
 label sch_achievements:
     "Undone."

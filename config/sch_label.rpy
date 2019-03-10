@@ -103,7 +103,6 @@ label sichium_start: # Меню
         easein 0.5 yzoom 3.62
         linear 0.5 xanchor 111
     pause(2)
-    play sound whiteflash
     pause(2.35)
     show white2:
         xpos 861
@@ -127,117 +126,6 @@ label sichium_start: # Меню
 
     call screen sch_menu
 
-label sch_settings_in: # Переход в настройки
-    $ renpy.block_rollback()
-    hide screen sch_settings_back
-    hide screen sch_menu
-
-
-    scene white
-    show blacksquare:
-        xalign 0.5 yalign 0.5
-        xanchor 111 xzoom 0.12 yzoom 3.62
-    show sch_begin:
-        pos(363, 382)
-    show sch_continue:
-        pos(363, 462)
-    show sch_settings_pressed:
-        pos(363, 542)
-    show sch_achievements:
-        pos(363, 622)
-    show exit_idle:
-        pos(0, 1008)
-
-
-
-    with Dissolve(0.001)
-
-    scene gray
-
-    show whitesquare:
-        xalign 0.5 yalign 0.5
-        xanchor 111 xzoom 0.12 yzoom 3.62
-
-    with Dissolve(0.25)
-
-    pause(0.25)
-
-    show sch_back_white:
-        pos(400, 519)
-
-    if persistent.undone_jumper:
-        show sch_placeholder_on:
-            pos(903, 382)
-    else:
-        show sch_placeholder_off:
-            pos(903, 382)
-
-    if persistent.sch_widget:
-        show sch_widget_on:
-            pos(903, 442)
-    else:
-        show sch_widget_off:
-            pos(903, 442)
-
-    if persistent.sch_difficulty == True:
-        show sch_difficulty_Hard:
-            pos(903, 436)
-    elif persistent.sch_difficulty == False:
-        show sch_difficulty_normal:
-            pos(903, 436)
-    elif persistent.sch_difficulty == None:
-        show sch_difficulty_undefined:
-            pos(903, 436)
-
-    #show sch_es_settings:
-    #    pos(903, 644)
-
-    with Dissolve(0.25)
-
-    show screen sch_settings_back
-    call screen sch_settings_menu
-
-
-
-
-
-label sch_settings_out:
-    hide screen sch_settings_back
-    hide screen sch_menu
-    $ renpy.block_rollback()
-
-    scene gray
-
-    show whitesquare:
-       xalign 0.5 yalign 0.5
-       xanchor 111 xzoom 0.12 yzoom 3.62
-
-    pause(0.25)
-
-    scene white
-    show blacksquare:
-        xalign 0.5 yalign 0.5 xzoom 0.12 yzoom 3.62 xanchor 111
-
-    show sch_begin:
-        pos(363, 382)
-    show sch_continue:
-        pos(363, 462)
-    show sch_settings:
-        pos(363, 542)
-    show sch_achievements:
-        pos(363, 622)
-
-    with Dissolve(0.25)
-    pause(0.25)
-
-    show exit_idle:
-        pos (-72, 1008)
-        linear 0.25 pos(0, 1008)
-
-    pause(0.25)
-
-
-    call screen sch_menu
 
 label sch_newgame:
     $ renpy.block_rollback()
@@ -265,18 +153,22 @@ label sch_newgame:
         pos(0, 1008)
         linear 0.75 xpos -72
 
-    pause(1.0)
-
+    pause(1.5)
 
     show blacksquare:
-        xalign 0.5 yalign 0.5 xanchor 111 xzoom 0.12 yzoom 3.62
+        pause .1
+        xalign 0.5 yalign 0.5 xzoom 0.12 yzoom 3.62
         easein 0.75 yzoom 1.0
         linear 0.75 xzoom 1.0
         xalign 0.5 yalign 0.5
+        pause .5
         easein 1.0 zoom 20.0
 
+    with flash
 
-    pause(2.75)
+
+
+    $ renpy.pause(5, hard=True)
 
     jump sch_game_start
 
