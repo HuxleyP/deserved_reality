@@ -771,6 +771,7 @@ label sch_day0_prehistory_part_1:
             "И я только что потратил последнее, оставленное на чёрный день."
             menu:
                 "Кинуть вазой в охранника":
+                    $ sch_violent = True
                     ivan "Встретимся в Лимбе."
                     if sch_true:
                         $ true_prologue = True
@@ -854,7 +855,8 @@ label sch_day0_prehistory_part_1:
                         ivan "Я знаю. И ладно. Уже не так страшно."
                         uv "А теперь, послушай…"
                 "Разбить окно":
-                    $ sch_escapist = True
+                    if not sch_violent:
+                        $ sch_escapist = True
                     $ pt_ka +=20
                     iv "Надеюсь, оно того стоит."
                     ivan "Лимб."

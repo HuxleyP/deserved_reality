@@ -14,10 +14,7 @@ label sch_day1_cr:
     if not ('sl' in list_sch_day1_together):
         call sch_day1_un
 
-    if not (('sl' in list_sch_day1_together) or ('un' in list_sch_day1_together) or ('un' in list_sch_ch_known)):
-        call sch_day1_mi
-
-    if ('un' in list_sch_ch_known and (not 'un' in list_sch_day1_together)) or not ('mi' in list_sch_day1_together):
+    if ('un' in list_sch_ch_known and not ('un' in list_sch_day1_together): # знаком с Леной, но ушёл
         call sch_day1_dv
 
 
