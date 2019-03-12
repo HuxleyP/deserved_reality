@@ -52,11 +52,11 @@ label sch_day2_vars:
 
     $ list_sch_day2_walk = []
     #блокировка
-    $ sch_day2_walk_accepted = False
     $ sch_day2_od_photo = False
     $ sch_day2_od_failed = False
     $ sch_day2_forest = False
-
+    $ sch_day2_sl_keys_given = True
+    $ sch_day2_dv_rightanswers = 0
 
     return
 # День 3

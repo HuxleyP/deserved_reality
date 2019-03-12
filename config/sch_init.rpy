@@ -1,5 +1,5 @@
 init -1: # Version data
-    $ sch_version = "6.6.12"
+    $ sch_version = "6.6.13"
     $ sch_state = "alpha"
     $ sch_codename = "arctic apricot"
 
