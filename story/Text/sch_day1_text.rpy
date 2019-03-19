@@ -1743,9 +1743,15 @@ label sch_day1_od_help:
     elif sch_day1_help == 'un':
         $ list_sch_day2_walk.append('un_p')
         # ветка Лены
+<<<<<<< HEAD
 
     return
 
+=======
+
+    return
+
+>>>>>>> 30e02103df385fb0e9348dbc33dccd491f35af42
 label sch_day1_pre_supper:
     if sch_day1_help == 'sl':
         pass
