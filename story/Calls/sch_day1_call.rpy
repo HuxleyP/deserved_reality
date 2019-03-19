@@ -25,12 +25,17 @@ label sch_day1_cr:
 
     call sch_day1_od
 
+    pause(1)
+
+    call sch_day1_helper
+
+    pause(1)
 
     # Ужин!
-
-
     $ sunset_time()
     $ persistent.sprite_time = 'sunset'
+
+    call sch_day1_pre_supper
 
     call sch_day1_supper
 

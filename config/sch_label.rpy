@@ -15,13 +15,26 @@ label sichium:
 
     jump sichium_start
 
+# ------------------------------------------------------
+# Переменные
+
+
+label sch_commonvars:
+    # получаемые в прологе
+    $ sch_violent = False # злой
+    $ sch_escapist = False # добрый
+    # получаемые в первом
+    $ list_sch_noir_flag = [] # флаги Нуара, показывают успех рута
+    $ sch_noir_flag = 0 # флаги Нуара численно, показывают выход на рут
+    $ list_sch_ch_known = [] # Знакомые персонажи
+    $ sch_sl_keys = False
+    # получаемые во втором
+    $ sch_sabotage = 0 # 0 -не знает, 1, 2... - этапы, -1 - отказ в начале -2 - отказ при подтверждении, -3 - отказ в середине, -4 - отказ в конце, -6 - переманил Алису на мирную сторону,
+
 
 # Пролог
 
 label sch_day0_vars:
-
-    $ sch_violent = False # злой
-    $ sch_escapist = False # добрый
     $ deathflag = False # Смерть, невыход в игру
     $ true_prologue = False
 
@@ -31,17 +44,14 @@ label sch_day0_vars:
 
 label sch_day1_vars:
 
-    $ list_sch_noir_flag = [] # флаги Нуара
-    $ list_sch_ch_known = [] # Знакомые персонажи
     $ list_sch_day1_together = [] # С кем пошёл к ОД
-    $ list_sch_day1_help = []
-    $ list_sch_day1_supper = []
-
-    $ sch_sabotage = 0 # 0 -не знает, 1, 2... - этапы, -1 - отказ в начале -2 - отказ при подтверждении, -3 - отказ в середине, -4 - отказ в конце, -6 - переманил Алису на мирную сторону,
-    $ sch_day1_hungry = False
-    $ sch_sl_keys = False
-    $ sch_day1_ev_mi = False
-    $ sch_noir_flag = 0
+    $ sch_day1_help = '' # помогал в послевожатье
+    $ list_sch_day1_supper = 'us' # с кем сел, по дефолту Уля
+    $ sch_day1_el_fingal = False # остановлена ли Алиса около столовой
+    $ sch_day1_clothes = False # получил ли форму
+    $ sch_day1_helper = True # вызвался ли помочь, false - заставили
+    $ sch_day1_hungry = False # налажал ли
+    $ sch_day1_ev_mi = False # позвала ли Мику на пристань
 
 
     return
@@ -68,10 +78,11 @@ label sch_day3_vars:
     return
 
 label sch_allvars:
-    call sch_day0_vars
-    call sch_day1_vars
-    call sch_day2_vars
-    call sch_day3_vars
+    call sch_commonvars # общие
+    call sch_day0_vars # онли пролог
+    call sch_day1_vars # онли первый день
+    call sch_day2_vars # онли второй день
+    call sch_day3_vars # онли третий день
     return
 
 
