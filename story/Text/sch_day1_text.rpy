@@ -1753,8 +1753,55 @@ label sch_day1_od:
                 ivan "Да, Ольга Дмитриевна."
 
 
+<<<<<<< HEAD
 
     if ('dv_sl' in list_sch_day1_together): # если в форме
+=======
+label sch_day1_od_help:
+    if sch_day1_help == 'mi':
+        pass
+        # ветка Мику
+    elif not sch_clothes or sch_day1_help == 'sl':
+        # ветка Слави
+        if not sch_clothes:
+            # идём на склад
+            $ sch_clothes = True
+        # знаешь, где столовая?
+        menu:
+            "Да":
+                $ sch_day1_od_help = 'alone' # теперь переменная отвечает за то, с кем мы дошли до столовой
+            "Нет":
+                pass
+                # всё норм, переменная не меняется и остаётся 'sl'
+    elif sch_day1_help == 'un':
+        $ list_sch_day2_walk.append('un_p')
+        # ветка Лены
+<<<<<<< HEAD
+
+    return
+
+=======
+
+    return
+
+>>>>>>> 30e02103df385fb0e9348dbc33dccd491f35af42
+label sch_day1_pre_supper:
+    if sch_day1_help == 'sl':
+        pass
+        # идём со Славей, она стопорит Алису
+    elif sch_day1_help == 'un':
+        # идём с Леной
+        menu:
+            "Побежать":
+                $ pt_un -=1
+                # Алиса не кусается, calm down
+            "Встать в сторону":
+                $ pt_dv +=1
+                $ pt_ka +=10
+                $ pt_wi +=10
+    else: # пошёл к Мику или Славя оставила одного
+        if pt_wi >=20:
+>>>>>>> 03c986d0781cb71cf9ac1d2bf430a6ab4e65bd48
             menu:
                 "Попрощаться":
                     $ pt_wi +=10
