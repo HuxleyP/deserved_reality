@@ -9,6 +9,9 @@ label sch_day1_cr:
 
     call sch_day1_sl
 
+    if sch_waited == 5:
+        return
+
     pause(1)
 
     if not ('sl' in list_sch_day1_together):

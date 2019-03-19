@@ -1,3 +1,16 @@
+label sch_day1_start_chose:
+    $ sch_waited = 0
+    menu:
+        "Подождать":
+            $ sch_waited +=1
+            with fade
+            if sch_waited <5
+                jump sch_day1_start_chose
+            else:
+                jump sch_day1_badend
+        "Зайти в лагерь":
+            pass
+
 label sch_day1_sl:
     $ persistent.sprite_time = "day"
     $ day_time()
@@ -261,6 +274,8 @@ label sch_day1_sl:
         "Потому я просто развернулся в сторону лагеря."
 
     show bg ext_camp_entrance_day with dissolve
+
+    jump sch_day1_start_chose
 
     show sl sad pioneer with dissolve
 
