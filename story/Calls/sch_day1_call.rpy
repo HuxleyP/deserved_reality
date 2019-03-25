@@ -17,9 +17,6 @@ label sch_day1_cr:
     if not ('sl' in list_sch_day1_together):
         call sch_day1_un
 
-    if ('un' in list_sch_ch_known and not ('un' in list_sch_day1_together)): # знаком с Леной, но ушёл
-        call sch_day1_dv
-
 
     # Вожатая
 

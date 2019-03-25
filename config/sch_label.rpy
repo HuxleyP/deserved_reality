@@ -44,7 +44,7 @@ label sch_day0_vars:
 
 label sch_day1_vars:
 
-    $ list_sch_day1_together = [] # С кем пошёл к ОД
+    $ list_sch_day1_together = [] # С кем пошёл к ОД TODO сделать не списком, а string
     $ sch_day1_help = '' # помогал в послевожатье
     $ list_sch_day1_supper = 'us' # с кем сел, по дефолту Уля
     $ sch_day1_el_fingal = False # остановлена ли Алиса около столовой
@@ -52,6 +52,7 @@ label sch_day1_vars:
     $ sch_day1_helper = True # вызвался ли помочь, false - заставили
     $ sch_day1_hungry = False # налажал ли
     $ sch_day1_ev_mi = False # позвала ли Мику на пристань
+    $ sch_ginger_lie = 0
 
 
     return
