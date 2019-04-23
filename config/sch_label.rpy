@@ -1,7 +1,7 @@
 label sichium:
     $ sch_save_version = sch_version  # создаём имя сохранению при запуске новой игры
 
-    $ init_map_zones_sch() # По заветам 7ДЛ инициализируем карту единожны, чтобы сохранкам не приходил армаггедец
+    #$ init_map_zones_sch() # По заветам 7ДЛ инициализируем карту единожны, чтобы сохранкам не приходил армаггедец
 
     if not "Deserved Reality" in config.version: # закидываем себя в трейс на случай армаггедеца игре
         $ config.version = config.version + " + Deserved Reality \n%s ver %s; \"%s\"" % (sch_state, sch_version, sch_codename)
@@ -44,13 +44,7 @@ label sch_day0_vars:
 
 label sch_day1_vars:
 
-    $ list_sch_day1_together = [] # С кем пошёл к ОД TODO сделать не списком, а string
-    $ sch_day1_help = '' # помогал в послевожатье
-    $ list_sch_day1_supper = 'us' # с кем сел, по дефолту Уля
-    $ sch_day1_el_fingal = False # остановлена ли Алиса около столовой
-    $ sch_day1_clothes = False # получил ли форму
-    $ sch_day1_helper = True # вызвался ли помочь, false - заставили
-    $ sch_day1_hungry = False # налажал ли
+    $ sch_day1_together = '' # С кем пошёл к ОД TODO сделать не списком, а string
     $ sch_day1_ev_mi = False # позвала ли Мику на пристань
     $ sch_ginger_lie = 0
 
@@ -217,17 +211,17 @@ label sch_router:
     jump sch_dv_router
 
 label sch_dv_router:
-    if pt_dv >= 11 and sch_sabotage == 6:
+    if dr_dv >= 11 and sch_sabotage == 6:
         "Вот это выдался день - спасибо Алисе. Надеюсь, завтра будет ещё лучше."
         call sch_dv_vars
         $ routetag_sch = "dv_sab"
         return
-    elif pt_dv >= 11 and sch_sabotage == -6:
+    elif dr_dv >= 11 and sch_sabotage == -6:
         "Слишком много на меня за день, и всё из-за Алисы. Надеюсь, завтра будет лучше."
         call sch_dv_vars
         $ routetag_sch = "dv_peace"
         return
-    elif pt_dv >= 11 and sch_sabotage < 6 and sch_sabotage > -6:
+    elif dr_dv >= 11 and sch_sabotage < 6 and sch_sabotage > -6:
         call sch_dv_vars
         $ routetag_sch = "dv"
         jump sch_day4_dv_cr
@@ -237,7 +231,7 @@ label sch_dv_router:
         jump sch_sl_router
 
 label sch_sl_router:
-    if pt_sl >=11:
+    if dr_sl >=11:
         "Мне снилась одна златовласка, которая сделала моё появление в лагере самым мягким и приятным."
         $ routetag_sch = "sl"
         call sch_sl_vars
@@ -246,7 +240,7 @@ label sch_sl_router:
         jump sch_mi_router
 
 label sch_mi_router:
-    if pt_mi >=11:
+    if dr_mi >=11:
         "Мне снился концертный зал и поющая голограмма, невидимая для меня в свету прожекторов."
         $ routetag_sch = "mi"
         call sch_mi_vars
@@ -255,7 +249,7 @@ label sch_mi_router:
         jump sch_un_router
 
 label sch_un_router:
-    if pt_un >=11:
+    if dr_un >=11:
         "Мне снилось, как какая-то художница что-то рисовала на холсте фиолетовыми красками. Это был... я?"
         $ routetag_sch = "un"
         call sch_un_vars
@@ -264,7 +258,7 @@ label sch_un_router:
         jump sch_us_router
 
 label sch_us_router:
-    if pt_us >=8 and sch_sabotage == 5:
+    if dr_us >=8 and sch_sabotage == 5:
         "Я почти час не мог уснуть из-за зашкаливающего уровня адреналина в крови, а после лишь видел яркие красные искры."
         $ routetag_sch = "us"
         call sch_us_vars

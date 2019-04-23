@@ -1,10 +1,10 @@
 init -1: # Version data
     $ sch_version = "6.6.15"
-    $ sch_state = "alpha"
+    $ sch_state = "not going to be released"
     $ sch_codename = "arctic apricot"
 
 init: # Объявляем мод
-    $ mods["sichium"] = u"{color=#FFFFFF}Заслуженная {color=#999999}|{/color}{color=#999999}Реальность{/color}{/size}"
+    $ mods["sichium"] = u"{color=#FFFFFF}Незаслуженная {color=#999999}|{/color}{color=#999999}Реальность{/color}{/size}"
 
 
 init 2:
@@ -17,19 +17,19 @@ init 2:
 
     $ hide_back = False # Меню - Убрать кнопку Назад при True
 
-    $ pt_iv = 0
-    $ pt_sl = 0
-    $ pt_un = 0
-    $ pt_us = 0
-    $ pt_dv = 0
-    $ pt_mi = 0
-    $ pt_pi = 0 # Поинты пионера, вычисляются в десятках и сотнях, прибавляются за каждый правильный поступок со стороны регламента лагеря (я серьёзно не знаю, как назвать устав), за правильные поступки даются послабления в дальнейшем, а так же ГГ больше доверяют. Поведение проверяет сам вездесущий Генда и его ручная кошкодевочка, которая для генсека will be fine too
-    $ pt_wi = 0 # Поинты воли
-    $ pt_ka = 0 # Поинты кармы
-    $ pt_nr = 0 # Очки Нуара
-    $ pt_overall = max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr) # для удобства
+    $ dr_iv = 0
+    $ dr_sl = 0
+    $ dr_un = 0
+    $ dr_us = 0
+    $ dr_dv = 0
+    $ dr_mi = 0
+    $ dr_pi = 0 # Поинты пионера, вычисляются в десятках и сотнях, прибавляются за каждый правильный поступок со стороны регламента лагеря (я серьёзно не знаю, как назвать устав), за правильные поступки даются послабления в дальнейшем, а так же ГГ больше доверяют. Поведение проверяет сам вездесущий Генда и его ручная кошкодевочка, которая для генсека will be fine too
+    $ dr_wi = 0 # Поинты воли
+    $ dr_ka = 0 # Поинты кармы
+    $ dr_nr = 0 # Очки Нуара
+    $ dr_overall = max(dr_dv, dr_un, dr_us, dr_sl, dr_iv, dr_mi, dr_nr) # для удобства
 
-    $ girls_pt = [pt_sl, pt_un, pt_us, pt_dv, pt_mi]
+    $ girls_pt = [dr_sl, dr_un, dr_us, dr_dv, dr_mi]
 
     $ sch_bound = False # при всех гудах
     $ sch_true = False # При получении ВЫХОДА к  ТруЪ концовке
@@ -63,7 +63,7 @@ init 2:
     if ((persistent.mi_true_sch) and (persistent.dv_true_sch) and (persistent.sl_true_sch) and (persistent.us_true_sch) and (persistent.un_true_sch) and (persistent.iv_true_sch) and (persistent.nr_ussr_true_sch) and (persistent.nr_rf_true_sch)):
         $ sch_true = True
     if (persistent.mi_good_sch or persistent.mi_bad_sch or persistent.mi_reject_sch or persistent.mi_neutral_sch or persistent.mi_true_sch or persistent.mi_transit_good_sch or persistent.mi_transit_bad_sch or persistent.dv_good_sch or persistent.dv_bad_sch or persistent.dv_reject_sch or persistent.dv_neutral_sch or persistent.dv_true_sch or persistent.dv_transit_good_sch or persistent.dv_transit_bad_sch or persistent.sl_good_sch or persistent.sl_bad_sch or persistent.sl_reject_sch or persistent.sl_neutral_sch or persistent.sl_true_sch or persistent.sl_transit_good_sch or persistent.sl_transit_bad_sch or persistent.un_good_sch or persistent.un_bad_sch or persistent.un_reject_sch or persistent.un_neutral_sch or persistent.un_true_sch or persistent.un_transit_good_sch or persistent.un_transit_bad_sch or persistent.us_good_sch or persistent.us_bad_sch or persistent.us_neutral_sch or persistent.us_true_sch or persistent.iv_good_sch or persistent.iv_bad_sch or persistent.iv_transit_good_sch or persistent.iv_transit_bad_sch or persistent.nr_good_sch or persistent.nr_bad_sch or persistent.nr_rf_true_sch or persistent.nr_ussr_true_sch): # Как же долго я искал ошибку...
-        $ persistent.cycled = True
+        $ persistent.cycled = True # а эта куча строк показывает мои огромные амбиции
 
     if sch_true:
         $ persistent.sch_karma_shown = True
@@ -185,30 +185,46 @@ init -998:
 
 
     # А тут Мику-диджей крутит музыку :3
+    # Красочные описания присутствуют
     #Music
 
 
     $ aire = music_sch("aire.ogg")
-    $ cassiopeia = music_sch("cassiopeia.ogg")
-    $ connor = music_sch("connor.ogg")
-    $ distant = music_sch("distant.ogg")
-    $ drowninrain = music_sch("drowninrain.ogg")
-    $ dust = music_sch("dust.ogg")
-    $ faunts = music_sch("faunts.ogg")
-    $ finale = music_sch("finale.ogg")
-    $ followme = music_sch("followme.ogg")
-    $ hallways = music_sch("hallways.ogg")
-    $ honor = music_sch("honor.ogg")
-    $ hope = music_sch("hope.ogg")
-    $ lastdawn = music_sch("lastdawn.ogg")
-    $ markus = music_sch("markus.ogg")
-    $ nightshow = music_sch("nightshow.ogg")
-    $ nullspace = music_sch("nullspace.ogg")
-    $ premonition = music_sch("premonition.ogg")
-    $ prologue = music_sch("prologue.ogg")
-    $ spring = music_sch("spring.ogg")
-    $ static = music_sch("static.ogg")
-    $ sunpatterns = music_sch("sunpatterns.ogg")
+    $ angelalive = music_sch("angelalive.ogg") # Тема Слави
+
+    $ cassiopeia = music_sch("cassiopeia.ogg") # Сон
+    $ connor = music_sch("connor.ogg") # технологичная напряжёнка
+
+    $ distant = music_sch("distant.ogg") # пессимистичная
+    $ drowninrain = music_sch("drowninrain.ogg") # Дождь
+    #$ dust = music_sch("dust.ogg")
+
+    $ faunts = music_sch("faunts.ogg") # стелс
+    $ finale = music_sch("finale.ogg") # финалка
+    $ followme = music_sch("followme.ogg") # ты пойдёшь со мной?
+
+    $ goodday = music_sch("goodday.ogg") # ежедневка 1
+
+    $ hallways = music_sch("hallways.ogg") # напряжённая
+    $ honor = music_sch("honor.ogg") # main menu, ТЫ проиграл
+    $ hope = music_sch("hope.ogg") # из меланхолии в надежду
+
+    $ lastdawn = music_sch("lastdawn.ogg") # грустняк
+    $ lasvegas = music_sch("lasvegas.ogg") # грустняк 2
+
+    $ markus = music_sch("markus.ogg") # всё скатилось, но есть надежда
+
+    $ nightshow = music_sch("nightshow.ogg") # техно
+    $ nullspace = music_sch("nullspace.ogg") # где-то по ту сторону, герой умер?
+
+    $ premonition = music_sch("premonition.ogg") # напряжённая
+    $ prologue = music_sch("prologue.ogg") # мажорная мелодия, оптимистичная
+
+    $ regenerate = music_sch("killedthelord.ogg") # надежда
+
+    $ spring = music_sch("spring.ogg") # надежда, которая как бы всё, но ещё не совсем
+    $ static = music_sch("static.ogg") # непростая ситуация
+
 
     #Ambience
     $ dream = ambience_sch("ambience_safe.ogg")
@@ -341,13 +357,13 @@ init 10 python: # главы #TODO к херам
 
     def sch_newday(sch_dayNo):
         #TODO TODO ЦВЕТА С НУЛЯ, НЕ РАБОТАЕТ
-        global pt_dv #Алиса
-        global pt_un #Лена
-        global pt_us #Ульяна
-        global pt_sl #Славя
-        global pt_iv #ГГ
-        global pt_mi #Мику
-        global pt_nr #Нуар
+        global dr_dv #Алиса
+        global dr_un #Лена
+        global dr_us #Ульяна
+        global dr_sl #Славя
+        global dr_iv #ГГ
+        global dr_mi #Мику
+        global dr_nr #Нуар
         renpy.scene()
         if sch_dayNo >=1 and sch_dayNo <=7:
             renpy.show('day1')
@@ -364,32 +380,32 @@ init 10 python: # главы #TODO к херам
                 renpy.show("Color(hsv=(0, 0, 0.325))")
             elif sch_noir_flag == 3:
                 renpy.show('Color(hsv=(0, 0, 0.1625))')
-            elif (max(pt_dv, pt_un, pt_us, pt_sl, pt_mi)  >= 0) and (sch_dayNo <=3): # до 4 дня, очков тян больше нуля,
-                if (pt_dv or pt_un or pt_us or pt_sl or pt_iv or pt_mi or pt_nr) == max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr): #если равно
-                    pt_overall = max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr)
-                    renpy.show("Color(hsv=(0.9722222, [pt_overall*0.03], 1.0))") #розовый
-                elif (max(pt_dv, pt_un, pt_us, pt_sl, pt_mi) >=8): #  больше восьми, saturation = 100, изменяется brightness
-                    if pt_us == max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr): #Уля
-                        renpy.show("Color(hsv=(0, [0.5+pt_us*0.04], 1.0))")
-                    elif pt_dv == max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr): # Алиса
-                        renpy.show("Color(hsv=(.06666, [pt_dv*0.04], 1.0))")
-                    elif pt_sl == max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr): # Славя
-                        renpy.show("Color(hsv=(.12222, [pt_sl*0.04], 1.0))")
-                    elif pt_mt == max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr): # ОД
-                        renpy.show("Color(hsv=(.33333, [pt_mt*0.04], 1.0))")
-                    elif pt_mi == max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr): # Мику
-                        renpy.show("Color(hsv=(.5, [pt_mi*0.04], 1.0))")
+            elif (max(dr_dv, dr_un, dr_us, dr_sl, dr_mi)  >= 0) and (sch_dayNo <=3): # до 4 дня, очков тян больше нуля,
+                if (dr_dv or dr_un or dr_us or dr_sl or dr_iv or dr_mi or dr_nr) == max(dr_dv, dr_un, dr_us, dr_sl, dr_iv, dr_mi, dr_nr): #если равно
+                    dr_overall = max(dr_dv, dr_un, dr_us, dr_sl, dr_iv, dr_mi, dr_nr)
+                    renpy.show("Color(hsv=(0.9722222, [dr_overall*0.03], 1.0))") #розовый
+                elif (max(dr_dv, dr_un, dr_us, dr_sl, dr_mi) >=8): #  больше восьми, saturation = 100, изменяется brightness
+                    if dr_us == max(dr_dv, dr_un, dr_us, dr_sl, dr_iv, dr_mi, dr_nr): #Уля
+                        renpy.show("Color(hsv=(0, [0.5+dr_us*0.04], 1.0))")
+                    elif dr_dv == max(dr_dv, dr_un, dr_us, dr_sl, dr_iv, dr_mi, dr_nr): # Алиса
+                        renpy.show("Color(hsv=(.06666, [dr_dv*0.04], 1.0))")
+                    elif dr_sl == max(dr_dv, dr_un, dr_us, dr_sl, dr_iv, dr_mi, dr_nr): # Славя
+                        renpy.show("Color(hsv=(.12222, [dr_sl*0.04], 1.0))")
+                    elif dr_mt == max(dr_dv, dr_un, dr_us, dr_sl, dr_iv, dr_mi, dr_nr): # ОД
+                        renpy.show("Color(hsv=(.33333, [dr_mt*0.04], 1.0))")
+                    elif dr_mi == max(dr_dv, dr_un, dr_us, dr_sl, dr_iv, dr_mi, dr_nr): # Мику
+                        renpy.show("Color(hsv=(.5, [dr_mi*0.04], 1.0))")
                 else: # от одного до восьми, brightness = color*0.32, изменяется saturation
-                    if pt_us == max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr): #Уля
-                        renpy.show("Color(hsv=(0, 1.0, [0.5+pt_us*0.04]))")
-                    elif pt_dv == max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr): # Алиса
-                        renpy.show("Color(hsv=(.06666, 1.0, [pt_dv*0.04]))")
-                    elif pt_sl == max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr): # Славя
-                        renpy.show("Color(hsv=(.12222, 1.0, [pt_sl*0.04]))")
-                    elif pt_mt == max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr): # ОД
-                        renpy.show("Color(hsv=(.33333, 1.0, [pt_mt*0.04]))")
-                    elif pt_mi == max(pt_dv, pt_un, pt_us, pt_sl, pt_iv, pt_mi, pt_nr): # Мику
-                        renpy.show("Color(hsv=(.5, 1.0, [pt_mi*0.04]))")
+                    if dr_us == max(dr_dv, dr_un, dr_us, dr_sl, dr_iv, dr_mi, dr_nr): #Уля
+                        renpy.show("Color(hsv=(0, 1.0, [0.5+dr_us*0.04]))")
+                    elif dr_dv == max(dr_dv, dr_un, dr_us, dr_sl, dr_iv, dr_mi, dr_nr): # Алиса
+                        renpy.show("Color(hsv=(.06666, 1.0, [dr_dv*0.04]))")
+                    elif dr_sl == max(dr_dv, dr_un, dr_us, dr_sl, dr_iv, dr_mi, dr_nr): # Славя
+                        renpy.show("Color(hsv=(.12222, 1.0, [dr_sl*0.04]))")
+                    elif dr_mt == max(dr_dv, dr_un, dr_us, dr_sl, dr_iv, dr_mi, dr_nr): # ОД
+                        renpy.show("Color(hsv=(.33333, 1.0, [dr_mt*0.04]))")
+                    elif dr_mi == max(dr_dv, dr_un, dr_us, dr_sl, dr_iv, dr_mi, dr_nr): # Мику
+                        renpy.show("Color(hsv=(.5, 1.0, [dr_mi*0.04]))")
             elif sch_dayNo >=4:
                 pass
                 #TODO по руттегам, без лого ЗР
