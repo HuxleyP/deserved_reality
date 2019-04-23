@@ -1,6 +1,6 @@
 init -1: # Version data
-    $ sch_version = "6.6.15"
-    $ sch_state = "not going to be released"
+    $ sch_version = "7.0"
+    $ sch_state = "alpha rework"
     $ sch_codename = "arctic apricot"
 
 init: # Объявляем мод
