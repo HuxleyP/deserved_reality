@@ -1,10 +1,10 @@
 init -1: # Version data
-    $ sch_version = "7.0"
-    $ sch_state = "alpha rework"
-    $ sch_codename = "arctic apricot"
+    $ sch_version = "7.1"
+    $ sch_state = "Alpha rework"
+    $ sch_codename = "Arctic Apricot"
 
 init: # Объявляем мод
-    $ mods["sichium"] = u"{color=#FFFFFF}Незаслуженная {color=#999999}|{/color}{color=#999999}Реальность{/color}{/size}"
+    $ mods["aaasichium"] = u"Заслуженная {color=#808080}{font=[source_sch]images/fonts/LemonTuesday.otf}|{/font}Реальность{/color}"
 
 
 init 2:
@@ -158,7 +158,7 @@ init -998:
 
     # Меню
 
-    image sch_begin = Text("•Продолжить_игру", style="sch_keys")
+    image sch_begin = Text("•Продолжить_Игру", style="sch_keys")
     image sch_continue = Text("•Новая_Игра", style="sch_keys")
     image sch_settings = Text("•Настройки", style="sch_keys")
     image sch_achievements = Text("•Достижения", style="sch_keys")
@@ -672,33 +672,51 @@ init -1000 python: # Пути
 
 # Стили
 
-init -998:
-    $ style.sch_keys = Style(style.default)
-    $ style.sch_keys.color = "#000000"
-    $ style.sch_keys.hover_color = "#800000"
-    $ style.sch_keys.size = 83
-    $ style.sch_keys.font = csn
+init -998 python:
 
-    $ style.sch_keys_reversed = Style(style.default)
-    $ style.sch_keys_reversed.color = "#800000"
-    $ style.sch_keys_reversed.hover_color = "#000000"
-    $ style.sch_keys_reversed.size = 83
-    $ style.sch_keys_reversed.font = dr_font
+    style.sch_keys_undefined = Style(style.default)
+    style.sch_keys_undefined.font = csn
 
-    $ style.sch_keys_white = Style(style.default) # Объявление
-    $ style.sch_keys_white.color = "#ffffff" # Цвет текста
-    $ style.sch_keys_white.hover_color = "#800000" # Цвет при наведении
-    $ style.sch_keys_white.size = 83 # Размер
-    $ style.sch_keys_white.font = csn
+    # дефолт
+    style.sch_keys = Style(style.sch_keys_undefined)
+    style.sch_keys.color = "#000000"
+    style.sch_keys.hover_color = "#800000"
+    style.sch_keys.size = 83
 
-    $ style.sch_desc = Style(style.default)
-    $ style.sch_desc.color = "#ffffff"
-    $ style.sch_desc.hover_color = "#800000"
-    $ style.sch_desc.font = csn
+    # Реверсивные, другой шрифт
+    style.sch_keys_reversed = Style(style.sch_keys)
+    style.sch_keys_reversed.color = "#800000"
+    style.sch_keys_reversed.hover_color = "#000000"
+    style.sch_keys_reversed.font = dr_font
 
-    $ style.sch_fuchsia = Style(style.default)
-    $ style.sch_fuchsia.font = roboto
-    $ style.sch_fuchsia.size = 36
+    # белые
+    style.sch_keys_white = Style(style.sch_keys) # Объявление
+    style.sch_keys_white.color = "#ffffff" # Цвет текста
+
+    # белые с определённым размером
+    style.sch_desc = Style(style.sch_keys_white)
+    style.sch_desc.size = 80
+
+    style.sch_fuchsia = Style(style.default)
+    style.sch_fuchsia.font = roboto
+    style.sch_fuchsia.size = 36
+
+
+    #style.base_font = Style(style.default)
+    #style.base_font.font  = main_font
+    #style.base_font.size = 28
+    #style.base_font.line_spacing = 2
+
+    #style.settings_link = Style(style.base_font)
+    #style.settings_link.font  = link_font
+    #style.settings_link.size = 60
+    #style.settings_link.kerning = 3
+    #style.settings_link.color = "#909ca3"
+    #style.settings_link.hover_color = "#ffffff"
+    #style.settings_link.selected_color = "#909ca3"
+    #style.settings_link.selected_idle_color = "#909ca3"
+    #style.settings_link.selected_hover_color = "#ffffff"
+    #style.settings_link.insensitive_color = "#909ca3"
 
 init python: # скомунизженно прямиком с сайта доки Ренпая
         import math

@@ -59,7 +59,7 @@ screen sch_menu:
 
     # потенциально сделать провекру на хардмод
     vbox:   #Открыть экран сейвов
-        textbutton ("•Продолжить_игру"):
+        textbutton ("•Продолжить_Игру"): # может, только для бабочки?
             xpos 363
             ypos 382
             background None
@@ -100,6 +100,7 @@ screen sch_menu:
         auto menu_sch("ButtonExit_%s.png")
         xpos 0
         ypos 1008
+        # action [ShowMenu("sch_exit_promt", transition=Dissolve(0.5))] # на случай, если найду лейбл оригинального меню игры
         action MainMenu()
 
 
@@ -211,30 +212,74 @@ label sch_achievements:
     call screen sch_menu
     return
 
-
+screen sch_exit_promt:
+    tag menu
+    modal True
+    add "#ffffff"
+    if (u"Заслуженная Реальность" in save_name and persistent.prologue_done == 1):
+        $ dr_quittext = 'Вы уверены, что хотите\nвернуться в свою реальность?'
+    else:
+        $ dr_quittext  = "Вы действительно\nхотите выйти из мода?"
+    text dr_quittext:
+        style "sch_keys"
+        size 60
+        text_align 0.5
+        xalign 0.5
+        yalign 0.33
+        color "#800000"
+        antialias True
+        kerning 2
+    textbutton "Да":
+        text_size 80
+        style "sch_keys"
+        text_style "sch_keys"
+        xalign 0.35
+        yalign 0.55
+        text_color "#000000"
+        text_hover_color "#800000"
+        action [Hide("sch_menu"), MainMenu()]
+    textbutton "Нет":
+        text_size 80
+        style "sch_keys"
+        text_style "sch_keys"
+        xalign 0.66
+        yalign 0.55
+        text_color "#000000"
+        text_hover_color "#006400"
+        action Return()
+        #action [Hide("sch_exit_promt", transition=Dissolve(0.5)), Jump("sch_menu", transition=Dissolve(0.5)))]
+    #action [Hide("sch_menu"), Jump("original_mm")]
 
 
 
 screen sch_placeholder_desc:
     textbutton("Данная опция позволяет включить заглушки,\nкоторые препятствуют переходу\nна незаконченный рут."):
         style 'sch_desc'
+        text_style "sch_keys_white"
+        text_size 44
         pos(250, 500)
         unhovered[Hide('sch_placeholder_desc', transition=Dissolve(0.1))]
 
 screen sch_difficulty_desc:
     textbutton("Данная опция позволяет сменить сложность\nпри выборе по умолчанию.\nНормальная сложность - рекомендуется.\nHardmode - меньше ОП, сложнее выйти на рут."):
         style 'sch_desc'
+        text_style "sch_keys_white"
+        text_size 44
         pos(250, 480)
         unhovered[Hide('sch_difficulty_desc', transition=Dissolve(0.1))]
 
 screen sch_widget_desc:
-    textbutton("Данная опция позволяет включить заглушки,\nКоторые препятствуют переходу \nна незаконченный рут."):
+    textbutton("Данная опция позволяет включить виджет,\nкоторый показывает очки, получаемые во \nвремя прохождения мода."):
         style 'sch_desc'
+        text_style "sch_keys_white"
+        text_size 44
         pos(250, 500)
         unhovered[Hide('sch_widget_desc', transition=Dissolve(0.1))]
 
 screen sch_es_settings_desc:
     textbutton("По нажатию этой кнопки\nВы можете перейти в настройки игры,\nЧтобы изменить различные настройки."):
         style 'sch_desc'
+        text_style "sch_keys_white"
+        text_size 44
         pos(250, 500)
         unhovered[Hide('sch_es_settings_desc', transition=Dissolve(0.1))]

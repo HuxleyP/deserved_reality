@@ -1,4 +1,4 @@
-label sichium:
+label aaasichium:
     $ sch_save_version = sch_version  # создаём имя сохранению при запуске новой игры
 
     #$ init_map_zones_sch() # По заветам 7ДЛ инициализируем карту единожны, чтобы сохранкам не приходил армаггедец
@@ -6,12 +6,14 @@ label sichium:
     if not "Deserved Reality" in config.version: # закидываем себя в трейс на случай армаггедеца игре
         $ config.version = config.version + " + Deserved Reality \n%s ver %s; \"%s\"" % (sch_state, sch_version, sch_codename)
 
-    # Переименовываем игрушку во имя всех богов
+    # Переименовываем игрушку во имя всех богов, да так, чтобы потом оно тоже оставалось, бугага
+    $ config.window_title = u"Заслуженная | Реальность"
     $ config.developer = True #TODO В релиз попасть не должно
     $ config.debug_text_overflow = True #это тоже
     $ config.conditionswitch_predict_all = True # и это
-    $ config.after_load_callbacks = True
-    $ config.window_title = u"Заслуженная | Реальность"
+
+    # а это важно
+    $ config.after_load_callbacks.append(name_sch)
 
     jump sichium_start
 
@@ -21,13 +23,13 @@ label sichium:
 
 label sch_commonvars:
     # получаемые в прологе
-    $ sch_violent = False # злой
-    $ sch_escapist = False # добрый
+    #------------------------------
     # получаемые в первом
     $ list_sch_noir_flag = [] # флаги Нуара, показывают успех рута
     $ sch_noir_flag = 0 # флаги Нуара численно, показывают выход на рут
     $ list_sch_ch_known = [] # Знакомые персонажи
     $ sch_sl_keys = False
+    #---------------------------------------------
     # получаемые во втором
     $ sch_sabotage = 0 # 0 -не знает, 1, 2... - этапы, -1 - отказ в начале -2 - отказ при подтверждении, -3 - отказ в середине, -4 - отказ в конце, -6 - переманил Алису на мирную сторону,
 
@@ -90,12 +92,12 @@ label sichium_start: # Меню
     $ persistent.sprite_time = "night"
     $ prolog_time()
     $ name_sch("Я")
+    $ volume('sound', 0.5)
 
-    scene white
+    scene black
     $ renpy.movie_cutscene(preroll)
 
     play sound whiteflash
-    play music honor fadein 1
 
     $ save_name = "Заслуженная Реальность. Меню."
 
@@ -103,32 +105,37 @@ label sichium_start: # Меню
     show blacksquare:
         xalign 0.5 yalign 0.5
         zoom 20.0
-        pause 2.0
-        ease 0.75 zoom 1.0
-        linear 0.5 xzoom 0.12
-        easein 0.5 yzoom 3.62
-        linear 0.5 xanchor 111
-    pause(2)
-    pause(2.35)
+        pause 0.5
+        ease 0.5 zoom 1.0
+        linear 0.35 xzoom 0.12
+        easein 0.35 yzoom 3.62
+        linear 0.35 xanchor 111
+    pause(2.1)
     show white2:
         xpos 861
+    play music honor fadein 1
+    play sound whiteflash
     show sch_begin behind white2:
         pos(861, 382)
-        linear 0.5 xanchor 498
+        linear 0.25 xanchor 498
+    pause(0.25)
     show sch_continue behind white2:
         pos(861, 462)
-        linear 0.5 xanchor 498
+        linear 0.25 xanchor 498
+    pause(0.25)
     show sch_settings behind white2:
         pos(861, 542)
-        linear 0.5 xanchor 498
+        linear 0.25 xanchor 498
+    pause(0.25)
     show sch_achievements behind white2:
         pos(861, 622)
-        linear 0.5 xanchor 498
+        linear 0.25 xanchor 498
+    pause(0.25)
     show exit_idle:
         pos (-72, 1008)
-        linear 0.5 pos(0, 1008)
-    play sound whiteflash
-    pause(0.5)
+        linear 0.25 pos(0, 1008)
+    pause(0.25)
+    $ volume('sound', 1.0)
 
     call screen sch_menu
 
