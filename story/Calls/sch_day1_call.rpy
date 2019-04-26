@@ -1,13 +1,13 @@
-label sch_day1_cr:
+label dr_day1_cr:
 
     $ day_time()
     $ persistent.sprite_time = 'day'
-    $ name_sch('Я')
+    $ name_sch(u'Я')
     $ sch_forgeteveryone()
 
     # Старт!
 
-    call sch_day1_sl
+    call dr_day1_intro
 
     if sch_waited >= 5:
         return

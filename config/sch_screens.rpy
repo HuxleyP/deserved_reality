@@ -1,16 +1,16 @@
 
 # виджет ЛП и музыки
-screen sch_fuchsia_widget: # = bac_widgetLeaf
+screen sch_fuchsia_widget:
     modal False
     imagemap:
-        ground 'bg_empty'
-        if not (persistent.sch_widget or save_name == ('"Заслуженная Реальность. Меню."') or sch_hard):
+        ground 'bg_null'
+        if (not (persistent.sch_widget or save_name == ("Заслуженная Реальность. Меню.") or sch_hard)):
             add sch_path + 'source/images/gui/arrow.png' anchor(0.5, 0.0) xalign 0.5 yalign 0.0
             alpha False
             hotspot (0, 0, 1920, 50) hovered [SetVariable("sch_WidgetVisible", True), Show("sch_widget_screen", transition=dspr)] action NullAction
 
 
-screen sch_widget_screen: # = bac_widgetScreen
+screen sch_widget_screen:
     modal False
     imagebutton:
         idle sch_path + "source/images/gui/widget_case.png"
@@ -42,6 +42,68 @@ screen sch_widget_screen: # = bac_widgetScreen
     #        $ k +=1
     #    else:
     #        pass
+
+    add source_sch + 'images/gui/icons/dv_widget.png' xpos 26 ypos 10
+    add source_sch + 'images/gui/icons/us_widget.png' xpos 242 ypos 10
+    add source_sch + 'images/gui/icons/un_widget.png' xpos 458 ypos 10
+    add source_sch + 'images/gui/icons/sl_widget.png' xpos 674 ypos 10
+    add source_sch + 'images/gui/icons/mi_widget.png' xpos 890 ypos 10
+    text str(dr_dv):
+        xpos 26
+        ypos 20
+        size 36
+        color '#ff9600'
+        font source_sch + "images/fonts/Roboto.ttf"
+
+    text str(dr_us):
+        xpos 242
+        ypos 20
+        size 36
+        color '#ff0000'
+        font source_sch + "images/fonts/Roboto.ttf"
+
+    text str(dr_un):
+        xpos 458
+        ypos 20
+        size 36
+        color '#c045ff'
+        font source_sch + "images/fonts/Roboto.ttf"
+
+    text str(dr_sl):
+        xpos 674
+        ypos 20
+        size 36
+        color '#fff600'
+        font source_sch + "images/fonts/Roboto.ttf"
+
+    text str(dr_mi):
+        xpos 890
+        ypos 20
+        size 36
+        color '#00f6ff'
+        font source_sch + "images/fonts/Roboto.ttf"
+
+    showif persistent.sch_karma_shown == True:
+        text str(dr_ka):
+            xalign 0.67
+            ypos 20
+            size 36
+            color '#000000'
+            font source_sch + "images/fonts/Roboto.ttf"
+
+    text str(dr_wi):
+            xalign 0.785
+            ypos 20
+            size 36
+            color '#000000'
+            font source_sch + "images/fonts/Roboto.ttf"
+
+    text str(dr_pi):
+            xalign 0.897
+            ypos 20
+            size 36
+            color '#000000'
+            font source_sch + "images/fonts/Roboto.ttf"
 
 
 
@@ -186,8 +248,30 @@ screen sch_settings_menu:
                 text_style "sch_keys_white"
                 style "sch_keys_white"
                 unhovered[ShowTransient('sch_settings_back', transition=Dissolve(0.1)), Hide("sch_widget_desc")]
-                hovered[ShowTransient('sch_widget_desc'), Hide('sch_settings_back')]
+                hovered[ShowTransient('sch_widget_desc', transition=Dissolve(0.1)), Hide('sch_settings_back')]
                 action [Hide("sch_menu"), SetField(persistent, 'sch_widget', True)]
+
+        showif persistent.sch_chapter_skip:
+            textbutton("•Пропуск названий глав - ON"):
+                xpos 880
+                ypos 522
+                background None
+                text_style "sch_keys_white"
+                style "sch_keys_white"
+                unhovered[ShowTransient('sch_settings_back', transition=Dissolve(0.1)), Hide("sch_chskip_desc")]
+                hovered[ShowTransient('sch_chskip_desc', transition=Dissolve(0.1)), Hide('sch_settings_back')]
+                action [Hide("sch_menu"), SetField(persistent, 'sch_chapter_skip', False)]
+        else:
+            textbutton("•Пропуск названий глав - OFF"):
+                xpos 880
+                ypos 522
+                background None
+                text_style "sch_keys_white"
+                style "sch_keys_white"
+                unhovered[ShowTransient('sch_settings_back', transition=Dissolve(0.1)), Hide("sch_widget_desc")]
+                hovered[ShowTransient('sch_chskip_desc', transition=Dissolve(0.1)), Hide('sch_settings_back')]
+                action [Hide("sch_menu"), SetField(persistent, 'sch_chapter_skip', True)]
+
 
         #textbutton("•Перейти в настройки игры"):
         #    xpos 880
@@ -278,6 +362,14 @@ screen sch_widget_desc:
 
 screen sch_es_settings_desc:
     textbutton("По нажатию этой кнопки\nВы можете перейти в настройки игры,\nЧтобы изменить различные настройки."):
+        style 'sch_desc'
+        text_style "sch_keys_white"
+        text_size 44
+        pos(250, 500)
+        unhovered[Hide('sch_es_settings_desc', transition=Dissolve(0.1))]
+
+screen sch_chapter_skip_desc:
+    textbutton("Данная опция позволяет пропускать\nназвания глав и дней."):
         style 'sch_desc'
         text_style "sch_keys_white"
         text_size 44

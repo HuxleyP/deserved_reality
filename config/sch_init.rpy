@@ -36,19 +36,15 @@ init 2:
 
     $ sch_hard = False
 
-    $ sch_launch = 0
+    if persistent.sch_launched == None:
+        $ sch_launch = False
+    else:
+        $ sch_launch = True
 
 
     $ sch_karma_shown = False
 
     $ sch_WidgetVisible = False
-
-    if sch_launch == 0 and persistent.sch_launcher == None:
-        $ persistent.sch_widget = False # Виджет ОП, надо поработать над ним
-        $ persistent.sch_difficulty = False # False для Noraml
-        $ persistent.undone_jumper = False # Прыгалка на незаконченные руты, при False герой заведомо не будет выходить
-        $ persistent.sch_launched = True # Проверка на запуск, при нём применяются настройки выше и больше не трогаются
-        $ sch_launch = 1
 
     $ sch_ingame = False # был ли в игре, пока что надобность в переменной только ради плейсхолдера
 
@@ -71,12 +67,24 @@ init 2:
 
 
 init 3:
+    if sch_launch != True:
+        $ persistent.sch_widget = False # Виджет ОП, надо поработать над ним
+        $ persistent.sch_music = True # Виджет музыки
+        $ persistent.sch_difficulty = False # False для Normal
+        $ persistent.undone_jumper = False # Прыгалка на незаконченные руты, при False герой заведомо не будет выходить
+        $ persistent.sch_chapter_skip = False # Пропуск глав
+        $ persistent.sch_butterfly = False # Режим Бабочки
+
+        # тут типа failsafe, но он какой-то тупой
+        $ sch_launch = True
+        $ persistent.sch_launched = True # Проверка на запуск, при нём применяются настройки выше и больше не трогаются
     call sch_allvars
 
 
 # Визуал, аудио, т.д.
 
 init -998:
+    image bg_null = Null(1920,1080)
     #BG
     image bg boss_office_sch = image_sch('bg/boss_office_sch.jpg')
     #image bg bus_stop_summer_sch = image_sch("bg/bus_stop_summer.jpg")
@@ -153,6 +161,7 @@ init -998:
     image whitesquare = im.MatrixColor("deserved_reality/source/images/gui/menu/square.png", im.matrix.colorize("#fff", "#fff"))
     image gray = "#171717"
     image beige = "#fbf0b3"
+    image yellowish = "#7d5f34"
 
     # Объявляем текст для анимаций
 
@@ -164,23 +173,23 @@ init -998:
     image sch_achievements = Text("•Достижения", style="sch_keys")
 
 
-    image sch_settings_reversed = Text("•Настройки", style="sch_keys_reversed")
+    #image sch_settings_reversed = Text("•Настройки", style="sch_keys_reversed")
 
-    # Настройки
+    # Настройки, неактуально из-за нового меню
 
-    image sch_back_white = Text("/Назад/", style="sch_keys_white", size = 100)
+    #image sch_back_white = Text("/Назад/", style="sch_keys_white", size = 100)
 
-    image sch_placeholder_off = Text("•Заглушки - OFF", style="sch_keys_white")
-    image sch_placeholder_on = Text("•Заглушки - ON", style="sch_keys_white")
+    #image sch_placeholder_off = Text("•Заглушки - OFF", style="sch_keys_white")
+    #image sch_placeholder_on = Text("•Заглушки - ON", style="sch_keys_white")
 
-    image sch_widget_off = Text("•Виджет ОП - OFF", style="sch_keys_white")
-    image sch_widget_on = Text("•Виджет ОП - ON", style="sch_keys_white")
+    #image sch_widget_off = Text("•Виджет ОП - OFF", style="sch_keys_white")
+    #image sch_widget_on = Text("•Виджет ОП - ON", style="sch_keys_white")
 
-    image sch_difficulty_hard = Text("•Сложность по умолчанию - Hard", style="sch_keys_white")
-    image sch_difficulty_normal = Text("•Сложность по умолчанию - Обычная", style="sch_keys_white")
-    image sch_difficulty_undefined = Text("•Сложность по умолчанию - не установлена", style="sch_keys_white")
+    #image sch_difficulty_hard = Text("•Сложность по умолчанию - Hard", style="sch_keys_white")
+    #image sch_difficulty_normal = Text("•Сложность по умолчанию - Обычная", style="sch_keys_white")
+    #image sch_difficulty_undefined = Text("•Сложность по умолчанию - не установлена", style="sch_keys_white")
 
-    image sch_es_settings = Text("•Перейти в настройки игры", style="sch_keys_white")
+    #image sch_es_settings = Text("•Перейти в настройки игры", style="sch_keys_white")
 
 
 
@@ -245,7 +254,7 @@ init -998:
     #Шрифт
     $ dr_font = fonts_sch("LemonTuesday.otf")
     $ csn = fonts_sch("csn.ttf") # computer says no.
-    $ roboto = fonts_sch("Roboto-Thin.ttf")
+    $ roboto = fonts_sch("Roboto.ttf")
 
 
 
@@ -411,12 +420,10 @@ init 10 python: # главы #TODO к херам
                 #TODO по руттегам, без лого ЗР
             else:
                 renpy.show("#a6a6a6") # НЕ РАБОТАЕТ!
-        else:
-            renpy.show('#a6a6a6')
-        renpy.show('dr_pattern')
-        renpy.transition(fade)
-        renpy.pause(3, hard=True)
-        renpy.scene()
+            renpy.show('dr_pattern')
+            renpy.transition(fade)
+            renpy.pause(3, hard=True)
+            renpy.scene()
         renpy.show('black')
         renpy.transition(fade)
         #Бекдроп со вкусом костылей (наверное)
@@ -434,9 +441,10 @@ init 10 python: # главы #TODO к херам
     def sch_chapter(sch_dayNo, sch_ch_name): #dayNo - номер дня (>=8 - пролог), ch_name - название главы,ы, new_day - новый день
         global save_name # название сейва
         global routetag_sch # руттэг
-        renpy.block_rollback()
+        global sch_chapter_skip
+        renpy.fix_rollback()
 
-        save_name = (u"Заслуженная | Реальность.") # так надо, иначе ошибка
+        save_name = (u"Заслуженная | Реальность") # так надо, иначе ошибка
         if sch_dayNo != 0:
             save_name = (u"Заслуженная | Реальность - День %d.") % (sch_dayNo)
             if sch_ch_name != "":
@@ -447,24 +455,24 @@ init 10 python: # главы #TODO к херам
 
         chapter_name = (u"{size=80}{font=[csn]}{color=#FFFFFF}Заслуженная | {/color}{color=#999999}Реальность{/color}{/font}") # так надо, иначе ошибка
 
-
-        renpy.music.play('deserved_reality/source/Sound/sfx/whisper.ogg', channel='sound', fadein=1.5, fadeout=0.5)
-        renpy.scene()
-        renpy.show('black')
-        renpy.transition(fade)
-        renpy.show('day_num', what=Text(chapter_name, xcenter=0.5, ycenter=0.25))
-        renpy.transition(fade)
-        renpy.pause(1.5)
-        renpy.scene()
-        renpy.show('bg black')
-        renpy.transition(fade)
-        dayname = (u"{size=70}{font=[csn]}{color=#afafaf}%s{/color}{/font}{/size}") % (sch_ch_name)
-        renpy.show('day_num', what=Text(dayname, xcenter=0.5,ycenter=0.45))
-        renpy.pause(1.5)
-        renpy.scene()
-        renpy.show('bg black')
-        renpy.transition(fade)
-        renpy.pause(1.25, hard=True)
+        if not persistent.sch_chapter_skip:
+            #renpy.music.play('deserved_reality/source/Sound/sfx/whisper.ogg', channel='sound', fadein=1.5, fadeout=0.5)
+            renpy.scene()
+            renpy.show('black')
+            renpy.transition(fade)
+            renpy.show('day_num', what=Text(chapter_name, xcenter=0.5, ycenter=0.25))
+            renpy.transition(fade)
+            renpy.pause(1.5)
+            renpy.scene()
+            renpy.show('bg black')
+            renpy.transition(fade)
+            dayname = (u"{size=70}{font=[csn]}{color=#afafaf}%s{/color}{/font}{/size}") % (sch_ch_name)
+            renpy.show('day_num', what=Text(dayname, xcenter=0.5,ycenter=0.45))
+            renpy.pause(1.5)
+            renpy.scene()
+            renpy.show('bg black')
+            renpy.transition(fade)
+            renpy.pause(1.25, hard=True)
 
 
 
@@ -473,12 +481,11 @@ init 10 python: # главы #TODO к херам
 
 init python:
     def sch_widget_OP():
-        if u"Заслуженная Реальность" or "Заслуженная | Реальность" in save_name and persistent.sch_widget:
+        if (u"Заслуженная Реальность" or "Заслуженная | Реальность" in save_name) and persistent.sch_widget:
             renpy.show_screen('sch_fuchsia_widget')
         else:
             renpy.hide_screen('sch_fuchsia_widget')
         config.overlay_functions.append(sch_widget_OP) #добавление виджета
-
 
 
 init python:

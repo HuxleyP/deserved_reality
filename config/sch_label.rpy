@@ -191,19 +191,19 @@ label sch_game_start:
 
     stop music fadeout 1
 
-    call sch_day0_cr
+    call dr_day0_cr
 
     pause(1)
 
-    call sch_day1_cr
+    call dr_day1_cr
 
     pause(1)
 
-    call sch_day2_cr
+    call dr_day2_cr
 
     pause(1)
 
-    call sch_tbc
+    call dr_tbc
 
     pause(1)
 
