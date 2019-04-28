@@ -90,6 +90,7 @@ init -998:
     #image bg bus_stop_summer_sch = image_sch("bg/bus_stop_summer.jpg")
     image bg sch_city = im.Scale(image_sch('bg/city.jpg'), 1920, 1080)
     image bg raincity_sch = image_sch('bg/rainycity.jpg')
+    image bg int_hospital_storage = image_sch('bg/hospital_storage.png')
     image bg int_bar_sch = im.Scale(image_sch('bg/int_bar.jpg'), 1920, 1080)
     image bg ext_bar_sch = image_sch('bg/ext_bar.jpg')
     image bg ext_cityroad_night_sch = image_sch('bg/ext_cityroad_night_sch.png')
