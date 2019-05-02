@@ -46,7 +46,7 @@ label sch_day0_vars:
 
 label sch_day1_vars:
 
-    $ sch_day1_together = '' # С кем пошёл к ОД TODO сделать не списком, а string
+    $ sch_day1_sl_together = False # С кем пошёл к ОД TODO сделать не списком, а string
     $ sch_day1_ev_mi = False # позвала ли Мику на пристань
     $ sch_ginger_lie = 0
 
