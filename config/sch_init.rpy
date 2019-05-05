@@ -250,6 +250,7 @@ init -998:
     $ click = sfx_sch('click.ogg')
     $ get_shot = sfx_sch("getshot.ogg")
     $ car_stop = sfx_sch("car_stop.ogg")
+    $ surprise = sfx_sch("surprise.ogg")
 
     #Шрифт
     $ dr_font = fonts_sch("LemonTuesday.otf")
@@ -522,7 +523,7 @@ init python:
 
         reload_names()
 init 2:
-    $ iv = Character(what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000", what_italic = True) #TODO перевести в nvl и упорядочить звёздочку
+    $ iv = Character(what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000", what_italic = True) #TODO перевести в nvl и упорядочить звёздочку /// + добавить префикс и суффикс
     #$ chat = Character(u'Собеседник', color="#6e3961", what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
     #$ mother = Character(u'Мама', color="#f9106b", what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
     #$ ami = Character(u'Амина', color="#cd6c2e", what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")

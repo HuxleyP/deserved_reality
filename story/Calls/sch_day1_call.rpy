@@ -14,9 +14,11 @@ label dr_day1_cr:
 
     pause(1)
 
-    if not ('sl' in list_sch_day1_together):
-        call sch_day1_un
+    # Встреча с лагерем
 
+    call sch_day1_camp
+
+    pause(1)
 
     # Вожатая
 
