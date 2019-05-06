@@ -12,6 +12,7 @@ label dr_day0_prehistory_part_1:
 
     play music followme fadein 3
 
+    return # временное!!!!
 
     scene bg speaker_room
     show uvao_d0
