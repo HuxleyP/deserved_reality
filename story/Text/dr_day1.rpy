@@ -262,7 +262,7 @@ label sch_day1_camp:
     show cricket:
         align(0.5, 0.5)
         easein 0.25 zoom 1.5
-    Shake(None, 1.0, dist=5) # может неверно?
+    with Shake(None, 1.0, dist=5) # может неверно?
     play sound surprise
     "Она разжала кулак и показала мне кузнечика, который почти сразу же прыгнул в мою сторону, только очутившись на свободе!"
     ivan "А{w=.1}-а{w=.1}-а!"

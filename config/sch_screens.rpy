@@ -107,13 +107,24 @@ screen sch_widget_screen:
 
 
 
-
+screen sch_menu_pre:
+    modal False
+    key "game_menu":
+        action NullAction()
+    key "screenshot":
+        action NullAction()
+    timer 0.1 action (Hide("sch_menu_pre", transition=dissolve), Show("sch_menu"))
 
 
 # Ниже меню. Нихрена не откалибровано, было заменено по причине дизайна (крайне херового, но ты, копатель по файлам, можешь заменить вызов скринов и посмотреть на это чудо инженегровой мысли)
 screen sch_menu:
     tag menu
     modal True
+    key "game_menu":
+        action NullAction()
+    key "screenshot":
+        action NullAction()
+    add "bg black"
     add '#fff'
     add 'blacksquare' xalign 0.5 yalign 0.5 xzoom 0.12 yzoom 3.62 xanchor 111
 
@@ -127,7 +138,7 @@ screen sch_menu:
             background None
             text_style "sch_keys"
             style "sch_keys"
-            action [Hide("sch_menu"), ShowMenu('load')] # сделать загрузку свою
+            action [Hide("sch_menu", transition=Dissolve(0.5)), ShowMenu('load')] # сделать загрузку свою
             #action [Hide("sch_menu"), Jump("sch_savescreen")]
 
     vbox:        #Новая_Игра
@@ -137,7 +148,8 @@ screen sch_menu:
             background None
             text_style "sch_keys"
             style "sch_keys"
-            action [Hide("sch_menu"), Jump('sch_newgame')]
+            #action [Hide("sch_menu"), Jump('sch_newgame')]
+            action [Hide("sch_menu"), Return('sch_newgame')]
 
     vbox:        #Настройки
         textbutton ("•Настройки"):
@@ -162,13 +174,18 @@ screen sch_menu:
         auto menu_sch("ButtonExit_%s.png")
         xpos 0
         ypos 1008
+        action [Hide("sch_menu", transition=dissolve), Show("sch_exit_promt", transition=dissolve)]
         # action [ShowMenu("sch_exit_promt", transition=Dissolve(0.5))] # на случай, если найду лейбл оригинального меню игры
-        action MainMenu()
+        # action MainMenu() совсем запасной
 
 
 screen sch_settings_menu:
     tag menu
     modal True
+    key "game_menu":
+        action NullAction()
+    key "screenshot":
+        action NullAction()
     add '#171717'
     add 'whitesquare' xalign 0.5 yalign 0.5 xzoom 0.12 yzoom 3.62 xanchor 111
 
@@ -299,6 +316,10 @@ label sch_achievements:
 screen sch_exit_promt:
     tag menu
     modal True
+    key "game_menu":
+        action NullAction()
+    key "screenshot":
+        action NullAction()
     add "#ffffff"
     if (u"Заслуженная Реальность" in save_name and persistent.prologue_done == 1):
         $ dr_quittext = 'Вы уверены, что хотите\nвернуться в свою реальность?'
@@ -321,7 +342,7 @@ screen sch_exit_promt:
         yalign 0.55
         text_color "#000000"
         text_hover_color "#800000"
-        action [Hide("sch_menu"), MainMenu()]
+        action [Hide("sch_exit_promt", transition=dissolve), Return("sch_exit_final")]
     textbutton "Нет":
         text_size 80
         style "sch_keys"
@@ -330,8 +351,7 @@ screen sch_exit_promt:
         yalign 0.55
         text_color "#000000"
         text_hover_color "#006400"
-        action Return()
-        #action [Hide("sch_exit_promt", transition=Dissolve(0.5)), Jump("sch_menu", transition=Dissolve(0.5)))]
+        action [Hide("sch_exit_promt", transition=Dissolve(0.5)), Show("sch_menu", transition=Dissolve(0.5))]
     #action [Hide("sch_menu"), Jump("original_mm")]
 
 

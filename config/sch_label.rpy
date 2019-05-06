@@ -100,6 +100,7 @@ label sichium_start: # Меню
     play sound whiteflash
 
     $ save_name = "Заслуженная Реальность. Меню."
+    
 
     scene bg white
     show blacksquare:
@@ -110,7 +111,7 @@ label sichium_start: # Меню
         linear 0.35 xzoom 0.12
         easein 0.35 yzoom 3.62
         linear 0.35 xanchor 111
-    pause(2.1)
+    pause(2.1) # дефакто 2.05
     show white2:
         xpos 861
     play music honor fadein 1
@@ -135,15 +136,25 @@ label sichium_start: # Меню
         pos (-72, 1008)
         linear 0.25 pos(0, 1008)
     pause(0.25)
+    # де факто 2.05+0.05+1.25=3.35
     $ volume('sound', 1.0)
+    call screen sch_menu_pre
 
-    call screen sch_menu
+    jump sch_menu_callout
 
 
-label sch_newgame:
+
+label sch_menu_callout:
     $ renpy.block_rollback()
-    hide screen sch_settings_back
-    hide screen sch_menu
+    $ sch_result = _return
+    #hide screen sch_settings_back
+    #hide screen sch_menu
+    if sch_result == "sch_newgame":
+        pass
+    else:
+        stop music fadeout 3.5
+        scene bg black with Dissolve(3.5)
+        return
     scene white
     show blacksquare:
         xalign 0.5 yalign 0.5
@@ -170,14 +181,17 @@ label sch_newgame:
 
     show blacksquare:
         pause .1
-        xalign 0.5 yalign 0.5 xzoom 0.12 yzoom 3.62
-        easein 0.75 yzoom 1.0
-        linear 0.75 xzoom 1.0
         xalign 0.5 yalign 0.5
+        xanchor 111 xzoom 0.12 yzoom 3.62 
+        # дефолт состояние
+        ease 0.25 xanchor 0
+        ease 0.1 xalign 0.5 yalign 0.5
+        easein 0.5 yzoom 1.0
+        linear 0.5 xzoom 1.0
         pause .5
         easein 1.0 zoom 20.0
 
-    with flash
+
 
 
 
