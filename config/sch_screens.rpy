@@ -125,10 +125,10 @@ screen sch_menu:
     key "screenshot":
         action NullAction()
     add "bg black"
-    add '#fff'
+    add "dr_main_menu_atl"
     add 'blacksquare' xalign 0.5 yalign 0.5 xzoom 0.12 yzoom 3.62 xanchor 111
 
-    add 'white2' zoom 0.7 xpos 861
+    #add 'white2' zoom 0.7 xpos 861
 
     # потенциально сделать провекру на хардмод
     vbox:   #Открыть экран сейвов

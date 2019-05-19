@@ -1,5 +1,10 @@
+init 999999999:
+    $ config.developer = True #TODO В релиз попасть не должно
+    $ config.debug_text_overflow = True #это тоже
+    $ config.conditionswitch_predict_all = True # и это
+
 init -1: # Version data
-    $ sch_version = "7.1"
+    $ sch_version = "7.2"
     $ sch_state = "Alpha rework"
     $ sch_codename = "Arctic Apricot"
 
@@ -126,6 +131,9 @@ init -998:
     image bg doctor_cabinet_sch = Placeholder("bg")
 
 
+    image dr_sky_day = image_sch('temp/sky_day.png')
+    image dr_sky_sunset = image_sch('temp/sky_sunset.png')
+    image dr_sky_night = image_sch('temp/sky_night2.jpg')
 
     #effects
     image raineffect = image_sch('effects/raineffect.png')
@@ -303,6 +311,19 @@ init:
         xalign 0.5
         yalign 0.5
         linear 0.25 zoom 0.8
+
+    image dr_main_menu_atl:
+        "white2" with Dissolve(0.5)
+        pause 0.5
+        block:
+            "dr_sky_day" with Dissolve(4)
+            pause 6.0
+            "dr_sky_sunset" with Dissolve(4)
+            pause 6.0
+            "dr_sky_night" with Dissolve(4)
+            pause 6.0
+            repeat
+
 
 
 
