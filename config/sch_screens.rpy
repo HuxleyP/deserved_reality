@@ -134,11 +134,13 @@ screen sch_menu:
 
     #add 'white2' zoom 0.7 xpos 861
 
-    text "{size=40}{font=dr_font}З{/font}аслуженная{/size}\n {font=dr_font}{size=30}Р{/font}еальность{/size}":
-        xpos 861
-        yalign 0.5
-        text_style "sch_keys"
-        style "sch_keys"
+    #text "{font=[source_sch]images/fonts/LemonTuesday.otf}{size=60}З{/font}{font=[source_sch]images/fonts/csn.ttf}аслуженная{/size}{/font}\n {size=50}{font=[source_sch]images/fonts/LemonTuesday.otf}Р{/font}{font=[source_sch]images/fonts/csn.ttf}{/size}{size=60}еальность{/size}{/font}":
+    vbox:
+        textbutton "{size=150}Заслуженная{/size}\n {size=120}Реальность{/color}" at sch_menu_ease:
+            style "sch_keys"
+            text_style "sch_keys"
+            action OpenURL("https://vk.com/public167564386")
+        
 
     # потенциально сделать провекру на хардмод
     vbox:   #Открыть экран сейвов
@@ -175,8 +177,8 @@ screen sch_menu:
                 xpos 363
                 ypos 622
                 background None
-                text_style "sch_keys"
-                style "sch_keys"
+                text_style "sch_keys_gray"
+                style "sch_keys_gray"
                 action [Hide("sch_menu"), Jump("sch_achievements")]
 
     else:
@@ -186,7 +188,6 @@ screen sch_menu:
             background None
             text_style "sch_keys"
             style "sch_keys"
-            color "#a6a6a6"
             action NullAction()
 
 
@@ -290,26 +291,26 @@ screen sch_settings_menu:
                 hovered[ShowTransient('sch_widget_desc', transition=Dissolve(0.1)), Hide('sch_settings_back')]
                 action [Hide("sch_menu"), SetField(persistent, 'sch_widget', True)]
 
-        showif persistent.sch_chapter_skip:
-            textbutton("•Пропуск названий глав - ON"):
-                xpos 880
-                ypos 522
-                background None
-                text_style "sch_keys_white"
-                style "sch_keys_white"
-                unhovered[ShowTransient('sch_settings_back', transition=Dissolve(0.1)), Hide("sch_chskip_desc")]
-                hovered[ShowTransient('sch_chskip_desc', transition=Dissolve(0.1)), Hide('sch_settings_back')]
-                action [Hide("sch_menu"), SetField(persistent, 'sch_chapter_skip', False)]
-        else:
-            textbutton("•Пропуск названий глав - OFF"):
-                xpos 880
-                ypos 522
-                background None
-                text_style "sch_keys_white"
-                style "sch_keys_white"
-                unhovered[ShowTransient('sch_settings_back', transition=Dissolve(0.1)), Hide("sch_widget_desc")]
-                hovered[ShowTransient('sch_chskip_desc', transition=Dissolve(0.1)), Hide('sch_settings_back')]
-                action [Hide("sch_menu"), SetField(persistent, 'sch_chapter_skip', True)]
+        #showif persistent.sch_chapter_skip:
+         #   textbutton("•Пропуск названий глав - ON"):
+         #       xpos 880
+         #       ypos 522
+         #       background None
+         #       text_style "sch_keys_white"
+         #       style "sch_keys_white"
+         #       unhovered[ShowTransient('sch_settings_back', transition=Dissolve(0.1)), Hide("sch_chskip_desc")]
+         #       hovered[ShowTransient('sch_chskip_desc', transition=Dissolve(0.1)), Hide('sch_settings_back')]
+         #       action [Hide("sch_menu"), SetField(persistent, 'sch_chapter_skip', False)]
+        #else:
+         #   textbutton("•Пропуск названий глав - OFF"):
+        #        xpos 880
+         #       ypos 522
+          #      background None
+           #     text_style "sch_keys_white"
+            #    style "sch_keys_white"
+             #   unhovered[ShowTransient('sch_settings_back', transition=Dissolve(0.1)), Hide("sch_widget_desc")]
+              #  hovered[ShowTransient('sch_chskip_desc', transition=Dissolve(0.1)), Hide('sch_settings_back')]
+               # action [Hide("sch_menu"), SetField(persistent, 'sch_chapter_skip', True)]
 
 
         #textbutton("•Перейти в настройки игры"):
@@ -341,6 +342,8 @@ screen sch_exit_promt:
     key "game_menu":
         action NullAction()
     key "screenshot":
+        action NullAction()
+    key "K_F1":
         action NullAction()
     add "#ffffff"
     if (u"Заслуженная Реальность" in save_name and persistent.prologue_done == 1):
@@ -410,10 +413,10 @@ screen sch_es_settings_desc:
         pos(250, 500)
         unhovered[Hide('sch_es_settings_desc', transition=Dissolve(0.1))]
 
-screen sch_chapter_skip_desc:
+screen sch_chskip_desc:
     textbutton("Данная опция позволяет пропускать\nназвания глав и дней."):
         style 'sch_desc'
         text_style "sch_keys_white"
         text_size 44
         pos(250, 500)
-        unhovered[Hide('sch_es_settings_desc', transition=Dissolve(0.1))]
+        unhovered[Hide('sch_chskip_desc', transition=Dissolve(0.1))]

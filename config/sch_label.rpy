@@ -200,6 +200,11 @@ label sch_menu_callout:
 
     return
 
+label sch_final_exit:
+    stop music fadeout 3.5
+    scene bg black with Dissolve(3.5)
+    $ MainMenu()
+
 label sch_game_start:
 
     stop music fadeout 1

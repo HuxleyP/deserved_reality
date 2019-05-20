@@ -354,6 +354,11 @@ init:
     transform sch_running_stop:
         ease 0.2 zoom 1.0 xanchor 0.5 yanchor 0.5 xpos 0.5 ypos 0.5 # тупа возвращаем всё обратно
 
+    transform sch_menu_ease:
+        yalign 0.5
+        xpos 2000
+        ease 0.5 xpos 1131
+
 init python:
     def Noir(id, brightness = -0.4, tint_r = 0.2126, tint_g = 0.7152, tint_b = 0.0722, saturation = 0.5):
         return im.MatrixColor(ImageReference(id), im.matrix.brightness(brightness) * im.matrix.tint(tint_r, tint_g, tint_b) * im.matrix.saturation(saturation))
@@ -730,6 +735,11 @@ init -998 python:
     style.sch_fuchsia.font = roboto
     style.sch_fuchsia.size = 36
 
+    style.sch_keys_gray = Style(style.sch_keys_undefined)
+    style.sch_keys_gray.color = "#a6a6a6"
+    style.sch_keys_gray.hover_color = "#a6a6a6"
+    style.sch_keys_gray.size = 83
+
 
     #style.base_font = Style(style.default)
     #style.base_font.font  = main_font
@@ -769,8 +779,7 @@ init python: # скомунизженно прямиком с сайта док�
                 self.child = child
 
             def __call__(self, t, sizes):
-                # Float to integer... turns floating point numbers to
-                # integers.
+                # Float to integer... turns floating point numbers to integers
                 def fti(x, r):
                     if x is None:
                         x = 0
