@@ -113,6 +113,8 @@ screen sch_menu_pre:
         action NullAction()
     key "screenshot":
         action NullAction()
+    key "K_F1":
+        action NullAction()
     timer 0.1 action (Hide("sch_menu_pre", transition=dissolve), Show("sch_menu"))
 
 
@@ -124,11 +126,19 @@ screen sch_menu:
         action NullAction()
     key "screenshot":
         action NullAction()
+    key "K_F1":
+        action NullAction()
     add "bg black"
     add "dr_main_menu_atl"
     add 'blacksquare' xalign 0.5 yalign 0.5 xzoom 0.12 yzoom 3.62 xanchor 111
 
     #add 'white2' zoom 0.7 xpos 861
+
+    text "{size=40}{font=dr_font}З{/font}аслуженная{/size}\n {font=dr_font}{size=30}Р{/font}еальность{/size}":
+        xpos 861
+        yalign 0.5
+        text_style "sch_keys"
+        style "sch_keys"
 
     # потенциально сделать провекру на хардмод
     vbox:   #Открыть экран сейвов
@@ -159,15 +169,25 @@ screen sch_menu:
             text_style "sch_keys"
             style "sch_keys"
             action [Hide("sch_menu"), Show("sch_settings_menu", transition=Dissolve(0.5))]
+    if persistent.cycled:
+        vbox:        #Ачивки
+            textbutton ("•Достижения"):
+                xpos 363
+                ypos 622
+                background None
+                text_style "sch_keys"
+                style "sch_keys"
+                action [Hide("sch_menu"), Jump("sch_achievements")]
 
-    vbox:        #Ачивки
+    else:
         textbutton ("•Достижения"):
             xpos 363
             ypos 622
             background None
             text_style "sch_keys"
             style "sch_keys"
-            action [Hide("sch_menu"), Jump("sch_achievements")]
+            color "#a6a6a6"
+            action NullAction()
 
 
     imagebutton: #Ливнуть
@@ -185,6 +205,8 @@ screen sch_settings_menu:
     key "game_menu":
         action NullAction()
     key "screenshot":
+        action NullAction()
+    key "K_F1":
         action NullAction()
     add '#171717'
     add 'whitesquare' xalign 0.5 yalign 0.5 xzoom 0.12 yzoom 3.62 xanchor 111
