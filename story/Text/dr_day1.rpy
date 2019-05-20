@@ -195,7 +195,7 @@ label dr_day1_intro:
             iv "Если тут настоящие пионеры, то дети быстро сплетни разведут."
             scene bg ext_clubs_day with dissolve
             "Златовласка, похоже, не очень сильно обиделась и впустила меня за ворота, прикрыв их."
-            
+
     return
 
 
@@ -236,7 +236,7 @@ label dr_day1_intro:
 label sch_day1_camp:
     $ persistent.sprite_time = "day"
     $ day_time()
-    scene bg ext_clubs_day 
+    scene bg ext_clubs_day
     if sch_day1_sl_together:
         show sl normal pioneer
     with fade
