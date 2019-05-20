@@ -929,7 +929,7 @@ label dr_day0_prehistory_part_1:
 label sch_day0_prehistory_part_2:
     $ persistent.sprite_time = 'night'
     $ prolog_time()
-    $ name_sch("Пророк")
+    # $ name_sch("Пророк") А вот уже и нет.
     # фон
     play music track_09 fadein 1
     "И я проснулся. Окруженный книгами, открытками, документами и скомканными комками бумаги, небрежно разбросанными по моему рабочему столу."
