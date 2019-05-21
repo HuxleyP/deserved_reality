@@ -128,7 +128,9 @@ init -998:
     image bg int_institute_corridor_sch = image_sch("bg/corridor_night.png")
     image bg plain_sch = image_sch("bg/plain.jpg")
     image bg int_coupe_day_sch = image_sch("bg/int_coupe_day.png")
+    image bg int_coupe_night_sch = image_sch("bg/int_coupe_night.png")
     image bg doctor_cabinet_sch = Placeholder("bg")
+
 
 
     image dr_sky_day = image_sch('temp/sky_day.png')
