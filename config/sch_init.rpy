@@ -811,3 +811,4 @@ init python: # скомунизженно прямиком с сайта док�
                           **properties)
 
         Shake = renpy.curry(_Shake)
+

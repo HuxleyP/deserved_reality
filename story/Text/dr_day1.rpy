@@ -1,4 +1,4 @@
-label dr_day1_intro:
+label dr_day1_intro_old:
     $ persistent.sprite_time = "day"
     $ day_time()
     $ sch_newday(sch_dayNo=1)

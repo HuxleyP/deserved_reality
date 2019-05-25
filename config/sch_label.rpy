@@ -151,10 +151,10 @@ label sch_menu_callout:
     if sch_result == "sch_newgame":
         pass
     else:
-        stop music fadeout 3.5
-        scene bg black with Dissolve(3.5)
+        stop music fadeout 2.5
+        scene bg black with Dissolve(2.5)
         return
-    scene white
+    scene white with dissolve
     show blacksquare:
         xalign 0.5 yalign 0.5
         xanchor 111 xzoom 0.12 yzoom 3.62
