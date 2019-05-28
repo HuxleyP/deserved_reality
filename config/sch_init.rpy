@@ -253,6 +253,7 @@ init -998:
     #SFX
     $ bang = sfx_sch('bang.ogg')
     $ heartbeat = sfx_sch("heartbeat.ogg")
+    $ sneeze = sfx_sch("sneeze.ogg")
     $ whiteflash = sfx_sch("flash.ogg")
     $ wind = sfx_sch("wind.ogg")
     $ watersplash = sfx_sch("watersplash.ogg")

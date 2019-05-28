@@ -9,9 +9,6 @@ label dr_day1_cr:
 
     call dr_day1_intro
 
-    if sch_waited >= 5:
-        return
-
     pause(1)
 
     # Встреча с лагерем
