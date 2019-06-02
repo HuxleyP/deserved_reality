@@ -241,6 +241,7 @@ init -998:
 
     $ regenerate = music_sch("killedthelord.ogg") # надежда
 
+    $ silent_angel = music_sch("silentangel.ogg")
     $ spring = music_sch("spring.ogg") # надежда, которая как бы всё, но ещё не совсем
     $ static = music_sch("static.ogg") # непростая ситуация
 
@@ -262,6 +263,7 @@ init -998:
     $ get_shot = sfx_sch("getshot.ogg")
     $ car_stop = sfx_sch("car_stop.ogg")
     $ surprise = sfx_sch("surprise.ogg")
+    $ glass_break = sfx_sch("glass_break.ogg")
 
     #Шрифт
     $ dr_font = fonts_sch("LemonTuesday.otf")

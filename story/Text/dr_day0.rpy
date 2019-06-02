@@ -1,4 +1,5 @@
 label dr_day0_prehistory_part_1:
+    return # временное!!!!
     $ persistent.sprite_time = 'night'
     $ prolog_time()
     $ name_sch('Я')
@@ -12,7 +13,6 @@ label dr_day0_prehistory_part_1:
 
     play music followme fadein 3
 
-    return # временное!!!!
 
     scene bg speaker_room
     show uvao_d0
