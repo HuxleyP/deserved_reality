@@ -124,7 +124,7 @@ init -998:
 
     image bg citybird = image_sch("bg/citybird.jpg")
     image bg operation_room_sch = image_sch("bg/operation.jpg")
-    image bg int_institute_sch = image_sch("bg/int_institute_sch.jpg")
+    image bg int_institute_sch = image_sch("bg/bg_instititute_office.png")
     image bg int_institute_corridor_sch = image_sch("bg/corridor_night.png")
     image bg plain_sch = image_sch("bg/plain.jpg")
     image bg int_coupe_day_sch = image_sch("bg/int_coupe_day.png")
