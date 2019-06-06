@@ -141,8 +141,10 @@ label dr_sandclock_break:
 
 
 label dr_day1_meeting:
+    play ambience ambience_ext_road_day fadein 1
     scene bg ext_camp_entrance_day with dissolve
     "Двери начали тихо отворяться и из них вышла девушка."
+    play music music_lis["a_promise_from_distant_days_v2"] fadein 5 # скорее всего расово неверная
     show un serious pioneer far with dissolve
     "Я машинально отметил её красоту и необычное одеяние."
     "Одета она была в пионерскую форму - самую, что ни на есть настоящую. Белая рубашка с нашивкой на рукаве, красный значок с дедушкой Лениным, синяя юбка и, естественно, самый главный отличительный элемент - кумачовый галстук."
