@@ -4,7 +4,7 @@ init 999999999:
     $ config.conditionswitch_predict_all = True # и это
 
 init -1: # Version data
-    $ sch_version = "7.2"
+    $ sch_version = "7.3"
     $ sch_state = "Alpha rework"
     $ sch_codename = "Arctic Apricot"
 
@@ -59,17 +59,18 @@ init 2:
     $ cycled = False
     if persistent.sch_difficulty:
         $ sch_hard = True
+
     if ((persistent.mi_good_sch) and (persistent.dv_good_sch) and (persistent.sl_good_sch) and (persistent.us_good_sch) and (persistent.un_good_sch) and (persistent.iv_good_sch) and (persistent.nr_good_sch)):
         $ sch_bound = True
+
     if ((persistent.mi_true_sch) and (persistent.dv_true_sch) and (persistent.sl_true_sch) and (persistent.us_true_sch) and (persistent.un_true_sch) and (persistent.iv_true_sch) and (persistent.nr_ussr_true_sch) and (persistent.nr_rf_true_sch)):
         $ sch_true = True
+
     if (persistent.mi_good_sch or persistent.mi_bad_sch or persistent.mi_reject_sch or persistent.mi_neutral_sch or persistent.mi_true_sch or persistent.mi_transit_good_sch or persistent.mi_transit_bad_sch or persistent.dv_good_sch or persistent.dv_bad_sch or persistent.dv_reject_sch or persistent.dv_neutral_sch or persistent.dv_true_sch or persistent.dv_transit_good_sch or persistent.dv_transit_bad_sch or persistent.sl_good_sch or persistent.sl_bad_sch or persistent.sl_reject_sch or persistent.sl_neutral_sch or persistent.sl_true_sch or persistent.sl_transit_good_sch or persistent.sl_transit_bad_sch or persistent.un_good_sch or persistent.un_bad_sch or persistent.un_reject_sch or persistent.un_neutral_sch or persistent.un_true_sch or persistent.un_transit_good_sch or persistent.un_transit_bad_sch or persistent.us_good_sch or persistent.us_bad_sch or persistent.us_neutral_sch or persistent.us_true_sch or persistent.iv_good_sch or persistent.iv_bad_sch or persistent.iv_transit_good_sch or persistent.iv_transit_bad_sch or persistent.nr_good_sch or persistent.nr_bad_sch or persistent.nr_rf_true_sch or persistent.nr_ussr_true_sch): # Как же долго я искал ошибку...
         $ persistent.cycled = True # а эта куча строк показывает мои огромные амбиции
 
     if sch_true:
         $ persistent.sch_karma_shown = True
-
-
 
 init 3:
     if sch_launch != True:
@@ -124,25 +125,24 @@ init -998:
 
     image bg citybird = image_sch("bg/citybird.jpg")
     image bg operation_room_sch = image_sch("bg/operation.jpg")
-    image bg int_institute_sch = image_sch("bg/bg_instititute_office.png")
+    image bg int_institute_sch = image_sch("bg/int_institute_sch.jpg")
     image bg int_institute_corridor_sch = image_sch("bg/corridor_night.png")
     image bg plain_sch = image_sch("bg/plain.jpg")
     image bg int_coupe_day_sch = image_sch("bg/int_coupe_day.png")
     image bg int_coupe_night_sch = image_sch("bg/int_coupe_night.png")
     image bg doctor_cabinet_sch = Placeholder("bg")
 
-
-
     image dr_sky_day = image_sch('temp/sky_day.png')
     image dr_sky_sunset = image_sch('temp/sky_sunset.png')
     image dr_sky_night = image_sch('temp/sky_night2.jpg')
 
     #effects
-    image raineffect = image_sch('effects/raineffect.png')
-    image vignette = image_sch('effects/vignette.png')
+    image raineffect = image_sch("effects/raineffect.png")
+    image vignette = image_sch("effects/vignette.png")
+    image cricket = image_sch("effects/cricket.jpg")
 
     #CG
-    image uvao_d0 = image_sch("cg/uvao_d0.png")
+    image cg uvao_d0 = image_sch("cg/uvao_d0.png")
     image cg uvao_d0 = image_sch("cg/d1_uv.jpg")
     image cg uvao_d0_2 = image_sch("cg/d1_uv_2.jpg")
 
@@ -167,8 +167,8 @@ init -998:
 
     image bg white = "#fff"
     image white2 = "#ffffff"
-    image blacksquare = 'deserved_reality/source/images/gui/menu/square.png'
-    image whitesquare = im.MatrixColor("deserved_reality/source/images/gui/menu/square.png", im.matrix.colorize("#fff", "#fff"))
+    image blacksquare = "mods/deserved_reality/source/images/gui/menu/square.png"
+    image whitesquare = im.MatrixColor("mods/deserved_reality/source/images/gui/menu/square.png", im.matrix.colorize("#fff", "#fff"))
     image gray = "#171717"
     image beige = "#fbf0b3"
     image yellowish = "#7d5f34"
@@ -177,10 +177,10 @@ init -998:
 
     # Меню
 
-    image sch_begin = Text("•Продолжить_Игру", style="sch_keys")
-    image sch_continue = Text("•Новая_Игра", style="sch_keys")
-    image sch_settings = Text("•Настройки", style="sch_keys")
-    image sch_achievements = Text("•Достижения", style="sch_keys")
+    image sch_begin = Text("•Продолжить_Игру", style = "sch_keys")
+    image sch_continue = Text("•Новая_Игра", style = "sch_keys")
+    image sch_settings = Text("•Настройки", style = "sch_keys")
+    image sch_achievements = Text("•Достижения", style = "sch_keys")
 
 
     #image sch_settings_reversed = Text("•Настройки", style="sch_keys_reversed")
@@ -241,7 +241,6 @@ init -998:
 
     $ regenerate = music_sch("killedthelord.ogg") # надежда
 
-    $ silent_angel = music_sch("silentangel.ogg")
     $ spring = music_sch("spring.ogg") # надежда, которая как бы всё, но ещё не совсем
     $ static = music_sch("static.ogg") # непростая ситуация
 
@@ -254,7 +253,6 @@ init -998:
     #SFX
     $ bang = sfx_sch('bang.ogg')
     $ heartbeat = sfx_sch("heartbeat.ogg")
-    $ sneeze = sfx_sch("sneeze.ogg")
     $ whiteflash = sfx_sch("flash.ogg")
     $ wind = sfx_sch("wind.ogg")
     $ watersplash = sfx_sch("watersplash.ogg")
@@ -263,7 +261,6 @@ init -998:
     $ get_shot = sfx_sch("getshot.ogg")
     $ car_stop = sfx_sch("car_stop.ogg")
     $ surprise = sfx_sch("surprise.ogg")
-    $ glass_break = sfx_sch("glass_break.ogg")
 
     #Шрифт
     $ dr_font = fonts_sch("LemonTuesday.otf")
@@ -360,9 +357,9 @@ init:
         ease 0.2 zoom 1.0 xanchor 0.5 yanchor 0.5 xpos 0.5 ypos 0.5 # тупа возвращаем всё обратно
 
     transform sch_menu_ease:
+        xpos 2131
         yalign 0.5
-        xpos 2000
-        ease 0.5 xpos 1131
+        linear 0.5 xpos 1131 yalign 0.5
 
 init python:
     def Noir(id, brightness = -0.4, tint_r = 0.2126, tint_g = 0.7152, tint_b = 0.0722, saturation = 0.5):
@@ -384,10 +381,6 @@ init python:
     def NeonSepia(id):
         return im.MatrixColor(ImageReference(id), im.matrix.saturation(0.15) * im.matrix.tint(.7, .3, .1))
 
-
-
-
-
 init 10 python: # главы #TODO к херам
     def sch_savename_init(sch_char_name=" "):
         global save_name
@@ -406,6 +399,7 @@ init 10 python: # главы #TODO к херам
         global dr_mi #Мику
         global dr_nr #Нуар
         renpy.scene()
+
         if sch_dayNo >=1 and sch_dayNo <=7:
             renpy.show('day1')
             renpy.transition(fade)
@@ -414,39 +408,57 @@ init 10 python: # главы #TODO к херам
             renpy.show('black')
             renpy.transition(fade)
         renpy.scene()
+
         if (sch_dayNo > 1) and (not sch_hard):
+
             if sch_noir_flag == 1: # сделать проверку на тян
                 renpy.show("Color(hsv=(0, 0, 0.4875))")
+
             elif sch_noir_flag == 2:
                 renpy.show("Color(hsv=(0, 0, 0.325))")
+
             elif sch_noir_flag == 3:
                 renpy.show('Color(hsv=(0, 0, 0.1625))')
+
             elif (max(dr_dv, dr_un, dr_us, dr_sl, dr_mi)  >= 0) and (sch_dayNo <=3): # до 4 дня, очков тян больше нуля,
+
                 if (dr_dv or dr_un or dr_us or dr_sl or dr_iv or dr_mi or dr_nr) == max(dr_dv, dr_un, dr_us, dr_sl, dr_iv, dr_mi, dr_nr): #если равно
                     dr_overall = max(dr_dv, dr_un, dr_us, dr_sl, dr_iv, dr_mi, dr_nr)
                     renpy.show("Color(hsv=(0.9722222, [dr_overall*0.03], 1.0))") #розовый
+
                 elif (max(dr_dv, dr_un, dr_us, dr_sl, dr_mi) >=8): #  больше восьми, saturation = 100, изменяется brightness
                     if dr_us == max(dr_dv, dr_un, dr_us, dr_sl, dr_iv, dr_mi, dr_nr): #Уля
                         renpy.show("Color(hsv=(0, [0.5+dr_us*0.04], 1.0))")
+
                     elif dr_dv == max(dr_dv, dr_un, dr_us, dr_sl, dr_iv, dr_mi, dr_nr): # Алиса
                         renpy.show("Color(hsv=(.06666, [dr_dv*0.04], 1.0))")
+
                     elif dr_sl == max(dr_dv, dr_un, dr_us, dr_sl, dr_iv, dr_mi, dr_nr): # Славя
                         renpy.show("Color(hsv=(.12222, [dr_sl*0.04], 1.0))")
+
                     elif dr_mt == max(dr_dv, dr_un, dr_us, dr_sl, dr_iv, dr_mi, dr_nr): # ОД
                         renpy.show("Color(hsv=(.33333, [dr_mt*0.04], 1.0))")
+
                     elif dr_mi == max(dr_dv, dr_un, dr_us, dr_sl, dr_iv, dr_mi, dr_nr): # Мику
                         renpy.show("Color(hsv=(.5, [dr_mi*0.04], 1.0))")
+
                 else: # от одного до восьми, brightness = color*0.32, изменяется saturation
+
                     if dr_us == max(dr_dv, dr_un, dr_us, dr_sl, dr_iv, dr_mi, dr_nr): #Уля
                         renpy.show("Color(hsv=(0, 1.0, [0.5+dr_us*0.04]))")
+
                     elif dr_dv == max(dr_dv, dr_un, dr_us, dr_sl, dr_iv, dr_mi, dr_nr): # Алиса
                         renpy.show("Color(hsv=(.06666, 1.0, [dr_dv*0.04]))")
+
                     elif dr_sl == max(dr_dv, dr_un, dr_us, dr_sl, dr_iv, dr_mi, dr_nr): # Славя
                         renpy.show("Color(hsv=(.12222, 1.0, [dr_sl*0.04]))")
+
                     elif dr_mt == max(dr_dv, dr_un, dr_us, dr_sl, dr_iv, dr_mi, dr_nr): # ОД
                         renpy.show("Color(hsv=(.33333, 1.0, [dr_mt*0.04]))")
+
                     elif dr_mi == max(dr_dv, dr_un, dr_us, dr_sl, dr_iv, dr_mi, dr_nr): # Мику
                         renpy.show("Color(hsv=(.5, 1.0, [dr_mi*0.04]))")
+                        
             elif sch_dayNo >=4:
                 pass
                 #TODO по руттегам, без лого ЗР
@@ -488,7 +500,7 @@ init 10 python: # главы #TODO к херам
         chapter_name = (u"{size=80}{font=[csn]}{color=#FFFFFF}Заслуженная | {/color}{color=#999999}Реальность{/color}{/font}") # так надо, иначе ошибка
 
         if not persistent.sch_chapter_skip:
-            #renpy.music.play('deserved_reality/source/Sound/sfx/whisper.ogg', channel='sound', fadein=1.5, fadeout=0.5)
+            #renpy.music.play('deserved_reality/source/sounds/sfx/whisper.ogg', channel='sound', fadein=1.5, fadeout=0.5)
             renpy.scene()
             renpy.show('black')
             renpy.transition(fade)
@@ -506,9 +518,6 @@ init 10 python: # главы #TODO к херам
             renpy.transition(fade)
             renpy.pause(1.25, hard=True)
 
-
-
-
 #Поинты
 
 init python:
@@ -519,148 +528,237 @@ init python:
             renpy.hide_screen('sch_fuchsia_widget')
         config.overlay_functions.append(sch_widget_OP) #добавление виджета
 
+init:
+    $ dr_std_set_for_preview = {}
+    $ dr_std_set = {}
+    $ store.dr_colors = {}
+    $ store.dr_names = {}
+    $ store.dr_names_list = []
+    $ dr_time_of_day = "night"
+
+    $ _show_two_window = True
+
+    $ store.dr_names_list.append("dr_narrator")
+
+    $ store.dr_names_list.append("dr_th")
+
+
+    $ dr_colors["dr_voice"] = {"night": (225, 221, 125, 255), "sunset": (225, 221, 125, 255), "day": (225, 221, 125, 255), "prolog": (225, 221, 125, 255)}
+    $ dr_names["dr_voice"] = "Голос"
+    $ store.dr_names_list.append("dr_voice")
+
+    $ dr_colors["dr_myself"] = {"night": (225, 221, 125, 255), "sunset": (225, 221, 125, 255), "day": (225, 221, 125, 255), "prolog": (225, 221, 125, 255)}
+    $ dr_names["dr_myself"] = "Я"
+    $ store.dr_names_list.append("dr_myself")
+
+    $ dr_colors["dr_el"] = {"night": (205, 205, 0, 255), "sunset": (255, 255, 0, 255), "day": (255, 255, 0, 255), "prolog": (255, 255, 0, 255)}
+    $ dr_names["dr_el"] = "Электроник"
+    $ store.dr_names_list.append("dr_el")
+
+    $ dr_colors["dr_un"] = {"night": (170, 100, 217, 255), "sunset": (185, 86, 255, 255), "day": (185, 86, 255, 255), "prolog": (185, 86, 255, 255)}
+    $ dr_names["dr_un"] = "Лена"
+    $ store.dr_names_list.append("dr_un")
+
+    $ dr_colors["dr_dv"] = {"night": (210, 139, 16, 255), "sunset": (255, 170, 0, 255), "day": (255, 170, 0, 255), "prolog": (255, 170, 0, 255)}
+    $ dr_names["dr_dv"] = "Алиса"
+    $ store.dr_names_list.append("dr_dv")
+
+    $ dr_colors["dr_sl"] = {"night": (214, 176, 0, 255), "sunset": (255, 210, 0, 255), "day": (255, 210, 0, 255), "prolog": (255, 210, 0, 255)}
+    $ dr_names["dr_sl"] = "Славя"
+    $ store.dr_names_list.append("dr_sl")
+
+    $ dr_colors["dr_us"] = {"night": (234, 55, 0, 255), "sunset": (255, 50, 0, 255), "day": (255, 50, 0, 255), "prolog": (255, 50, 0, 255)}
+    $ dr_names["dr_us"] = "Ульяна"
+    $ store.dr_names_list.append("dr_us")
+
+    $ dr_colors["dr_mt"] = {"night": (0, 182, 39, 255), "sunset": (0, 234, 50, 255), "day": (0, 234, 50, 255), "prolog": (0, 234, 50, 255)}
+    $ dr_names["dr_mt"] = "Ольга Дмитриевна"
+    $ store.dr_names_list.append("dr_mt")
+
+    $ dr_colors["dr_cs"] = {"night": (134, 134, 230, 255), "sunset": (165, 165, 255, 255), "day": (165, 165, 255, 255), "prolog": (165, 165, 255, 255)}
+    $ dr_names["dr_cs"] = "Виола"
+    $ store.dr_names_list.append("dr_cs")
+
+    $ dr_colors["dr_mz"] = {"night": (84, 129, 219, 255), "sunset": (114, 160, 255, 255), "day": (74, 134, 255, 255), "prolog": (74, 134, 255, 255)}
+    $ dr_names["dr_mz"] = "Женя"
+    $ store.dr_names_list.append("dr_mz")
+
+    $ dr_colors["dr_mi"] = {"night": (0, 180, 207, 255), "sunset": (0, 252, 255, 255), "day": (0, 222, 255, 255), "prolog": (0, 222, 255, 255)}
+    $ dr_names["dr_mi"] = "Мику"
+    $ store.dr_names_list.append("dr_mi")
+
+    $ dr_colors["dr_uv"] = {"night": (64, 208, 0, 255), "sunset": (78, 255, 0, 255), "day": (78, 255, 0, 255), "prolog": (78, 255, 0, 255)}
+    $ dr_names["dr_uv"] = "Харон"
+    $ store.dr_names_list.append("dr_uv")
+
+    $ dr_colors["dr_sh"] = {"night": (205, 194, 18, 255), "sunset": (255, 242, 38, 255), "day": (255, 242, 38, 255), "prolog": (255, 242, 38, 255)}
+    $ dr_names["dr_sh"] = "Шурик"
+    $ store.dr_names_list.append("dr_sh")
+
+    $ dr_colors["dr_pi"] = {"night": (230, 0, 0, 255), "sunset": (230, 0, 0, 255), "day": (230, 1, 1, 255), "prolog": (230, 0, 0, 255)}
+    $ dr_names["dr_pi"] = "Пионер"
+    $ store.dr_names_list.append("dr_pi")
+
+    $ dr_colors["dr_bush"] = {"night": (192, 192, 192, 255), "sunset": (192, 192, 192, 255), "day": (192, 192, 192, 255), "prolog": (192, 192, 192, 255)}
+    $ dr_names["dr_bush"] = "Голос"
+    $ store.dr_names_list.append("dr_bush")
+
+    $ dr_colors['dr_ai'] = {'night': (42, 165, 1, 255), 'sunset': (68, 202, 2, 255), 'day': (72, 246, 2, 255), 'prolog': (60, 177, 2, 255)} #rgb(72, 246, 2)
+    $ store.dr_names_list.append('ai')#Собеседник, ИИ
+    $ dr_names['dr_ai'] = 'ИИ'
+
+    $ dr_colors['dr_chat'] = {'night': (64, 38, 65, 255), 'sunset': (103, 47, 97, 255), 'day': (110, 57, 97, 255), 'prolog': (92, 41, 97, 255)} #rgb(110, 57, 97)
+    $ store.dr_names_list.append('chat')#Собеседник
+    $ dr_names['dr_chat'] = 'Собеседник'
+
+    $ dr_colors['dr_mother'] = {'night': (144, 11, 72, 255), 'sunset': (234, 13, 107, 255), 'day': (249, 16, 107, 255), 'prolog': (209, 12, 107, 255)}
+    $ store.dr_names_list.append('mother')#Мама
+    $ dr_names['dr_mother'] = "Мама"
+
+    $ dr_colors['dr_ami'] = {'night': (119, 72, 31, 255), 'sunset': (193, 89, 46, 255), 'day': (205, 108, 46, 255), 'prolog': (172, 78, 46, 255)}
+    $ store.dr_names_list.append('ami')#Амина
+    $ dr_names['dr_ami'] = "Амина"
+
+    $ dr_colors['dr_os'] = {'night': (26, 215, 14, 255), 'sunset': (26, 215, 14, 255), 'day': (26, 215, 14, 255), 'prolog': (26, 215, 14, 255)}
+    $ store.dr_names_list.append('os')#Олег Степанович
+    $ dr_names['dr_os'] = "Олег Степанович"
+
+    $ dr_colors['dr_med'] = {'night': (210, 182, 72, 255), 'sunset': (210, 182, 72, 255), 'day': (210, 182, 72, 255), 'prolog': (210, 182, 72, 255)}
+    $ store.dr_names_list.append('med')#Доктор
+    $ dr_names['dr_med'] = "Доктор"
+
+    $ dr_colors['dr_guard'] = {'night': (2, 73, 138, 255), 'sunset': (2, 73, 138, 255), 'day': (2, 73, 138, 255), 'prolog': (2, 73, 138, 255)}
+    $ store.dr_names_list.append('guard')#охранник
+    $ dr_names['dr_guard'] = "Охранник"
+
+
+    def dr_forgeteveryone():
+        global store
+        dr_meet('dr_voice', u"Голос")
+        dr_meet('dr_myself', u"Я")
+        dr_meet('dr_mi', u"Азиатка")
+        dr_meet('dr_sl', u"Блондинка")
+        dr_meet('dr_dv', u"Рыжая")
+        dr_meet('dr_us', u"Девочка-СССР")
+        dr_meet('dr_un', u"Стесняшка")
+        dr_meet('dr_mt', u"Вожатая")
+        dr_meet('dr_cs', u"Медсестра")
+        dr_meet('dr_dreamgirl', u"...")
+        dr_meet('dr_el', u"Блондин")
+        dr_meet('dr_pi', u"Пионер")
+        dr_meet('dr_sh', u"Очкарик")
+        dr_meet('dr_uv', u"Девушка")
+        dr_meet('dr_chat', u'Ребёнок')
+        dr_meet('dr_mother', u"Мама")
+        dr_meet('dr_ami', u"Амина")
+        dr_meet('dr_ai', u"Искин")
+        dr_meet('dr_os', u'Олег Степанович')
+        dr_meet('dr_med', u'Доктор')
+        dr_meet('dr_guard', u'Охранник')
+
+    def dr_meeteveryone():
+        global store
+        dr_meet('dr_voice', u"Голос")
+        dr_meet('dr_myself', u"Я")
+        dr_meet('dr_mi', u"Мику")
+        dr_meet('dr_sl', u"Славя")
+        dr_meet('dr_dv', u"Алиса")
+        dr_meet('dr_us', u"Ульяна")
+        dr_meet('dr_un', u"Лена")
+        dr_meet('dr_mt', u"Ольга Дмитриевна")
+        dr_meet('dr_cs', u"Виола")
+        dr_meet('dr_dreamgirl', u"Харон")
+        dr_meet('dr_el', u"Электроник")
+        dr_meet('dr_pi', u"Пионер")
+        dr_meet('dr_sh', u"Шурик")
+        dr_meet('dr_uv', u"Харон")
+        dr_meet('dr_chat', u'Друг')
+        dr_meet('dr_mother', u"Мама")
+        dr_meet('dr_ami', u"Девушка")
+        dr_meet('dr_ai', u'Искин')
+        dr_meet('dr_os', u'Олег Степанович')
+        dr_meet('dr_med', u'Доктор')
+        dr_meet('dr_guard', u'Охранник')
+
+
+    dr_forgeteveryone()
+    set_mode_adv()
+    reload_names()
 
 init python:
-    def name_sch(sch_name): #args - me - Я, pr - Протагонист, iv - Иван, van - Ваня
-        global colors
-        global names
-        global store
+    def name_sch(dr_name): #args - me - Я, pr - Протагонист, iv - Иван, van - Ваня
+        global dr_colors
+        global dr_names
+        global dr_store
         gl = globals()
-        if 'ivan' in colors:
-            del colors['ivan']
-        if 'ivan' in store.names_list:
-            store.names_list.remove('ivan')
-        gl['ivan' + "_name"] = sch_name
-        if sch_name == u"Иван":
-            colors['ivan'] = {'night': (24, 64, 48, 255), 'sunset': (39, 79, 72, 255), 'day': (41, 96, 72, 255), 'prolog': (34, 69, 72, 255)}
-            store.names['ivan'] = u"Иван"
+
+        if 'ivan' in dr_colors:
+            del dr_colors['ivan']
+
+        if 'ivan' in store.dr_names_list:
+            store.dr_names_list.remove('ivan')
+
+        gl['ivan' + "_name"] = dr_name
+
+        if dr_name == u"Иван":
+            dr_colors['ivan'] = {'night': (24, 64, 48, 255), 'sunset': (39, 79, 72, 255), 'day': (41, 96, 72, 255), 'prolog': (34, 69, 72, 255)}
+            store.dr_names['ivan'] = u"Иван"
             #names['ivan'] = u"Иван"
-            store.names_list.append('ivan')
-        elif sch_name == u"Ваня":
-            colors['ivan'] = {'night': (53, 61, 154, 255), 'sunset': (86, 75, 230, 255), 'day': (91, 91, 230, 255), 'prolog': (76, 66, 230, 255)}
-            store.names['ivan'] = u"Ваня"
+            store.dr_names_list.append('ivan')
+
+        elif dr_name == u"Ваня":
+            dr_colors['ivan'] = {'night': (53, 61, 154, 255), 'sunset': (86, 75, 230, 255), 'day': (91, 91, 230, 255), 'prolog': (76, 66, 230, 255)}
+            store.dr_names['ivan'] = u"Ваня"
             #names['ivan'] = u"Ваня"
-            store.names_list.append('ivan')
-        elif sch_name == u"Протагонист" or sch_name == u"Пророк":
-            colors['ivan'] = {'night': (53, 61, 61, 255), 'sunset': (86, 75, 91, 255), 'day': (91, 91, 91, 255), 'prolog': (76, 66, 91, 255)}
-            store.names['ivan'] = sch_name
+            store.dr_names_list.append('ivan')
+
+        elif dr_name == u"Протагонист" or dr_name == u"Пророк":
+            dr_colors['ivan'] = {'night': (53, 61, 61, 255), 'sunset': (86, 75, 91, 255), 'day': (91, 91, 91, 255), 'prolog': (76, 66, 91, 255)}
+            store.dr_names['ivan'] = dr_name
             #names['ivan'] = u"Протагонист"
-            store.names_list.append('ivan')
+            store.dr_names_list.append('ivan')
+
         else:
-            colors['ivan'] = {'night': (85, 1, 1, 255), 'sunset': (138, 2, 2, 255), 'day': (147, 2, 2, 255), 'prolog': (123, 1, 2, 255)}
-            store.names['ivan'] = sch_name
-            #names['ivan'] = sch_name
-            store.names_list.append('ivan')
+            dr_colors['ivan'] = {'night': (85, 1, 1, 255), 'sunset': (138, 2, 2, 255), 'day': (147, 2, 2, 255), 'prolog': (123, 1, 2, 255)}
+            store.dr_names['ivan'] = dr_name
+            #names['ivan'] = dr_name
+            store.dr_names_list.append('ivan')
 
         reload_names()
-init 2:
-    $ iv = Character(what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000", what_italic = True) #TODO перевести в nvl и упорядочить звёздочку /// + добавить префикс и суффикс
-    #$ chat = Character(u'Собеседник', color="#6e3961", what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
-    #$ mother = Character(u'Мама', color="#f9106b", what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
-    #$ ami = Character(u'Амина', color="#cd6c2e", what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
-
-    #Day - базис
-    #Sunset - 94%, 82%, 100%
-    #Night - 58%, 67%, 67%
-    #Prologue - 84%, 72%, 100%
-    #RGBA
 
 
-    $ colors['ai'] = {'night': (42, 165, 1, 255), 'sunset': (68, 202, 2, 255), 'day': (72, 246, 2, 255), 'prolog': (60, 177, 2, 255)} #rgb(72, 246, 2)
-    $ store.names_list.append('ai')#Собеседник, ИИ
+# init 2:
+#     $ iv = Character(what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000", what_italic = True) #TODO перевести в nvl и упорядочить звёздочку /// + добавить префикс и суффикс
+#     #$ chat = Character(u'Собеседник', color="#6e3961", what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
+#     #$ mother = Character(u'Мама', color="#f9106b", what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
+#     #$ ami = Character(u'Амина', color="#cd6c2e", what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
 
-    $ colors['chat'] = {'night': (64, 38, 65, 255), 'sunset': (103, 47, 97, 255), 'day': (110, 57, 97, 255), 'prolog': (92, 41, 97, 255)} #rgb(110, 57, 97)
-    $ store.names_list.append('chat')#Собеседник
-
-    $ colors['mother'] = {'night': (144, 11, 72, 255), 'sunset': (234, 13, 107, 255), 'day': (249, 16, 107, 255), 'prolog': (209, 12, 107, 255)}
-    $ store.names_list.append('mother')#Мама
-
-    $ colors['ami'] = {'night': (119, 72, 31, 255), 'sunset': (193, 89, 46, 255), 'day': (205, 108, 46, 255), 'prolog': (172, 78, 46, 255)}
-    $ store.names_list.append('ami')#Амина
-
-    $ colors['os'] = {'night': (26, 215, 14, 255), 'sunset': (26, 215, 14, 255), 'day': (26, 215, 14, 255), 'prolog': (26, 215, 14, 255)}
-    $ store.names_list.append('os')#Олег Степанович
-
-    $ colors['med'] = {'night': (210, 182, 72, 255), 'sunset': (210, 182, 72, 255), 'day': (210, 182, 72, 255), 'prolog': (210, 182, 72, 255)}
-    $ store.names_list.append('med')#Доктор
-
-    $ colors['guard'] = {'night': (2, 73, 138, 255), 'sunset': (2, 73, 138, 255), 'day': (2, 73, 138, 255), 'prolog': (2, 73, 138, 255)}
-    $ store.names_list.append('guard')#охранник
+#     #Day - базис
+#     #Sunset - 94%, 82%, 100%
+#     #Night - 58%, 67%, 67%
+#     #Prologue - 84%, 72%, 100%
+#     #RGBA
 
 
 
-    $ names['chat'] = u'Собеседник'
-    $ names['ai'] = u'ИИ'
-    $ names['mother'] = u"Мама"
-    $ names['ami'] = u"Амина"
-    $ names['os'] = u"Олег Степанович"
-    $ names['med'] = u"Доктор"
-    $ names['guard'] = u"Охранник"
 
 init 3 python:
-    def meet_sch(who, name):
+    def dr_meet(who, name):
         global store
         gl = globals()
         gl[who + "_name"] = name
-        store.names[who] = name
+        store.dr_names[who] = name
 
-
-    def save_known_names():
+    def dr_save_names_known():
         gl = globals()
         global store
-        for x in store.names_list:
-            if not (x == 'narrator' or x == 'th' or x == 'iv'):
-                store.names[x] = gl["%s_name"%x]
+        for x in store.dr_names_list:
+            if not (x == 'narrator' or x == 'th'):
+                store.dr_names[x] = gl["%s_name"%x]
 
 
-    def sch_forgeteveryone():
-        global store
-        meet_sch('mi', u"Азиатка")
-        meet_sch('sl', u"Блондинка")
-        meet_sch('dv', u"Рыжая")
-        meet_sch('us', u"Девочка-СССР")
-        meet_sch('un', u"Стесняшка")
-        meet_sch('mt', u"Вожатая")
-        meet_sch('cs', u"Медсестра")
-        meet_sch('dreamgirl', u"...")
-        meet_sch('el', u"Блондин")
-        meet_sch('pi', u"Пионер")
-        meet_sch('sh', u"Очкарик")
-        meet_sch('uv', u"Девушка")
-        meet_sch('chat', u'Ребёнок')
-        meet_sch('mother', u"Мама")
-        meet_sch('ami', u"Амина")
-        meet_sch('ai', u"Искин")
-        meet_sch('os', u'Олег Степанович')
-        meet_sch('med', u'Доктор')
-        meet_sch('guard', u'Охранник')
-
-    def sch_meeteveryone():
-        global store
-        meet_sch('mi', u"Мику")
-        meet_sch('sl', u"Славя")
-        meet_sch('dv', u"Алиса")
-        meet_sch('us', u"Ульяна")
-        meet_sch('un', u"Лена")
-        meet_sch('mt', u"Ольга Дмитриевна")
-        meet_sch('cs', u"Виола")
-        meet_sch('dreamgirl', u"Харон")
-        meet_sch('el', u"Электроник")
-        meet_sch('pi', u"Пионер")
-        meet_sch('sh', u"Шурик")
-        meet_sch('uv', u"Харон")
-        meet_sch('chat', u'Друг')
-        meet_sch('mother', u"Мама")
-        meet_sch('ami', u"Девушка")
-        meet_sch('ai', u'Искин')
-        meet_sch('os', u'Олег Степанович')
-        meet_sch('med', u'Доктор')
-        meet_sch('guard', u'Охранник')
 
 
-    sch_forgeteveryone()
-    set_mode_adv()
-    reload_names()
 
 init 52 python:
     def disable_all_chibi():
@@ -679,34 +777,47 @@ init -1000 python: # Пути
     #def sources_sch(file):
     #    return sch_path+"source/%s" % (file)
     config_session = False
-    if renpy.version(tuple=False) == "Ren'Py 6.16.3.502":
-        sch_path = 'deserved_reality/'
-    elif (renpy.version(tuple=False) == "Ren'Py 6.18.3.761") or (persistent.nonsteam_sch == True):
+
+    if renpy.version (tuple = False) == "Ren'Py 6.16.3.502":
         sch_path = 'mods/deserved_reality/'
+
+    elif (renpy.version (tuple = False) == "Ren'Py 6.18.3.761") or (persistent.nonsteam_sch == True):
+        sch_path = 'mods/deserved_reality/'
+
     else:
         if renpy.mobile:
-            sch_path = 'deserved_reality/'
+            sch_path = "mods/deserved_reality/"
         else:
-            sch_path = '../deserved_reality/' # изменить на выходе
-    source_sch = sch_path+'source/'
+            sch_path = "mods/deserved_reality/" # изменить на выходе
+
+    source_sch = sch_path + "source/"
+
     def image_sch(file):
-        return source_sch+"images/%s" % (file)
+        return source_sch + "images/%s" % (file)
+
     def music_sch(file):
-        return source_sch+"Sound/music/%s" % (file)
+        return source_sch + "sounds/music/%s" % (file)
+
     def ambience_sch(file):
-        return source_sch+"Sound/ambience/%s" % (file)
+        return source_sch + "sounds/ambience/%s" % (file)
+
     def sfx_sch(file):
-        return source_sch+"Sound/sfx/%s" % (file)
+        return source_sch + "sounds/sfx/%s" % (file)
+
     def video_sch(file):
-        return source_sch+"images/video/%s" % (file)
+        return source_sch + "images/video/%s" % (file)
+
     def menu_sch(file):
-        return source_sch+"images/gui/menu/%s" % (file)
+        return source_sch + "images/gui/menu/%s" % (file)
+
     def gui_sch(file):
-        return source_sch+"images/gui/%s" % (file)
+        return source_sch + "images/gui/%s" % (file)
+
     def fonts_sch(file):
-        return source_sch+"images/fonts/%s" % (file)
+        return source_sch + "images/fonts/%s" % (file)
+
     def maps_sch(file):
-        return source_sch+"images/maps/%s" % (file)
+        return source_sch + "images/maps/%s" % (file)
 
 
 # Стили

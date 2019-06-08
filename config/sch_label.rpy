@@ -28,10 +28,9 @@ label sch_commonvars:
     $ sch_noir_flag = 0 # флаги Нуара численно, показывают выход на рут
     $ list_sch_ch_known = [] # Знакомые персонажи
     $ sch_sl_keys = False
-    $ sch_true_flag = 0
     #---------------------------------------------
     # получаемые во втором
-    $ sch_sabotage = 0 # 0 -не знает, 1, 2... - этапы, 5 - финал,  -1 - отказ в начале -2 - отказ при подтверждении, -3 - отказ в середине, -4 - отказ в конце, -5 - не успел сделать всё, -6 - переманил Алису на мирную сторону
+    $ sch_sabotage = 0 # 0 -не знает, 1, 2... - этапы, -1 - отказ в начале -2 - отказ при подтверждении, -3 - отказ в середине, -4 - отказ в конце, -6 - переманил Алису на мирную сторону,
 
 
 # Пролог
@@ -49,7 +48,6 @@ label sch_day1_vars:
     $ sch_day1_sl_together = False # С кем пошёл к ОД TODO сделать не списком, а string
     $ sch_day1_ev_mi = False # позвала ли Мику на пристань
     $ sch_ginger_lie = 0
-
 
     return
 
@@ -80,9 +78,8 @@ label sch_allvars:
     call sch_day1_vars # онли первый день
     call sch_day2_vars # онли второй день
     call sch_day3_vars # онли третий день
+
     return
-
-
 
 label sichium_start: # Меню
     # анимации
@@ -92,7 +89,7 @@ label sichium_start: # Меню
     $ persistent.sprite_time = "night"
     $ prolog_time()
     $ name_sch("Я")
-    $ volume('sound', 0.5)
+    #$ volume('sound', 0.5)
 
     scene black
     $ renpy.movie_cutscene(preroll)
@@ -101,8 +98,8 @@ label sichium_start: # Меню
 
     $ save_name = "Заслуженная Реальность. Меню."
     
-
     scene bg white
+
     show blacksquare:
         xalign 0.5 yalign 0.5
         zoom 20.0
@@ -111,38 +108,50 @@ label sichium_start: # Меню
         linear 0.35 xzoom 0.12
         easein 0.35 yzoom 3.62
         linear 0.35 xanchor 111
+
     pause(2.1) # дефакто 2.05
+
     show white2:
         xpos 861
+
     play music honor fadein 1
+
     play sound whiteflash
+
     show sch_begin behind white2:
         pos(861, 382)
         linear 0.25 xanchor 498
+
     pause(0.25)
+
     show sch_continue behind white2:
         pos(861, 462)
         linear 0.25 xanchor 498
+
     pause(0.25)
+
     show sch_settings behind white2:
         pos(861, 542)
         linear 0.25 xanchor 498
+        
     pause(0.25)
+
     show sch_achievements behind white2:
         pos(861, 622)
         linear 0.25 xanchor 498
+
     pause(0.25)
+
     show exit_idle:
         pos (-72, 1008)
         linear 0.25 pos(0, 1008)
+
     pause(0.25)
     # де факто 2.05+0.05+1.25=3.35
-    $ volume('sound', 1.0)
+    ##$ volume('sound', 1.0)
     call screen sch_menu_pre
 
     jump sch_menu_callout
-
-
 
 label sch_menu_callout:
     $ renpy.block_rollback()
@@ -156,23 +165,29 @@ label sch_menu_callout:
         scene bg black with Dissolve(2.5)
         return
     scene white with dissolve
+    
     show blacksquare:
         xalign 0.5 yalign 0.5
         xanchor 111 xzoom 0.12 yzoom 3.62
+
     show white2 behind blacksquare:
         xpos 861
     show sch_begin behind white2:
         pos(363, 382)
         linear 0.75 xanchor -498
+
     show sch_continue behind white2:
         pos(363, 462)
         linear 0.75 xanchor -498
+
     show sch_achievements behind white2:
         pos(363, 622)
         linear 0.75 xanchor -498
+
     show sch_settings behind white2:
         pos(363, 542)
         linear 0.75 xanchor -498
+
     show exit_idle:
         pos(0, 1008)
         linear 0.75 xpos -72
@@ -190,10 +205,6 @@ label sch_menu_callout:
         linear 0.5 xzoom 1.0
         pause .5
         easein 1.0 zoom 20.0
-
-
-
-
 
     $ renpy.pause(5, hard=True)
 
@@ -302,32 +313,33 @@ label sch_loner_router:
         call sch_ln_vars
         return
 
-
-
-
-
-
-
-
-
 label sch_final_router:
     if routetag_sch == "dv_sab":
         jump sch_day4_dv_sabotage_cr
+
     elif routetag_sch == "dv_peace":
         jump sch_day4_dv_negotiator_cr
+
     elif routetag_sch == "dv":
         jump sch_day_dv_cr
+
     elif routetag_sch == "sl":
         jump sch_day4_sl_cr
+
     elif routetag_sch == "mi":
         jump sch_day4_mi_cr
+
     elif routetag_sch == "un":
         jump sch_day4_un_cr
+
     elif routetag_sch == "us":
         jump sch_day4_us_cr
+
     elif routetag_sch == "nr":
         jump sch_day4_nr_cr
+        
     elif routetag_sch == "ln":
         jump sch_day4_ln_cr
+        
     else:
         jump sch_router
