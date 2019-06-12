@@ -140,7 +140,10 @@ screen sch_menu:
 
     add "bg black"
 
-    add "dr_main_menu_atl"
+    if dr_inmenu:
+        add "dr_main_menu_atl_short"
+    else:
+        add "dr_main_menu_atl"
 
     add "blacksquare" xalign 0.5 yalign 0.5 xzoom 0.12 yzoom 3.62 xanchor 111
 
@@ -148,11 +151,19 @@ screen sch_menu:
 
     #text "{font=[source_sch]images/fonts/LemonTuesday.otf}{size=60}З{/font}{font=[source_sch]images/fonts/csn.ttf}аслуженная{/size}{/font}\n {size=50}{font=[source_sch]images/fonts/LemonTuesday.otf}Р{/font}{font=[source_sch]images/fonts/csn.ttf}{/size}{size=60}еальность{/size}{/font}":
     ##vbox:
-    textbutton "{size=150}Заслуженная{/size}\n   {size=120}Реальность{/color}" at sch_menu_ease:
-        yalign 0.5
-        style "sch_keys"
-        text_style "sch_keys"
-        action OpenURL("https://vk.com/public167564386")
+    if not dr_inmenu:
+        textbutton "{size=150}Заслуженная{/size}\n  {size=120}Реальность{/color}" at sch_menu_ease:
+            yalign 0.5
+            style "sch_keys"
+            text_style "sch_keys"
+            action OpenURL("https://vk.com/public167564386")
+    else:
+        textbutton "{size=150}Заслуженная{/size}\n  {size=120}Реальность{/color}":
+            xpos 1131
+            yalign 0.5
+            style "sch_keys"
+            text_style "sch_keys"
+            action OpenURL("https://vk.com/public167564386")
         
     # потенциально сделать провекру на хардмод
     vbox:   #Открыть экран сейвов
@@ -349,7 +360,7 @@ screen sch_settings_back:
         ypos 500
         text_style "sch_keys_white"
         style "sch_keys_white"
-        action [Show("sch_menu", transition = Dissolve(0.55)), Hide("sch_settings", transition = Dissolve(0.25)), Hide("sch_settings_back", transition = Dissolve(0.25))]
+        action [Show("sch_menu", transition = Dissolve(0.55)), Hide("sch_settings", transition = Dissolve(0.25)), Hide("sch_settings_back", transition = Dissolve(0.25)), SetVariable("dr_inmenu", True)]
 
 label sch_achievements:
     "Undone."

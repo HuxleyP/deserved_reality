@@ -53,6 +53,8 @@ init 2:
 
     $ sch_ingame = False # был ли в игре, пока что надобность в переменной только ради плейсхолдера
 
+    $ dr_inmenu = False
+
     $ limb = False # Лимб, имя "дефолта", чтобы не путать с Иваном и не писать ГГ, ибо каждый из них ГГ (Тоха уже сказал, что отсылка на один мод, но чёрта с два!)
     $ prophet = False # Пророк, он же трушник, но при этом он выносится как отдельный игрок, ибо Пророк не может выйти на обычные руты, а только на нуара с небольшими изменениями и дополненным тру и на саму тру-ветку
 
@@ -167,11 +169,12 @@ init -998:
 
     image bg white = "#fff"
     image white2 = "#ffffff"
-    image blacksquare = "mods/deserved_reality/source/images/gui/menu/square.png"
-    image whitesquare = im.MatrixColor("mods/deserved_reality/source/images/gui/menu/square.png", im.matrix.colorize("#fff", "#fff"))
+    image blacksquare = "deserved_reality/source/images/gui/menu/square.png"
+    image whitesquare = im.MatrixColor("deserved_reality/source/images/gui/menu/square.png", im.matrix.colorize("#fff", "#fff"))
     image gray = "#171717"
     image beige = "#fbf0b3"
     image yellowish = "#7d5f34"
+    image exit_idle = "[source_sch]images/gui/menu/ButtonExit_idle.png"
 
     # Объявляем текст для анимаций
 
@@ -261,6 +264,7 @@ init -998:
     $ get_shot = sfx_sch("getshot.ogg")
     $ car_stop = sfx_sch("car_stop.ogg")
     $ surprise = sfx_sch("surprise.ogg")
+    $ sneeze = sfx_sch("sneeze.ogg")
 
     #Шрифт
     $ dr_font = fonts_sch("LemonTuesday.otf")
@@ -325,6 +329,15 @@ init:
             "dr_sky_night" with Dissolve(4)
             pause 6.0
             repeat
+
+    image dr_main_menu_atl_short:
+        "dr_sky_day" with Dissolve(4)
+        pause 6.0
+        "dr_sky_sunset" with Dissolve(4)
+        pause 6.0
+        "dr_sky_night" with Dissolve(4)
+        pause 6.0
+        repeat
 
 
 
@@ -483,10 +496,13 @@ init 10 python: # главы #TODO к херам
 
 
     def sch_chapter(sch_dayNo, sch_ch_name): #dayNo - номер дня (>=8 - пролог), ch_name - название главы,ы, new_day - новый день
+        global dr_inmenu
         global save_name # название сейва
         global routetag_sch # руттэг
         global sch_chapter_skip
         renpy.fix_rollback()
+
+        dr_inmenu = False # при возвращении в главное меню анимация начинается с белого экрана
 
         save_name = (u"Заслуженная | Реальность") # так надо, иначе ошибка
         if sch_dayNo != 0:
@@ -671,6 +687,24 @@ init python:
 
         reload_names()
 
+
+
+
+init 3 python:
+    def dr_meet(who, name):
+        global store
+        gl = globals()
+        gl[who + "_name"] = name
+        store.dr_names[who] = name
+
+    def dr_save_names_known():
+        gl = globals()
+        global store
+        for x in store.dr_names_list:
+            if not (x == 'narrator' or x == 'th'):
+                store.dr_names[x] = gl["%s_name"%x]
+
+
     def dr_forgeteveryone():
         global store
         dr_meet('dr_voice', u"Голос")
@@ -724,24 +758,6 @@ init python:
     set_mode_adv()
     reload_names()
 
-
-
-init 3 python:
-    def dr_meet(who, name):
-        global store
-        gl = globals()
-        gl[who + "_name"] = name
-        store.dr_names[who] = name
-
-    def dr_save_names_known():
-        gl = globals()
-        global store
-        for x in store.dr_names_list:
-            if not (x == 'narrator' or x == 'th'):
-                store.dr_names[x] = gl["%s_name"%x]
-
-
-
 # init 2:
 #     $ iv = Character(what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000", what_italic = True) #TODO перевести в nvl и упорядочить звёздочку /// + добавить префикс и суффикс
 #     #$ chat = Character(u'Собеседник', color="#6e3961", what_color="#E2C778", what_drop_shadow = [ (2, 2) ], what_drop_shadow_color = "#000")
@@ -774,17 +790,19 @@ init -1000 python: # Пути
     #    return sch_path+"source/%s" % (file)
     config_session = False
 
+
+    # Я ХЗ, какой извращенец будет ставить мой мод на  6.16 или 6.18. Оно не заработает! (95%)
     if renpy.version (tuple = False) == "Ren'Py 6.16.3.502":
-        sch_path = 'mods/deserved_reality/'
+        sch_path = 'deserved_reality/'
 
     elif (renpy.version (tuple = False) == "Ren'Py 6.18.3.761") or (persistent.nonsteam_sch == True):
-        sch_path = 'mods/deserved_reality/'
+        sch_path = 'deserved_reality/'
 
-    else:
+    else: # Так что это фактически единственная нормальная часть этого кода
         if renpy.mobile:
-            sch_path = "mods/deserved_reality/"
+            sch_path = "deserved_reality/"
         else:
-            sch_path = "mods/deserved_reality/" # изменить на выходе
+            sch_path = "deserved_reality/" # изменить на выходе
 
     source_sch = sch_path + "source/"
 
@@ -838,6 +856,7 @@ init -998 python:
     # белые
     style.sch_keys_white = Style(style.sch_keys) # Объявление
     style.sch_keys_white.color = "#ffffff" # Цвет текста
+    style.sch_keys_white.hover_color = "#800000"
 
     # белые с определённым размером
     style.sch_desc = Style(style.sch_keys_white)

@@ -84,7 +84,7 @@ label sch_allvars:
 label sichium_start: # Меню
     # анимации
 
-    $ sch_forgeteveryone()
+    $ dr_forgeteveryone()
 
     $ persistent.sprite_time = "night"
     $ prolog_time()

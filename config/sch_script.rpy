@@ -36,9 +36,9 @@ init python:
             renpy.display.screen.screens[("dr_old_help", None)] = renpy.display.screen.screens[("help", None)]
         
         def dr_screen_act():
-            config.window_title = u"Петля времени"
+            config.window_title = u"Заслуженная | Реальность"
             config.name = "dr"
-            config.version = "1.0.0."
+            config.version = "7.3 A"
             renpy.display.screen.screens[("main_menu", None)] = renpy.display.screen.screens[("dr_main_menu", None)]
             renpy.display.screen.screens[("quit", None)] = renpy.display.screen.screens[("dr_quit", None)]
             renpy.display.screen.screens[("say", None)] = renpy.display.screen.screens[("dr_say", None)]
@@ -47,10 +47,10 @@ init python:
             renpy.display.screen.screens[("yesno_prompt", None)] = renpy.display.screen.screens[("dr_yesno_prompt", None)] 
             renpy.display.screen.screens[("choice", None)] = renpy.display.screen.screens[("dr_choice", None)]
             renpy.display.screen.screens[("help", None)] = renpy.display.screen.screens[("dr_help", None)]
-            layout.LOADING = "Потерять несохраненые данные?"
+            layout.LOADING = "Вы можете потерять несохраненые данные. Продолжить?"
             
-            config.mouse = {'default' : [("mods/dr/images/gui/cursor.png", 0, 0)]} 
-            config.main_menu_music = "mods/dr/sounds/music/tl_mega_drive_narc.mp3"
+            config.mouse = {'default' : [("dr/images/gui/cursor.png", 0, 0)]} 
+            #config.main_menu_music = "mods/dr/sounds/music/tl_mega_drive_narc.mp3"
             config.linear_saves_page_size = None
             persistent._file_page = "dr_FilePage_1"  
 

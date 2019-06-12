@@ -3,7 +3,7 @@ label dr_day1_cr:
     $ day_time()
     $ persistent.sprite_time = 'day'
     $ name_sch(u'Я')
-    $ sch_forgeteveryone()
+    $ dr_forgeteveryone()
 
     # Старт!
 
