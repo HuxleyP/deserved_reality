@@ -269,7 +269,7 @@ screen sch_settings_menu:
                 action [Hide("sch_menu"), SetField(persistent, "undone_jumper", True)]
 
         showif persistent.sch_difficulty:
-            textbutton ("•Сложность по умолчанию - Hardmode"):
+            textbutton ("•Сложность по умолчанию - Hard"):
                 xpos 880
                 ypos 436
                 background None
@@ -428,7 +428,7 @@ screen sch_placeholder_desc:
         unhovered[Hide("sch_placeholder_desc", transition=Dissolve(0.1))]
 
 screen sch_difficulty_desc:
-    textbutton "Данная опция позволяет сменить сложность\nпри выборе по умолчанию.\nНормальная сложность - рекомендуется.\nHardmode - меньше ОП, сложнее выйти на рут.":
+    textbutton "Данная опция позволяет сменить сложность\nпри выборе по умолчанию.\nНормальная сложность - рекомендуется.\nHard - меньше ОП, сложнее выйти на рут.":
         style "sch_desc"
         text_style "sch_keys_white"
         text_size 44
