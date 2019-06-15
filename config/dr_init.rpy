@@ -305,6 +305,12 @@ init -998:
 init:
     # поиграем в красоту
     python:
+        def hpause(t=None):
+            if t !=None:
+                renpy.pause(t, hard=True)
+            else:
+                renpy.pause(hard=True) #А что будет если?...
+
         def dr_window_hide(pause=True):
             renpy.show_layer_at(dr_screenhide, layer="screens")
             if pause:
