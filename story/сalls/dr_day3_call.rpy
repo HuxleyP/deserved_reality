@@ -55,7 +55,7 @@ label dr_day3_cr:
     call dr_day3_disco_clutter # Перетащить аппаратуру со сцены на площадь, повесить огоньки, подкрасить траву
     pause(1)
 
-    if (sch_sabotage == 5) or (sch_sabotage == -6):
+    if (dr_sabotage == 5) or (dr_sabotage == -6):
         $ night_time()
         $ persistent.sprite_time = 'night'
         call dr_day3_sabotage
@@ -71,4 +71,4 @@ label dr_day3_cr:
     call dr_day3_rainchaos # Дождь, ад и сОтона
     pause(1)
 
-    jump sch_day3_router
+    jump dr_day3_router

@@ -1,8 +1,8 @@
-label sch_day1_intro:
+label dr_day1_intro:
     $ persistent.sprite_time = "day"
     $ day_time()
-    $ sch_newday(sch_dayNo=1)
-    $ name_sch('Я')
+    $ dr_newday(dr_dayNo=1)
+    $ name_dr('Я')
     play ambience ambience_ext_road_day fadein 10
     scene anim prolog_2
     show yellowish:
@@ -21,15 +21,15 @@ label sch_day1_intro:
     "И открыл глаза."
     show blink
     pause(1.0)
-    scene expression Sepia('bg int_bus') behind unblink
+    scene expression dr_Sepia('bg int_bus') behind unblink
     show unblink
     pause(1.5)
     scene bg int_bus 
     show white2:
         alpha 0.2
     with flash
-    "От яркого солнца я расчихался и немного освежил голову."
-    play sound sfx_sneeze
+    "От яркого солнца я расчихался и невольно освежил голову."
+    play sound dr_sfx["sneeze"]
     pause(0.7)
     hide white2
     with vpunch
@@ -120,7 +120,7 @@ label sch_day1_intro:
     th "Отоспаться бы тебе, дружище."
     "Ничего другого я константировать не мог. Только, разве что, пожалеть об отсутствии того телосложения, которое требовалось для геолога."
     th "Я не помню, чтобы так выглядел в юности."
-    if not sch_true:
+    if not dr_true:
         th "Зато почувствую себя молодым и бодрым, а не заспанным и желающим умереть."
         "И это как-то странно - очутиться помолодевшим {i}в лете{/i}."
         "Может, тут меня снова ждёт эта девочка в платье?"
@@ -129,7 +129,7 @@ label sch_day1_intro:
         menu:
             "Обязательно пошёл":
                 $ pt_ka +=10
-                $ sch_uvao_accept = True
+                $ dr_uvao_accept = True
                 "По ту сторону ад высоких технологий и угнетающе низкое бескрайнее небо."
                 "Конечно, я бы пошёл, не раздумывая."
             "Точно нет":
@@ -181,12 +181,12 @@ label sch_day1_intro:
     with fade
     "Прошло некоторое время. Песочные часы на приборной панели даже не покрыли дно нижнего сосуда, и стук отдельных песчинок о стекло меня раздражал."
     th "Как же мне это всё надоело."
-    if persistent.iv_true_sch:
+    if persistent.iv_true_dr:
         menu:
             "Опрокинуть солнечные часы.":
                 call dr_sandclock_break
             "Оставить часы в покое.":
-                $ sch_true_flag = 1
+                $ dr_true_flag = 1
                 "Чтобы не сорваться, я решил успокоиться и сконцентрироваться на чём-то одном."
                 "Например, на виновнике моего состояния - на часах."
                 "Каждый раз, когда я на них смотрел, мне казалось, что за ними стоит нечто большее, чем отсчёт до конца перекрура или до чего там засекал время неизвестный водитель советского автобуса."
@@ -232,7 +232,7 @@ label dr_day1_meeting:
     "Cначала показалось, что то, что я вижу - это гипертрофированный сон с выкрученной в лайтруме яркостью - настолько он был нереалистичным." 
     "Каждая травинка пестрила лучами солнечного света, пробивающимися через полупрозрачные волокна, и продолжала их." 
     "Мне хотелось прыгнуть в это зелёное одеяло с головой и лежать там, выглядывая облака и их фигуры до самой ночи, чтобы потом узнавать созвездия в безоблачном небе." 
-    if not persistent.sch_nr_true:
+    if not persistent.dr_nr_true:
         with flash
         show prologue_dream with dissolve
         "Я стою посредине дороги. Бескрайнее поле, дорога, уходящая, видимо, далеко за горизонт, и два парня стоят на обочине - пока один не вылезает из глазка объектива, второй лишь переминается с ноги на ногу и не может найти себе места, о чём-то ворча."
@@ -328,7 +328,7 @@ label dr_day1_meeting:
     
     
     # А тут старая Лена
-    $ sch_chapter(1, "Первые встречи.")
+    $ dr_chapter(1, "Первые встречи.")
     scene bg ext_camp_entrance_day with dissolve
     play ambience ambience_ext_road_day fadein 1
     "Двери начали тихо отворяться и из них вышла девушка."
@@ -353,18 +353,18 @@ label dr_day1_meeting:
     # А тут уже лишнее
     menu:
         "Поздороваться":
-            if sch_hard:
+            if dr_hard:
                 pass
             else:
                 $ pt_sl +=1
             $ pt_ka +=10
-            $ list_sch_ch_known.append('sl')
+            $ list_dr_ch_known.append('sl')
             show sl smile pioneer with dspr
             ivan "Привет."
             sl "Всё-же заговорил!"
             "Девушка, похоже, очень сильно обрадовалась тому, что я не немой."
             sl "Привет, меня зовут Славя, полное имя Славяна, но все меня называют Славей, и ты тоже так зови."
-            $ meet_sch('sl', 'Славя')
+            $ meet_dr('sl', 'Славя')
             th "Не слишком ли… славянское у неё имя? Не думаю, что я даже слышал такое."
             "Девочка, похоже, нервничала, но своё приветствие произнесла чётко, будто ей это не в первой."
             "Да и не ощущала себя особо расстроенной участью встречающего."
@@ -392,13 +392,13 @@ label dr_day1_meeting:
             "Потом, собственно, тоже ничего нового - семья, дети, кактус между кроватями - ибо не лезь, на работу завтра! - и в гроб."
             th "Конечно, с этой красоткой такое будущее невозможно. Хотя бы по причине абсолютно разного уровня - она на порядок превосходит меня по почти всем характеристикам. И я не только о физических."
             "Обычная история, а я даже её прожить не смог без происшествий."
-            if sch_true:
+            if dr_true:
                 "И ни капли не жалею."
             else:
                 "И где-то даже желаю об этом."
 
         "Что тебе?":
-            if sch_hard:
+            if dr_hard:
                 $ pt_sl -=1
             else:
                 pass
@@ -417,7 +417,7 @@ label dr_day1_meeting:
             ivan "Так, ладно. Давай начнём сначала. Я вышел из автобуса, меня немного укачало и я сейчас могу говорить что-то несвязное."
             show sl smile pioneer with dspr
             sl "В таком случае меня зовут Славяна, а ты приехал в пионерлагерь \"Совёнок!\""
-            $ meet_sch('sl', 'Славя')
+            $ meet_dr('sl', 'Славя')
             ivan "Стоп. Какой ещё пионерлагерь? Ты шутишь?"
             sl "Нет."
             "Искренне ответила она."
@@ -481,7 +481,7 @@ label dr_day1_meeting:
     with dissolve
 
     "Карта как карта. Лагерь вроде бы и небольшой, но парочка интригующих мест есть."
-    if not sch_true:
+    if not dr_true:
         "Смущало… Даже не так. Повергло в шок меня то, что дата производства не начиналась даже с двойки."
         th "Карта тысяча девятьсот восемьдесят какого года?"
         "То есть мне либо дают очень старую карту, либо я серьёзно попал в прошлое. МакФлаю такое и не снилось, блин. Без Делориана даже. Лишь нужно разогнать тушку до 88 миль в час."
@@ -541,7 +541,7 @@ label dr_day1_meeting:
 
 
         "Какой номер домика у вожатой?":
-            $ list_sch_day1_together.append('sl')
+            $ list_dr_day1_together.append('sl')
             $ pt_pi +=10
             $ pt_sl +=1
             "Вопрос, если подумать, самый очевидный. Я же не могу стучаться в каждый домик с треугольной формой!"
@@ -645,7 +645,7 @@ label dr_day1_meeting:
     us "А я тебя не боюсь! У тебя слишком смешное имя, чтобы пугать!"
     "Наконец, по ту сторону послышался скрип не моих суставов, но дверных петлей. Славя изволила покинуть клубы."
     show sl angry pioneer at left with dissolve
-    $ meet_sch('us', 'Ульяна')
+    $ meet_dr('us', 'Ульяна')
     sl "Ульяна!"
     us "Что изволите, гражданниначальник?"
     show us surp1
@@ -678,7 +678,7 @@ label dr_day1_meeting:
     with fade
     "Ещё через минуту мы вышли на площадь, в центре которой стоял памятник некому генсеку Генде."
     th "Пожалуй, лучше не спрашивать, кто он. Надо будет - в библиотеку пойду."
-    if sch_escapist:
+    if dr_escapist:
         "Кстати, о библиотеках - тут есть одна, надо как можно раньше к ней добраться."
         "Несмотря на мир высоких технологий, я не мог не остаться приверженцом бумажной литературы."
         th "Как же долго я не чувствовал запах свежей открытой книги!"
@@ -701,7 +701,7 @@ label dr_day1_meeting:
     sl "Свечка раз в неделю, но так как эта - последняя, то у нас она пройдёт на день раньше, потому что последний день итак загружен."
     sl "Концерт был вчера, жаль тебя не было. Там было очень весело! Но у нас будет ещё один послезавтра."
     th "Концерты? Похоже, что я знаю, что буду прогуливать первым."
-    if sch_escapist:
+    if dr_escapist:
         ivan "А почему так часто концерты? Или вы по отрядам выступаете?"
         "Задал резонный вопрос я."
         sl "Нет. Тот концерт был спонтанным, а следующие два - по плану. Один для отбора на последний, второй и будет заканчивающим смену."
@@ -722,7 +722,7 @@ label dr_day1_meeting:
     return
 
 
-label sch_day1_un:
+label dr_day1_un:
     $ day_time()
     $ persistent.sprite_time = 'day'
 
@@ -739,7 +739,7 @@ label sch_day1_un:
     "Сами \"Клубы\", казалось, могли похвастаться лишь приятным и знакомым дребезжанием статики, которое доносилось из открытой форточки."
     "Внезано оттуда кто-то вышел."
 
-    $ list_sch_ch_known.append('el')
+    $ list_dr_ch_known.append('el')
 
     show el normal pioneer with dissolve
 
@@ -756,15 +756,15 @@ label sch_day1_un:
     ivan "Ладно, "
     menu:
         "Сыроежка":
-            $ meet_sch('el', "Сыроежка")
+            $ meet_dr('el', "Сыроежка")
             extend "Сыроежка."
         "Электроник":
-            $ meet_sch('el', 'Электроник')
+            $ meet_dr('el', 'Электроник')
             extend "Эл. Можно Элом?"
             el "Да, конечно! Так даже лучше!"
             ivan "Отлично."
         "Серёжа":
-            $ meet_sch('el', 'Электроник')
+            $ meet_dr('el', 'Электроник')
             show el upset pioneer with dspr
             el "Лучше Электроником всё же."
             ivan "Как хочешь. Будешь Элом."
@@ -795,7 +795,7 @@ label sch_day1_un:
     show dv angry pioneer2 normal with dspr
     dv "Эй! Глухой, что ли? Сейчас я тебе уши-то прочищу!"
     ivan "Что надо?"
-    if sch_escapist:
+    if dr_escapist:
         "Я произнёс вопрос совершенно спокойно и бегло осмотрел \"пионерку\"."
     else:
         "Я решил общаться на её уровне, потому ответ прозвучал так же дерзко."
@@ -808,7 +808,7 @@ label sch_day1_un:
     ivan "А может не надо? У меня не особо с этим."
     dv "Ничего, вопросы лёгкие."
     ivan "Как хочешь."
-    if sch_escapist:
+    if dr_escapist:
         ivan "Я готов. Спроси меня полностью."
     else:
         ivan "Дважды два равно пять!"
@@ -841,7 +841,7 @@ label sch_day1_un:
             hide dv with dissolve
         "Не скажу.":
             show dv normal pioneer2 normal with dissolve
-            if sch_violent:
+            if dr_violent:
                 $ pt_ka -=10
             else:
                 $ pt_ka +=10
@@ -854,14 +854,14 @@ label sch_day1_un:
             dv "Ладно. Свободен."
             hide dv with vpunch
             "Она прошла мимо меня, толкнув плечом."
-            if sch_violent:
+            if dr_violent:
                 ivan "Так тест пройден?"
                 "Ответа не последовало."
             "Ей не удалось меня разозлить, и она ушла."
         "В клубах, вроде, была.":
             show dv normal pioneer2 normal with dissolve
             $ pt_ka -=10
-            $ sch_ginger_lie = 1
+            $ dr_ginger_lie = 1
             dv "Спасибо."
             hide dv with dissolve
             "Она обошла меня и двинулась, видимо, в сторону клубов."
@@ -884,7 +884,7 @@ label sch_day1_un:
             return
 
         "Поздороваться":
-            $ list_sch_ch_known.append('un')
+            $ list_dr_ch_known.append('un')
             "Я её заметил и снова отпустил спутанные провода, сложив их в задний карман рюкзака."
             ivan "Привет."
             show un surprise pioneer with dspr
@@ -916,7 +916,7 @@ label sch_day1_un:
             ivan "Взаимно."
             menu:
                 "Попрощаться":
-                    if sch_hard:
+                    if dr_hard:
                         $ pt_un -=1
                     th "Похоже, что кашу с ней не сварить."
                     th "Подойду к ней после попадания на рандеву к вожатой."
@@ -929,7 +929,7 @@ label sch_day1_un:
                     return
 
                 "Попросить отвести к вожатой":
-                    $ list_sch_day1_together.append('un')
+                    $ list_dr_day1_together.append('un')
                     $ pt_un +=1
                     "У меня появилась идея."
                     ivan "Лена, извини, что отвлекаю, но ты не могла бы меня к вожатой отвести?"
@@ -974,7 +974,7 @@ label sch_day1_un:
     show un serious pioneer with dspr
     ivan "Мне тоже не нравится на них ходить. Ничего интересного."
     show un normal pioneer with dspr
-    $ list_sch_day2_walk.append('un_p')
+    $ list_dr_day2_walk.append('un_p')
     "Почему-то мне показалось, что Лена не против моей компании. Только нужно перестать задавать идиотские вопросы."
     "Может быть, пригласить прогуляться? Но мы с ней почти не знакомы…"
     th "А чем чёрт не шутит!"
@@ -995,7 +995,7 @@ label sch_day1_un:
     return
 
 
-label sch_day1_dv:
+label dr_day1_dv:
     scene bg ext_houses_day with dissolve
     "И вот я снова спускаюсь к главной улице по красивой плитке."
     "Мисс муз. клуб, безусловно, очень интересная личность, но утомительная - да такое выдаёт, что лучше отказываться от всего, что она предлагает."
@@ -1020,8 +1020,8 @@ label sch_day1_dv:
             dv "А за это и получить можно…"
             ivan "За что? За константацию фактов? Ну попробуй."
             "Она начала было раскаляться, но, видимо, догадываясь, что она меня вряд ли догонит, снова приняла свою надменную позу."
-            if persistent.dv_good_sch or persistent.dv_reject_sch or persistent.dv_neutral_sch or persistent.dv_true_sch or persistent.dv_transit_good_sch:
-                $ list_sch_day1_together.append('dv_good')
+            if persistent.dv_good_dr or persistent.dv_reject_dr or persistent.dv_neutral_dr or persistent.dv_true_dr or persistent.dv_transit_good_dr:
+                $ list_dr_day1_together.append('dv_good')
                 ivan "Успокойся, ДваЧе."
                 show dv surprise pioneer2 with dspr
                 dv "Откуда ты…"
@@ -1040,7 +1040,7 @@ label sch_day1_dv:
                 dv "Ладно. Так и быть, пойдём тебя сдавать к вожатой."
                 ivan "Отлично."
 
-                scene bg ext_warehouse_day_sch behind dv
+                scene bg ext_warehouse_day_dr behind dv
                 with fade
 
                 "На самом деле, лучше бы я пошёл один."
@@ -1083,10 +1083,10 @@ label sch_day1_dv:
                 ivan "Говори уже. Что тебе от меня надо?"
 
         "Поздороваться":
-            if not sch_hard:
+            if not dr_hard:
                 $ pt_dv +=1
-            if persistent.dv_good_sch or persistent.dv_reject_sch or persistent.dv_neutral_sch or persistent.dv_true_sch or persistent.dv_transit_good_sch:
-                $ list_sch_day1_together.append('dv_good')
+            if persistent.dv_good_dr or persistent.dv_reject_dr or persistent.dv_neutral_dr or persistent.dv_true_dr or persistent.dv_transit_good_dr:
+                $ list_dr_day1_together.append('dv_good')
                 ivan "Привет, Двачевская."
                 show dv shocked pioneer with dspr
                 dv "Откуда ты…"
@@ -1103,7 +1103,7 @@ label sch_day1_dv:
                 ivan "Так проведёшь или нет? Если что, я знаю, что у тебя на уме."
                 dv "Ладно. Так и быть, я что-нибудь придумаю."
 
-                scene bg ext_warehouse_day_sch
+                scene bg ext_warehouse_day_dr
                 with fade
 
                 "На самом деле, лучше бы я пошёл один."
@@ -1136,7 +1136,7 @@ label sch_day1_dv:
     "Начала она по-новой, пытаясь говорить помягче. Звучало же так, будто она меня собирается ударить по темечку и забрать мои деньги."
     ivan "Как тебя зовут хотя бы?"
     "Ну да, не знать имени врага своего - первый шаг к проигрышу."
-    $ meet_sch('dv', 'Алиса')
+    $ meet_dr('dv', 'Алиса')
     dv "Алиса я."
     ivan "Моё имя узнать не хочешь?"
     dv "А зачем? Вожатая уже сказала на линейке."
@@ -1160,7 +1160,7 @@ label sch_day1_dv:
     "Мы прошли через площадь,"
     show bg ext_dining_hall_away_day with dissolve
     "столовую,"
-    show bg ext_warehouse_day_sch
+    show bg ext_warehouse_day_dr
     show dv normal pioneer2
     with dissolve
     "и наконец пришли к складу."
@@ -1179,17 +1179,17 @@ label sch_day1_dv:
 
     menu:
         "Уйти":
-            $ list_sch_day1_together.append('dv')
+            $ list_dr_day1_together.append('dv')
             $ pt_dv +=1
             th "Лучший способ избежать проблемы - быстрый побег."
             "Потому, завидев два хвоста на горизонте, держащих что-то в руках…"
             th "БЕЖАТЬ ОТСЮДА!"
-            scene bg ext_warehouse_day_sch at sch_running
+            scene bg ext_warehouse_day_dr at dr_running
             "Струя воды чуть не достала до моего рюкзака, а я себя почувствовал главным гером дешёвого боевика, в котором хороший парень убегает от огнемёта."
             "Проблема была в миллион раз менее смертельной и во столько же раз более позорной."
             th "Меня обливают из пожарного шланга!"
             ivan "Я люблю водные процедуры, но не настолько!"
-            scene bg ext_square_day at sch_running with dissolve
+            scene bg ext_square_day at dr_running with dissolve
             "Я убежал на площадь под сдвоенный смех."
             scene bg ext_square_day with Dissolve(3.0)
             "Я плюхнулся на скамейку и, пытаясь восстановить дыхание, размышлял, кто мог настолько сильно изгадить мне жизнь и насколько же сильно надоела жизнь им."
@@ -1203,7 +1203,7 @@ label sch_day1_dv:
 
 
         "Пожождать":
-            $ list_sch_day1_together.append('dv_sl')
+            $ list_dr_day1_together.append('dv_sl')
             "А что? Вряд ли она замахнётся на меня ведром с водой или чем-то в этом духе."
             "Да и сажа для моей грязеотталкивающей одежды не проблема - надо будет просто аккуратно смахнуть чем-то вроде щётки, чтобы потом не обмазаться в ней самому и не выглядеть как индеец, выискивающей жертву с копьём из будущего."
             "Потому мне просто оставалось опереться о стену и…"
@@ -1242,7 +1242,7 @@ label sch_day1_dv:
             "А я же принялся за джинсы. {w} Состояние у них, конечно, ещё плачевнее, чем у меня и моей толстовки, но снимать я их не буду!"
             "Потому просто повыжимал воду как мог и присел рядом с толстовкой."
             "Ныть, думать о страшной-престрашной мсте и просыхать."
-            scene bg sky_sch with dissolve
+            scene bg sky_dr with dissolve
             with fade
             th "А небо тут красивое…"
             "Первый пункт выполнялся отлично, третий - с натягом, а вот второй не удавался вообще."
@@ -1271,12 +1271,12 @@ label sch_day1_dv:
             th "И вообще, возвращаться туда, откуда меня только что выгнали огромной струёй воды, не хотелось совсем."
             show sl normal pioneer with dspr
             ivan "Ладно. Пойдём."
-            scene bg ext_warehouse_day_sch with dissolve
+            scene bg ext_warehouse_day_dr with dissolve
             show sl normal pioneer at right with dspr
             sl "Секунду…"
             "Славя достала из своего кармана огромную связку ключей и открыла склад."
             th "И как, мне интересно, ей не тяжело такую связку таскать!"
-            scene bg int_warehouse_day_sch behind sl
+            scene bg int_warehouse_day_dr behind sl
             show sl normal pioneer at right:
                 linear 1.0 xalign 0.33
             with dissolve
@@ -1304,7 +1304,7 @@ label sch_day1_dv:
             "Она ушла за импровизированную ширму в виде стеллажа, заполненного под отказ ещё большим количеством коробок, а я, не желая думать о том, что по другую сторону очень симпатичная девушка, бегом переоделся в стартовый набор унижения."
             "Шорты - по колено, чтобы при падении получить как можно больше боли."
             "Рубашка - конечно, скрипучая, жёсткая и белая, как сахар, чтобы ограничить движение. Справедливости ради, из чистого хлопка."
-            if not sch_violent:
+            if not dr_violent:
                 extend " Такое даже в 2027 ценится."
             "И главная особенность - сандалии на носки. Это чтобы надо мной смеялись."
             th "Хм, а ведь Алиса так же ходит."
@@ -1346,7 +1346,7 @@ label sch_day1_dv:
             sl "Давай-ка я тебя отведу. А то кто знает, вдруг Алиса ещё и сажу приготовила? Бегать второй, а то и третий раз за новой форомй - расточительство."
             th "Как пожелаете."
             ivan "Окей."
-            scene bg ext_warehouse_day_sch behind sl with dissolve
+            scene bg ext_warehouse_day_dr behind sl with dissolve
             sl "Пойдём?"
             ivan "Угу."
             "Славя, как по привычке, хотела взять меня за руку, но я увернулся и сунул руки в карманы, накинув рюкзак через одно плечо."
@@ -1381,7 +1381,7 @@ label sch_day1_dv:
     return
 
 
-label sch_day1_od:
+label dr_day1_od:
     "Домик был таким же как и все, ничем особенным на первый взгляд не выделялся."
     th "Удивительно даже, что для вожатых условия такие же, как и для пионеров. Даже количество облезлой краски сравнимо."
     "Пионеры могут только мечтать о такой красоте и роскоши."
@@ -1398,9 +1398,9 @@ label sch_day1_od:
     "Так что ставил я на полускладской дом - с одной стороны кровать и личное место, с другой - шкаф и, возможно, какие-то вещи, требующие присмотра."
     "Или то, что не очень уместо хранить на складе."
     th "Должен же быть какой-то контраргумент против идеальности этого домика, да?"
-    if ('dv_good' or 'dv_sl') in list_sch_day1_together:
+    if ('dv_good' or 'dv_sl') in list_dr_day1_together:
         "Хотя там такой склад, что упаковать туда можно всё - и место ещё останется."
-    if ('sl' or 'dv_sl') in list_sch_day1_together:
+    if ('sl' or 'dv_sl') in list_dr_day1_together:
         show sl smile2 pioneer:
             xalign 1.3
             linear 0.5 xalign 0.5
@@ -1413,7 +1413,7 @@ label sch_day1_od:
         ivan "Стой, дай под"
         "Славя открыла дверь по слышавшемуся \"входите\" по ту сторону двери, не слушая меня."
         hide sl wtih dissolve
-    elif 'un' in list_sch_day1_together:
+    elif 'un' in list_dr_day1_together:
         show un normal pioneer at right with dissolve
         un "М-мы пришли."
         "Лена остановилась у порога и собралась уходить."
@@ -1428,7 +1428,7 @@ label sch_day1_od:
             linear 0.5 xalign -0.1
         "Лена ушла туда, откуда меня привела."
         "А мне ничего не оставалось, кроме как переступить через порог."
-    elif 'dv_good' in list_sch_day1_together:
+    elif 'dv_good' in list_dr_day1_together:
         show dv normal pioneer2 with dspr
         ivan "Ну что, не хочешь со мной с вожатой поздороваться?"
         show dv shy pioneer2 with dspr
@@ -1442,7 +1442,7 @@ label sch_day1_od:
         ivan "Ну и хрен с тобой."
         hide dv with dissolve
         "И я переступил порог."
-    elif 'dv' in list_sch_day1_together:
+    elif 'dv' in list_dr_day1_together:
         "Я, должно быть, в относительно безопасном месте - вряд ли рыжая будет устраивать пакости на базе врага."
         "Так что мне оставалось перевести дух, чтобы говорить чётко и разборчиво, и подготовиться к худшему."
     scene bg int_house_of_mt_day with dissolve
@@ -1450,7 +1450,7 @@ label sch_day1_od:
     "В незастеленной кровати лежала брюнетка, имевшая волнистые волосы до середины спины, бесовские кислотно-зелёные глаза - даже мои линзы такую голограмму не сделают - и почти такая же пионерская форма, за исключением знака ВЛКСМ, но и он выглядел как-то необычно по сравнению с таким, каким я его видел."
     th "Хотя, это может быть потому что он был потёрт?"
     "В глаза бросилось полное отсутствие чистоты в комнате."
-    if not ('sl' or 'sl_dv') in list_sch_day1_together:
+    if not ('sl' or 'sl_dv') in list_dr_day1_together:
         "Вожатая преспокойно лежала на своём месте, видимо, даже не волнуясь по поводу запоздавшего пионера."
         "Да и лежала она… интересно."
         "Подол беспомощно задрался в тот момент, когда она ложилась, потому за её полусогнутыми коленями можно было видеть…"
@@ -1472,14 +1472,14 @@ label sch_day1_od:
 
     ivan "Здравствуйте."
     mt "О, наконец пришёл. Автобус же утром подъехал. Или ты уже успел познакомиться с кем-то?"
-    if 'dv_sl' in list_sch_day1_together:
+    if 'dv_sl' in list_dr_day1_together:
         mt "Хотя по форме вижу - Алиса с Ульяной догнали?"
         ivan "Так если вы знаете даже имена, то почему ничего не делаете?"
         show sl smile2 pioneer at cright with dspr
         sl "У Ольги Дмитриевны итак дел выше крыши, если она будет следить ещё и за Алисой - то тогда времени на остальной отряд и лагерные мероприятия у неё не останется."
         mt "Потому что, мальчик, наказывать превентивно нельзя, а пока они ничего не сделали - не имею права их ограничивать."
         th "Мда. Не то, чтобы раньше я был ябедой, но сейчас это не будет работать впринципе."
-    elif 'sl' in list_sch_day1_together:
+    elif 'sl' in list_dr_day1_together:
         $ pt_sl +=1
         mt "Хотя, судя по всему, Славя тебя проводила. Неужели спал?"
         "Славя хотела что-то сказать, но я её перебил."
@@ -1488,10 +1488,10 @@ label sch_day1_od:
         show mt laugh pioneer at center with dspr
         mt "Эх, соня. Ничего, мы ещё сделаем из тебя образцового пионера!"
         show mt normal pioneer at center with dspr
-    elif 'un' in list_sch_day1_together:
+    elif 'un' in list_dr_day1_together:
         ivan "Меня Славя встретила буквально час назад."
         mt "Да? Ну ничего."
-    elif 'dv' in list_sch_day1_together:
+    elif 'dv' in list_dr_day1_together:
         mt "Хотя, как я вижу, ты торопился. Неужели и вправду проспал?"
     mt "Мне, наверное, надо представиться. Я Ольга Дмитриевна, вожатая первого отряда и отвественная за мероприятия в лагере."
     th "Думаю, прикрытие пионера можно снимать - наигрался, с меня хватит."
@@ -1502,10 +1502,10 @@ label sch_day1_od:
     mt "Не груби своей вожатой."
     "Ответила как робот по команде так называемая вожатая."
     ivan "Да ну, пошутили и хватит! Я, конечно, всё понимаю, но верните мне мой возраст! Вы меня с этими экспериментами достали."
-    if sch_violent:
+    if dr_violent:
         ivan "Передайте своему начальнику, что жалоба в суд по правам человека уже подана. И к чёрту мне не сдались ваши линзы. Хотите - сейчас снимайте."
         mt "Что ты несёшь?"
-        if ('sl' or 'dv_sl') in list_sch_day1_together:
+        if ('sl' or 'dv_sl') in list_dr_day1_together:
             $ pt_ka -=10
             $ pt_wi +=10
             stop music fadeout 2
@@ -1553,7 +1553,7 @@ label sch_day1_od:
                     sl "Я пойду."
                     hide sl with dissolve
                 "Стоять на своём":
-                    if not sch_true:
+                    if not dr_true:
                         $ pt_ka -=10
                         $ pt_wi +=10
                         ivan "Нет, ну серьёзно, чего вы от меня ждёте? Что я начну плакать? Докажите мне, что сейчас не две тысячи двадцать седьмой год."
@@ -1586,7 +1586,7 @@ label sch_day1_od:
                         show mt normal pioneer with dspr
                         "Но потом выдохнула и вроде бы даже попыталась забыть о произошедшем."
                     else:
-                        $ sch_trueroute_flag = 1
+                        $ dr_trueroute_flag = 1
                         ivan "Вы что от меня хотите-то? Отпустите уже домой, в конце-то концов!"
                         show sl surprise pioneer at cright
                         show mt surprise pioneer
@@ -1623,7 +1623,7 @@ label sch_day1_od:
             show mt normal pioneer with dspr
             "Она выдохнула и села заполнять журнал."
             "Вписала моё ФИО, потом оставила пустое место и сделала пометку."
-            if not ('dv_sl' in list_sch_day1_together):
+            if not ('dv_sl' in list_dr_day1_together):
                 mt "Тебе сейчас надо за формой сходить."
                 "Заявила абсолютно спокойно вожатая после непродолжительного молчания."
                 ivan "Куда идти?"
@@ -1662,7 +1662,7 @@ label sch_day1_od:
                 ivan "Не повторится, честное пионерское!"
                 mt "Ладно, спишем всё на акклиматизацию."
             "Стоять на своём":
-                if not sch_true:
+                if not dr_true:
                     $ pt_ka -=10
                     $ pt_wi +=10
                     ivan "Нет, ну серьёзно, чего вы от меня ждёте? Что я начну плакать? Докажите мне, что сейчас не две тысячи двадцать седьмой год."
@@ -1682,7 +1682,7 @@ label sch_day1_od:
                     show mt normal pioneer with dspr
                     "Но потом вожатая выдохнула и вроде бы даже визуально попыталась забыть о произошедшем, махнув на меня рукой и записав снова в минуту назад отброшенный блокнот."
                 else:
-                    $ sch_trueroute_flag = 1
+                    $ dr_trueroute_flag = 1
                     ivan "Вы что от меня хотите-то? Отпустите уже домой, в конце-то концов!"
                     show sl surprise pioneer at cright
                     show mt surprise pioneer
@@ -1733,7 +1733,7 @@ label sch_day1_od:
         mt "Твоя манера общения... Ничего, сделаем мы из тебя ещё пионера."
         "Вожатая подумала несколько секунд, и решила:"
         mt "Смотри, ты можешь сейчас пойти на площадь - там встретишь Славю."
-        if not 'dv_sl' in list_sch_day1_together:
+        if not 'dv_sl' in list_dr_day1_together:
             extend "Заодно и постельное бельё заберёшь."
             mt "Принесёшь сюда, вечером решим, куда тебя заселить."
             "Предугадала мои вопросы вожатая."
@@ -1744,7 +1744,7 @@ label sch_day1_od:
             menu:
                 "Славе":
                     $ pt_sl +=1
-                    $ list_sch_day2_walk.append('sl')
+                    $ list_dr_day2_walk.append('sl')
                     # На площадь марш
                 "Лене":
                     $ pt_un +=1
@@ -1765,9 +1765,9 @@ label sch_day1_od:
                     else:
                         $ pt_ka -=10
                         # Лена останвливает героя и говорит, что Алиса не трогает, если не виновен
-    else: # sch_escapist
+    else: # dr_escapist
         show mt surprise pioneer with dspr
-        if ('sl' or 'sl_dv') in list_sch_day1_together:
+        if ('sl' or 'sl_dv') in list_dr_day1_together:
             show sl surprise pioneer at right with dspr
             "Первой усомнилась в моём психическом здоровье Славяна."
             sl "Ваня, с тобой всё в порядке?"
@@ -1794,7 +1794,7 @@ label sch_day1_od:
         "Она выдохнула, потеряла весь интерес ко мне и села заполнять журнал."
         hide mt with dissolve
         "Вписала моё ФИО, потом оставила пустое место в полностью заполненной колонке и сделала пометку на полях."
-        if not ('dv_sl' in list_sch_day1_together):
+        if not ('dv_sl' in list_dr_day1_together):
             mt "Ты сейчас свободен."
             "Мне намекнули на выход, не обернувшись ни на сантиметр в мою сторону."
         else: # нет постельного белья
@@ -1817,7 +1817,7 @@ label sch_day1_od:
                 "Попрощаться":
                     $ pt_wi +=10
                     $ pt_mi +=1
-                    $ list_sch_day1_together.append('mi')
+                    $ list_dr_day1_together.append('mi')
                     # бла-бла, надо на музклуб посмотреть
 
 
@@ -1826,7 +1826,7 @@ label sch_day1_od:
                     menu:
                         "Славе":
                             $ pt_sl +=1
-                            $ list_sch_day2_walk.append('sl')
+                            $ list_dr_day2_walk.append('sl')
                             # На площадь марш
                         "Лене":
                             $ pt_un +=1
@@ -1847,7 +1847,7 @@ label sch_day1_od:
                             else:
                                 $ pt_ka -=10
                                 # пытается сбежать
-            elif 'sl' in list_sch_day1_together:
+            if 'sl' in list_dr_day1_together:
                 sl "Я могу его отвести."
                 "Напомнила о себе девочка, прежде, казалось, слившаяся с окружением."
                 mt "Да, Славяна, если тебе не сложно."
@@ -1870,7 +1870,7 @@ label sch_day1_od:
 
 
 
-        elif 'sl' in list_sch_day1_together:
+        if 'sl' in list_dr_day1_together:
             sl "Я могу его отвести."
             "Напомнила о себе девочка, прежде, казалось, слившаяся с окружением."
             mt "Да, Славяна, если тебе не сложно."
@@ -1891,15 +1891,15 @@ label sch_day1_od:
             mt "Так что, когда ты услышишь горн, иди в столовую - никто потом кормить тебя не будет. Понял?"
             ivan "Да, Ольга Дмитриевна."
 
-label sch_day1_supper:
+label dr_day1_supper:
     # тут он болтается
-    if max(pt_overall) >=2 or ('mi' in list_sch_day1_together):
+    if max(pt_overall) >=2 or ('mi' in list_dr_day1_together):
         menu:
             "Сесть одному":
-                $ sch_day1_hungry = True
+                $ dr_day1_hungry = True
                 # немного затусклить фон как признак того, что noir is near
                 # Уля поднасирает пионеру и сбивает стол ГГ, отчего вся одежда становится грязной
-                if ('dv_sl' in list_sch_day1_together):
+                if ('dv_sl' in list_dr_day1_together):
                     # тут ему лучше, так как одежда не его!
                     pass
                 else:
@@ -1913,17 +1913,17 @@ label sch_day1_supper:
             "Сесть с Леной" if pt_un >=2:
                 # Лена говорит "ок", "да", "нет", "угу", фиг поболтаешь
                 pass
-            "Сесть с Мику" if ('mi' in list_sch_day1_together):
+            "Сесть с Мику" if ('mi' in list_dr_day1_together):
                 # Мику тараторит, говорит про причал
                 pass
     else:
         # Садится один
         pass
 
-label sch_day1_aftersupper:
+label dr_day1_aftersupper:
     # герой проходит через умывальники
-    if 'mi' in list_sch_day1_help:
-        $ sch_day1_ev_mi = True
+    if 'mi' in list_dr_day1_help:
+        $ dr_day1_ev_mi = True
         return
     if pt_dv >=3:
         # Алиса
@@ -1950,7 +1950,7 @@ label sch_day1_aftersupper:
                             $ pt_pi -=10
                     menu:
                         "Забрать ключи":
-                            $ sch_sl_keys = True
+                            $ dr_sl_keys = True
                             $ pt_sl -=1
                             $ pt_pi -=30
                         "Оставить":
@@ -1963,7 +1963,7 @@ label sch_day1_aftersupper:
                 $ pt_pi +=10
                 # уходит домой
                 return
-    if sch_day1_hungry and ((pt_sl >=2 and not sch_hard) or (pt_sl >=3 and sch_hard)):
+    if dr_day1_hungry and ((pt_sl >=2 and not dr_hard) or (pt_sl >=3 and dr_hard)):
         # Славя
         menu:
             "Согласиться": #пошёл в столовую
@@ -1977,12 +1977,12 @@ label sch_day1_aftersupper:
                     "Встать на сторону Слави":
                         $ pt_sl +=2
                         $ pt_dv -=1
-                        if sch_hard:
+                        if dr_hard:
                             $ pt_dv -=1
                 # Славя забыла ключи
                 menu:
                     "Забрать ключи":
-                        $ sch_sl_keys = True
+                        $ dr_sl_keys = True
                         $ pt_sl -=1
                         $ pt_pi -=30
                     "Оставить":
@@ -1990,7 +1990,7 @@ label sch_day1_aftersupper:
             "Отказаться": #пошёл домой
                 $ pt_pi +=10
                 $ pt_wi +=10
-                if sch_hard:
+                if dr_hard:
                     $ pt_sl -=1
                 # отказывается
                 return
@@ -2005,7 +2005,7 @@ label sch_day1_aftersupper:
                 # не клеится
                 menu:
                     "Как дела?":
-                        if sch_hard:
+                        if dr_hard:
                             $ pt_un -=1
                         # Лена не в настроении
                         menu:
@@ -2017,11 +2017,11 @@ label sch_day1_aftersupper:
                                 pass
                     "Что читаешь?":
                         # спрашивает
-                        if not ('un_p' in list_sch_day2_walk):
-                            if (((pt_un >=4 and not sch_hard) or (pt_un >=5 and sch_hard)) and not ('un_p' in list_sch_day2_walk)):
+                        if not ('un_p' in list_dr_day2_walk):
+                            if (((pt_un >=4 and not dr_hard) or (pt_un >=5 and dr_hard)) and not ('un_p' in list_dr_day2_walk)):
                                 menu:
                                     "Предложить прогуляться":
-                                        $ list_sch_day2_walk.append('un_p')
+                                        $ list_dr_day2_walk.append('un_p')
                                         $ pt_un +=1
                                         # успех
                                     "Попрощаться":
@@ -2032,11 +2032,11 @@ label sch_day1_aftersupper:
                                 $ pt_un -=1
                         else:
                             # говорит о том, согласна ли она
-                            if ((pt_un >=4 and not sch_hard) or (pt_un >=5 and sch_hard)):
+                            if ((pt_un >=4 and not dr_hard) or (pt_un >=5 and dr_hard)):
                                 $ pt_un +=1
-                                $ list_sch_day2_walk.remove('un_p')
-                                $ list_sch_day2_walk.append('un')
+                                $ list_dr_day2_walk.remove('un_p')
+                                $ list_dr_day2_walk.append('un')
     return
 
-label sch_day1_home:
+label dr_day1_home:
     return

@@ -1,21 +1,3 @@
-init python:
-    dr_ambience = {}
-    dr_music = {}
-    dr_sfx = {}
-
-    for i in renpy.list_files():
-        if i.startswith(("[dr_path]source/images/bg/", "[dr_path]source/images/cg/")) and i.endswith((".png", ".jpg")):
-            renpy.image((str(i)[39:-4]), i)
-
-        if i.startswith(("[dr_path]source/sounds/ambience/")) and i.endswith((".ogg")):
-            dr_ambience[i[45:-4]] = i
-
-        if i.startswith(("[dr_path]source/sounds/music/")) and i.endswith((".ogg")):
-            dr_music[i[42:-4]] = i
-
-        if i.startswith(("[dr_path]source/sounds/sfx/")) and i.endswith((".ogg")):
-            dr_sfx[i[40:-4]] = i
-
 init 999999999:
     $ config.developer = True #TODO В релиз попасть не должно
     $ config.debug_text_overflow = True #это тоже
@@ -190,12 +172,12 @@ init -998:
 
     image bg dr_white = "#fff"
     image dr_white2 = "#ffffff"
-    image dr_blacksquare = "[dr_path]source/images/gui/menu/square.png"
-    image dr_whitesquare = im.MatrixColor("[dr_path]source/images/gui/menu/square.png", im.matrix.colorize("#fff", "#fff"))
+    image dr_blacksquare = dr_menu("blacksquare.png")
+    image dr_whitesquare = im.MatrixColor(dr_menu("square.png"), im.matrix.colorize("#fff", "#fff"))
     image dr_gray = "#171717"
     image dr_beige = "#fbf0b3"
     image dr_yellowish = "#7d5f34"
-    image dr_exit_idle = "[dr_source]images/gui/menu/ButtonExit_idle.png"
+    image dr_exit_idle = dr_menu("ButtonExit_idle.png")
 
     # Объявляем текст для анимаций
 
@@ -438,6 +420,8 @@ init 10 python: # главы #TODO к херам
         global dr_iv #ГГ
         global dr_mi #Мику
         global dr_nr #Нуар
+        global save_name
+        save_name = "Заслуженная Реальность. День [dr_dayNo]"
         renpy.scene()
 
         if dr_dayNo >=1 and dr_dayNo <=7:
@@ -681,7 +665,7 @@ init python:
     #th_prefix = "~ "
     #th_suffix = " ~"
 
-    def name_sch(dr_name):
+    def name_dr(dr_name):
         global dr_colors
         global dr_names
         global dr_store
@@ -847,7 +831,7 @@ init 3 python:
 
 
     dr_forgeteveryone()
-    name_sch(u"Я")
+    name_dr(u"Я")
     dr_mode_adv()
     dr_reload_names()
 
@@ -895,7 +879,7 @@ init -1000 python: # Пути
         if renpy.mobile:
             dr_path = "deserved_reality/"
         else:
-            dr_path = "mods/deserved_reality/" # изменить на выходе
+            dr_path = "deserved_reality/" # изменить на выходе
 
     dr_source = dr_path + "source/"
 
@@ -926,6 +910,24 @@ init -1000 python: # Пути
     def dr_maps(file):
         return dr_source + "images/maps/%s" % (file)
 
+
+init python:
+    dr_ambience = {}
+    dr_music = {}
+    dr_sfx = {}
+
+    for i in renpy.list_files():
+        if i.startswith(("deserved_reality/source/images/bg/", "deserved_reality/source/images/cg/")) and i.endswith((".png", ".jpg")):
+            renpy.image((str(i)[34:-4]), i)
+
+        if i.startswith(("deserved_reality/source/sounds/ambience/")) and i.endswith((".ogg")):
+            dr_ambience[i[40:-4]] = i
+
+        if i.startswith(("deserved_reality/source/sounds/music/")) and i.endswith((".ogg")):
+            dr_music[i[37:-4]] = i
+
+        if i.startswith(("deserved_reality/source/sounds/sfx/")) and i.endswith((".ogg")):
+            dr_sfx[i[35:-4]] = i
 
 # Стили
 
@@ -1033,3 +1035,14 @@ init python: # скомунизженно прямиком с сайта док�
                           **properties)
 
         Shake = renpy.curry(_Shake)
+
+
+# ДЕБАААААААААААААААААААААААААААААААААААГИНГ ЛЮБИМЫЙ РОДНОЙ ПИЗДЕЦ КАКОЙ
+
+python early: # переписать
+    def CycleCounter():
+        def editoverlay():
+            ui.button(clicked=None, xalign=0.5, yalign = 0.98, xpadding=6)
+            ui.text(save_name, style="button_text", size=13, color="ff32000")
+
+        config.overlay_functions.append(editoverlay)

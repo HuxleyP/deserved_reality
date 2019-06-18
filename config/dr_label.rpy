@@ -1,7 +1,7 @@
 label dr_prestart:
     $ dr_save_version = dr_version  # создаём имя сохранению при запуске новой игры
 
-    #$ init_map_zones_sch() # По заветам 7ДЛ инициализируем карту единожны, чтобы сохранкам не приходил армаггедец
+    #$ init_map_zones_dr() # По заветам 7ДЛ инициализируем карту единожны, чтобы сохранкам не приходил армаггедец
 
     if not "Deserved Reality" in config.version: # закидываем себя в трейс на случай армаггедеца игре
         $ config.version = config.version + ": Deserved Reality \n%s ver %s; \"%s\"" % (dr_state, dr_version, dr_codename)
@@ -13,7 +13,7 @@ label dr_prestart:
     $ config.conditionswitch_predict_all = True # и это
 
     # а это важно
-    $ config.after_load_callbacks.append(name_sch)
+    $ config.after_load_callbacks.append(name_dr)
 
     jump sichium_start
 
@@ -68,7 +68,7 @@ label dr_day2_vars:
 
 label dr_day3_vars:
 
-    $ list_rootflag_sch = [] #Список рутфлагов, чтобы не писать по 7 переменных
+    $ list_rootflag_dr = [] #Список рутфлагов, чтобы не писать по 7 переменных
 
     return
 
@@ -88,13 +88,13 @@ label sichium_start: # Меню
 
     $ persistent.sprite_time = "night"
     $ prolog_time()
-    $ name_sch("Я")
+    $ name_dr("Я")
     #$ volume('sound', 0.5)
 
     scene black
     $ renpy.movie_cutscene(preroll)
 
-    play sound sfx_whiteflash
+    play sound dr_sfx["whiteflash"]
 
     $ save_name = "Заслуженная Реальность. Меню."
     
@@ -114,9 +114,9 @@ label sichium_start: # Меню
     show white2:
         xpos 861
 
-    play music honor fadein 1
+    play music dr_music["honor"] fadein 1
 
-    play sound sfx_whiteflash
+    play sound dr_sfx["whiteflash"]
 
     show dr_begin behind white2:
         pos(861, 382)
@@ -251,16 +251,16 @@ label dr_dv_router:
     if dr_dv >= 11 and dr_sabotage == 6:
         "Вот это выдался день - спасибо Алисе. Надеюсь, завтра будет ещё лучше."
         call dr_dv_vars
-        $ routetag_sch = "dv_sab"
+        $ routetag_dr = "dv_sab"
         return
     elif dr_dv >= 11 and dr_sabotage == -6:
         "Слишком много на меня за день, и всё из-за Алисы. Надеюсь, завтра будет лучше."
         call dr_dv_vars
-        $ routetag_sch = "dv_peace"
+        $ routetag_dr = "dv_peace"
         return
     elif dr_dv >= 11 and dr_sabotage < 6 and dr_sabotage > -6:
         call dr_dv_vars
-        $ routetag_sch = "dv"
+        $ routetag_dr = "dv"
         jump dr_day4_dv_cr
         "Слишком много на Алису за этот день. Надеюсь, завтра будет лучше."
         return
@@ -270,7 +270,7 @@ label dr_dv_router:
 label dr_sl_router:
     if dr_sl >=11:
         "Мне снилась одна златовласка, которая сделала моё появление в лагере самым мягким и приятным."
-        $ routetag_sch = "sl"
+        $ routetag_dr = "sl"
         call dr_sl_vars
         return
     else:
@@ -279,7 +279,7 @@ label dr_sl_router:
 label dr_mi_router:
     if dr_mi >=11:
         "Мне снился концертный зал и поющая голограмма, невидимая для меня в свету прожекторов."
-        $ routetag_sch = "mi"
+        $ routetag_dr = "mi"
         call dr_mi_vars
         return
     else:
@@ -288,7 +288,7 @@ label dr_mi_router:
 label dr_un_router:
     if dr_un >=11:
         "Мне снилось, как какая-то художница что-то рисовала на холсте фиолетовыми красками. Это был... я?"
-        $ routetag_sch = "un"
+        $ routetag_dr = "un"
         call dr_un_vars
         return
     else:
@@ -297,7 +297,7 @@ label dr_un_router:
 label dr_us_router:
     if dr_us >=8 and dr_sabotage == 5:
         "Я почти час не мог уснуть из-за зашкаливающего уровня адреналина в крови, а после лишь видел яркие красные искры."
-        $ routetag_sch = "us"
+        $ routetag_dr = "us"
         call dr_us_vars
         return
     else:
@@ -305,7 +305,7 @@ label dr_us_router:
 
 label dr_loner_router:
     if noir_flag == 3:
-        $ routetag_sch = "nr"
+        $ routetag_dr = "nr"
         call dr_nr_vars
         return
     else:
@@ -314,31 +314,31 @@ label dr_loner_router:
         return
 
 label dr_final_router:
-    if routetag_sch == "dv_sab":
+    if routetag_dr == "dv_sab":
         jump dr_day4_dv_sabotage_cr
 
-    elif routetag_sch == "dv_peace":
+    elif routetag_dr == "dv_peace":
         jump dr_day4_dv_negotiator_cr
 
-    elif routetag_sch == "dv":
+    elif routetag_dr == "dv":
         jump dr_day_dv_cr
 
-    elif routetag_sch == "sl":
+    elif routetag_dr == "sl":
         jump dr_day4_sl_cr
 
-    elif routetag_sch == "mi":
+    elif routetag_dr == "mi":
         jump dr_day4_mi_cr
 
-    elif routetag_sch == "un":
+    elif routetag_dr == "un":
         jump dr_day4_un_cr
 
-    elif routetag_sch == "us":
+    elif routetag_dr == "us":
         jump dr_day4_us_cr
 
-    elif routetag_sch == "nr":
+    elif routetag_dr == "nr":
         jump dr_day4_nr_cr
         
-    elif routetag_sch == "ln":
+    elif routetag_dr == "ln":
         jump dr_day4_ln_cr
         
     else:

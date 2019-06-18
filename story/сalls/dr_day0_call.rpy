@@ -1,7 +1,7 @@
 label dr_day0_cr:
     $ prolog_time()
     $ persistent.sprite_time = "night"
-    $ name_sch(u"Я")
+    $ name_dr(u"Я")
     call dr_day0_prehistory_part_1
 
     pause(1)
