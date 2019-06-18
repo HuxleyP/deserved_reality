@@ -327,6 +327,17 @@ init:
         yalign 0.5
         linear 0.25 zoom 0.8
 
+
+
+    transform dr_ease_left_away:
+        ease 1.0 xalign -0.5
+
+    transform dr_ease_right_away:
+        ease 1.0 xalign 1.5
+
+    transform dr_ease_down_away:
+        ease 1.0 yalign -1.0
+
     image dr_main_menu_atl:
         "white2" with Dissolve(0.5)
         pause 0.5
