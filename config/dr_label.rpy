@@ -91,16 +91,16 @@ label sichium_start: # Меню
     $ name_dr("Я")
     #$ volume('sound', 0.5)
 
-    scene black
+    scene bg black
     $ renpy.movie_cutscene(preroll)
 
     play sound dr_sfx["whiteflash"]
 
     $ save_name = "Заслуженная Реальность. Меню."
     
-    scene bg white
+    scene dr_white
 
-    show blacksquare:
+    show dr_blacksquare:
         xalign 0.5 yalign 0.5
         zoom 20.0
         pause 0.5
@@ -111,38 +111,38 @@ label sichium_start: # Меню
 
     pause(2.1) # дефакто 2.05
 
-    show white2:
+    show dr_white2:
         xpos 861
 
     play music dr_music["honor"] fadein 1
 
     play sound dr_sfx["whiteflash"]
 
-    show dr_begin behind white2:
+    show dr_begin behind dr_white2:
         pos(861, 382)
         linear 0.25 xanchor 498
 
     pause(0.25)
 
-    show dr_continue behind white2:
+    show dr_continue behind dr_white2:
         pos(861, 462)
         linear 0.25 xanchor 498
 
     pause(0.25)
 
-    show dr_settings behind white2:
+    show dr_settings behind dr_white2:
         pos(861, 542)
         linear 0.25 xanchor 498
         
     pause(0.25)
 
-    show dr_achievements behind white2:
+    show dr_achievements behind dr_white2:
         pos(861, 622)
         linear 0.25 xanchor 498
 
     pause(0.25)
 
-    show exit_idle:
+    show dr_exit_idle:
         pos (-72, 1008)
         linear 0.25 pos(0, 1008)
 
@@ -164,37 +164,61 @@ label dr_menu_callout:
         stop music fadeout 2.5
         scene bg black with Dissolve(2.5)
         return
-    scene white with dissolve
     
-    show blacksquare:
+    scene dr_white 
+
+    show dr_begin:
+        pos(363, 382)
+
+    show dr_continue:
+        pos(363, 462)
+
+    show dr_achievements:
+        pos(363, 622)
+
+    show dr_settings:
+        pos(363, 542)
+
+    show dr_exit_idle:
+        pos(0, 1008)
+
+    show dr_blacksquare:
         xalign 0.5 yalign 0.5
         xanchor 111 xzoom 0.12 yzoom 3.62
 
-    show white2 behind blacksquare:
+    show dr_logo:
+        xpos 1131
+        yalign 0.5
+        easeout 0.5 xpos 2131 yalign 0.5
+
+
+    with Dissolve(0.5)
+
+    show dr_white2 behind dr_blacksquare:
         xpos 861
-    show dr_begin behind white2:
+    show dr_begin behind dr_white2:
         pos(363, 382)
         linear 0.75 xanchor -498
 
-    show dr_continue behind white2:
+    show dr_continue behind dr_white2:
         pos(363, 462)
         linear 0.75 xanchor -498
 
-    show dr_achievements behind white2:
+    show dr_achievements behind dr_white2:
         pos(363, 622)
         linear 0.75 xanchor -498
 
-    show dr_settings behind white2:
+    show dr_settings behind dr_white2:
         pos(363, 542)
         linear 0.75 xanchor -498
 
-    show exit_idle:
+    show dr_exit_idle:
         pos(0, 1008)
         linear 0.75 xpos -72
 
     pause(1.5)
 
-    show blacksquare:
+    show dr_blacksquare:
         pause .1
         xalign 0.5 yalign 0.5
         xanchor 111 xzoom 0.12 yzoom 3.62 
@@ -218,6 +242,10 @@ label dr_final_exit:
     $ MainMenu()
 
 label dr_game_start:
+
+    $ renpy.block_rollback()
+    scene black
+    #call screen dr_role_choose
 
     stop music fadeout 1
 

@@ -145,9 +145,9 @@ screen dr_menu:
     else:
         add "dr_main_menu_atl"
 
-    add "blacksquare" xalign 0.5 yalign 0.5 xzoom 0.12 yzoom 3.62 xanchor 111
+    add "dr_blacksquare" xalign 0.5 yalign 0.5 xzoom 0.12 yzoom 3.62 xanchor 111
 
-    #add "white2" zoom 0.7 xpos 861
+    #add "dr_white2" zoom 0.7 xpos 861
 
     #text "{font=[source_dr]images/fonts/LemonTuesday.otf}{size=60}З{/font}{font=[source_dr]images/fonts/csn.ttf}аслуженная{/size}{/font}\n {size=50}{font=[source_dr]images/fonts/LemonTuesday.otf}Р{/font}{font=[source_dr]images/fonts/csn.ttf}{/size}{size=60}еальность{/size}{/font}":
     ##vbox:
@@ -238,7 +238,7 @@ screen dr_settings_menu:
 
     add "#171717"
 
-    add "whitesquare" xalign 0.5 yalign 0.5 xzoom 0.12 yzoom 3.62 xanchor 111
+    add "dr_whitesquare" xalign 0.5 yalign 0.5 xzoom 0.12 yzoom 3.62 xanchor 111
 
     mousearea:
         area(0, 0, 1920, 1080)
@@ -458,3 +458,24 @@ screen dr_chskip_desc:
         text_size 44
         pos (250, 500)
         unhovered [Hide("dr_chskip_desc", transition=Dissolve(0.1))]
+
+
+screen intro_noir_screen:
+    add "intro_noir_screen" xalign 0.0 yalign 0.0
+
+screen intro_limb_screen:
+    add "intro_limb_screen" xalign 0.0 yalign 0.0
+
+screen dr_role_choose:
+    tag menu
+    modal False
+    imagemap:
+        ground "bg black"
+        hotspot ((0, 0, 960, 1080)):
+            hovered [Show("intro_noir_screen", transition=Dissolve(0.5))]
+            unhovered [Hide("intro_noir_screen", transition=Dissolve(1.0))]
+            action [Hide("intro_noir_screen", transition=Dissolve(0.5)), Jump("dr_day0_cr")]
+        hotspot ((960, 0, 960, 1080)):
+            hovered [Show("intro_limb_screen", transition=Dissolve(0.5))]
+            unhovered [Hide("intro_limb_screen", transition=Dissolve(1.0))]
+            action [Hide("intro_limb_screen", transition=Dissolve(0.5)), Jump("dr_day1_cr")]

@@ -137,9 +137,6 @@ init -998:
     # image bg int_coupe_night_dr = dr_image("bg/int_coupe_night.png")
     # image bg doctor_cabinet_dr = Placeholder("bg")
 
-    # image dr_sky_day = dr_image("temp/sky_day.png")
-    # image dr_sky_sunset = dr_image("temp/sky_sunset.png")
-    # image dr_sky_night = dr_image("temp/sky_night2.jpg")
 
     # #effects
     # image raineffect = dr_image("effects/raineffect.png")
@@ -150,6 +147,10 @@ init -998:
     # image cg uvao_d0 = dr_image("cg/uvao_d0.png")
     # image cg uvao_d0 = dr_image("cg/d1_uv.jpg")
     # image cg uvao_d0_2 = dr_image("cg/d1_uv_2.jpg")
+
+    #image dr_sky_day = dr_image("temp/sky_day.png")
+    #image dr_sky_sunset = dr_image("temp/sky_sunset.png")
+    #image dr_sky_night = dr_image("temp/sky_night2.jpg")
 
     #gui
 
@@ -170,14 +171,18 @@ init -998:
 
     # Объявляем основные ассеты
 
-    image bg dr_white = "#fff"
+    image dr_white = "#fff"
     image dr_white2 = "#ffffff"
     image dr_blacksquare = dr_menu("blacksquare.png")
-    image dr_whitesquare = im.MatrixColor(dr_menu("square.png"), im.matrix.colorize("#fff", "#fff"))
+    image dr_whitesquare = im.MatrixColor(dr_menu("blacksquare.png"), im.matrix.colorize("#fff", "#fff"))
     image dr_gray = "#171717"
     image dr_beige = "#fbf0b3"
     image dr_yellowish = "#7d5f34"
     image dr_exit_idle = dr_menu("ButtonExit_idle.png")
+
+
+    image intro_noir_screen = dr_gui("noir_chosen1.png")
+    image intro_limb_screen = dr_gui("limb_chosen1.png")
 
     # Объявляем текст для анимаций
 
@@ -187,6 +192,7 @@ init -998:
     image dr_continue = Text("•Новая_Игра", style = "dr_keys")
     image dr_settings = Text("•Настройки", style = "dr_keys")
     image dr_achievements = Text("•Достижения", style = "dr_keys")
+    image dr_logo = Text("{size=150}Заслуженная{/size}\n  {size=120}Реальность{/color}", style="dr_keys")
 
 
     #image dr_settings_reversed = Text("•Настройки", style="dr_keys_reversed")
@@ -339,7 +345,7 @@ init:
         ease 1.0 yalign -1.0
 
     image dr_main_menu_atl:
-        "white2" with Dissolve(0.5)
+        "dr_white2" with Dissolve(0.5)
         pause 0.5
         block:
             "dr_sky_day" with Dissolve(4)
