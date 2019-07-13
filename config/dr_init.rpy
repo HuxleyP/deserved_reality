@@ -4,7 +4,7 @@ init 999999999:
     $ config.conditionswitch_predict_all = True # и это
 
 init -1: # Version data
-    $ dr_version = "7.3.1"
+    $ dr_version = "7.4.1"
     $ dr_state = "Alpha rework"
     $ dr_codename = "Bubble Bean"
 
