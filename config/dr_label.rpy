@@ -37,6 +37,7 @@ label dr_commonvars:
 
 label dr_day0_vars:
     $ deathflag = False # Смерть, невыход в игру
+    $ dr_day0_keychain = False # Брелок
     $ true_prologue = False
 
     return
@@ -160,6 +161,8 @@ label dr_menu_callout:
     #hide screen dr_menu
     if dr_result == "dr_newgame":
         pass
+    elif dr_result == "dr_debug":
+        jump dr_debug_sandbox
     else:
         stop music fadeout 2.5
         scene bg black with Dissolve(2.5)

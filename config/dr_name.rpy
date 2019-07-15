@@ -4,7 +4,7 @@ init python:
     store.dr_colors = {}
     store.dr_names = {}
     store.dr_names_list = []
-    #time_of_day = "night"
+    time_of_day = "night"
 
     _show_two_window = True
 
@@ -180,8 +180,9 @@ init python:
         for x in store.dr_names_list:
             dr_char_define(x)
 
-    def dr_mode_nvl():
-        nvl_clear()
+    def dr_mode_nvl(clear=True):
+        if clear:
+            nvl_clear()
         
         global menu
         menu = nvl_menu
@@ -210,6 +211,11 @@ init 3 python:
         gl = globals()
         gl[who + "_name"] = name
         store.dr_names[who] = name
+        dr_reload_names()
+        if menu == nvl_menu:
+            dr_mode_nvl(False)
+        else:
+            dr_mode_adv()
 
     def dr_save_names_known():
         gl = globals()

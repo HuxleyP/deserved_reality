@@ -195,6 +195,17 @@ screen dr_menu:
             style "dr_keys"
             action [Hide("dr_menu"), Show("dr_settings_menu", transition = Dissolve(0.5))]
 
+    vbox:
+        textbutton("•/Дебаг/"):
+            xpos 363
+            ypos 702
+            background None
+            text_style "dr_keys"
+            style "dr_keys"
+            text_color "#006400"
+            text_hover_color "#800000"
+            action [Hide("dr_menu"), Return("dr_debug")]
+
     if persistent.cycled:
         vbox:
             textbutton ("•Достижения"):
@@ -213,6 +224,7 @@ screen dr_menu:
             text_style "dr_keys"
             style "dr_keys"
             action NullAction()
+
 
     imagebutton: #Ливнуть
         auto dr_menu("ButtonExit_%s.png")
@@ -465,6 +477,9 @@ screen intro_noir_screen:
 
 screen intro_limb_screen:
     add "intro_limb_screen" xalign 0.0 yalign 0.0
+
+screen prologue_dream:
+    add "prologue_dream" xalign 0.0 yalign 0.0
 
 screen dr_role_choose:
     tag menu
