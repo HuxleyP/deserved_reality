@@ -74,6 +74,7 @@ label dr_day3_vars:
     return
 
 label dr_allvars:
+    call dr_forgotten_lists_init
     call dr_commonvars # общие
     call dr_day0_vars # онли пролог
     call dr_day1_vars # онли первый день
@@ -168,7 +169,8 @@ label dr_menu_callout:
         scene bg black with Dissolve(2.5)
         return
     
-    scene dr_white 
+
+    scene dr_white
 
     show dr_begin:
         pos(363, 382)

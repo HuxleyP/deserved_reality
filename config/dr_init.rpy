@@ -138,6 +138,9 @@ init -998:
     # image bg doctor_cabinet_dr = Placeholder("bg")
 
 
+    #image ext_entrance_night_water_blur = im.Blur("ext_entrance_night_water", 1.5) - эта оставленная строка кода - память о моей самой ебанутой идее - вставить модуль на С из ренпая 7.3.0.6 в 7.0.0.196, на котором работает БЛ
+
+
     # #effects
     # image raineffect = dr_image("effects/raineffect.png")
     # image vignette = dr_image("effects/vignette.png")
@@ -178,6 +181,7 @@ init -998:
     image dr_gray = "#171717"
     image dr_beige = "#fbf0b3"
     image dr_yellowish = "#7d5f34"
+    image dr_blueish = "#00003d"
     image dr_exit_idle = dr_menu("ButtonExit_idle.png")
 
 
@@ -284,11 +288,15 @@ init -998:
 
     # Заставки
     $ preroll = dr_video("preroll.webm")
-
+    image animbg ext_path_rain_dr = Movie(play = dr_source + "images/video/dr_ext_path_rain_video.ogv")
 
 
 # Плюшки
-
+    image uv guiltybw far = ConditionSwitch(
+    "persistent.sprite_time=='sunset'",im.MatrixColor( im.Composite((630,1080), (0,0), "images/sprites/far/uv/uv_4_body.png",(0,0), "images/sprites/far/uv/uv_4_pioneer.png",(0,0), "images/sprites/far/uv/uv_4_guilty.png"), im.matrix.tint(0.94, 0.82, 1.0) ),
+    "persistent.sprite_time=='night'",im.MatrixColor( im.Composite((630,1080), (0,0), "images/sprites/far/uv/uv_4_body.png",(0,0), "images/sprites/far/uv/uv_4_pioneer.png",(0,0), "images/sprites/far/uv/uv_4_guilty.png"), im.matrix.tint(0.48, 0.63, 0.98) * im.matrix.saturation(0.4) ),
+    True,im.Composite((630,1080), (0,0), "images/sprites/far/uv/uv_4_body.png",(0,0), "images/sprites/far/uv/uv_4_pioneer.png",(0,0), "images/sprites/far/uv/uv_4_guilty.png") )
+    
 
 init:
     # поиграем в красоту
@@ -397,8 +405,12 @@ init:
         yalign 0.5
         linear 0.5 xpos 1131 yalign 0.5
 
+    # Из 7ДЛ
+    $ guess_on = ImageDissolve(dr_effects("blackpalm.png"), 0.25, ramplen=256, reverse=True)
+    $ guess_off = ImageDissolve(dr_effects("blackpalm.png"), 0.3, ramplen=256)
+
 init python:
-    def dr_noir(id, brightness = -0.4, tint_r = 0.2126, tint_g = 0.7152, tint_b = 0.0722, saturation = 0.5):
+    def dr_Noir(id, brightness = -0.2, tint_r = 0.2126, tint_g = 0.7152, tint_b = 0.0722, saturation = 0.8):
         return im.MatrixColor(ImageReference(id), im.matrix.brightness(brightness) * im.matrix.tint(tint_r, tint_g, tint_b) * im.matrix.saturation(saturation))
 
     # изменяемый ЧБ
@@ -409,7 +421,7 @@ init python:
     #    return im.MatrixColor(ImageReference(id), im.matrix.brightness(brightness) * im.matrix.tint(r, g, b) * im.matrix.saturation(saturation))
 
     def dr_BlackWhite(id, saturation):
-        return im.MatrixColor(ImageReference(id), im.matrix.saturation(saturation))
+        return im.MatrixColor(ImageReference(id), im.matrix.saturation(saturation*.01))
 
     def dr_Sepia(id):
         return im.MatrixColor(ImageReference(id), im.matrix.saturation(0.15) * im.matrix.tint(1.0, .94, .76))
@@ -612,8 +624,8 @@ init -1000 python: # Пути
 
     dr_source = dr_path + "source/"
 
-    # def dr_image(file):
-    #     return dr_source + "images/%s" % (file)
+    def dr_images(file):
+         return dr_source + "images/%s" % (file)
 
     # def dr_music(file):
     #     return dr_source + "sounds/music/%s" % (file)
@@ -623,6 +635,9 @@ init -1000 python: # Пути
 
     # def dr_sfx(file):
     #     return dr_source + "sounds/sfx/%s" % (file)
+
+    def dr_effects(file):
+        return dr_source + "images/effects/%s" % (file)
 
     def dr_video(file):
         return dr_source + "images/video/%s" % (file)
@@ -766,7 +781,48 @@ init python: # скомунизженно прямиком с сайта док�
         Shake = renpy.curry(_Shake)
 
 
-# ДЕБАААААААААААААААААААААААААААААААААААГИНГ ЛЮБИМЫЙ РОДНОЙ ПИЗДЕЦ КАКОЙ
+# init python: # Тянем-потянем, из 7.2 вытянуть не можем - и не вытянем, но пусть будет
+    # from __future__ import print_function
+    # import renpy.display
+
+    # import math
+    # import zipfile
+    # import cStringIO
+    # import threading
+    # import time
+    # import io
+    
+    # class Blur(ImageBase):
+
+
+        # def __init__(self, im, xrad, yrad=None, **properties):
+
+            # im = image(im)
+
+            # super(Blur, self).__init__(im, xrad, yrad, **properties)
+
+            # self.image = im
+            # self.rx = xrad
+            # self.ry = xrad if yrad is None else yrad
+
+        # def get_hash(self):
+            # return self.image.get_hash()
+
+        # def load(self):
+
+            # surf = cache.get(self.image)
+
+            # ws = renpy.display.pgrender.surface(surf.get_size(), True)
+            # rv = renpy.display.pgrender.surface(surf.get_size(), True)
+    
+            # renpy.display.module.blur(surf, ws, rv, self.rx, self.ry)
+
+            # return rv
+
+        # def predict_files(self):
+            # return self.image.predict_files()
+
+
 
 python early: # переписать
     def CycleCounter():
@@ -775,3 +831,6 @@ python early: # переписать
             ui.text(save_name, style="button_text", size=13, color="ff32000")
 
         config.overlay_functions.append(editoverlay)
+
+
+

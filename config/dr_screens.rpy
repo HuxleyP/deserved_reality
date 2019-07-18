@@ -173,7 +173,7 @@ screen dr_menu:
             background None
             text_style "dr_keys"
             style "dr_keys"
-            action [Hide("dr_menu", transition=Dissolve(0.5)), ShowMenu("load")] # сделать загрузку свою
+            action [Hide("dr_menu", transition=Dissolve(0.5)), ShowMenu("load", transition=Dissolve(0.5))] # сделать загрузку свою
             #action [Hide("dr_menu"), Jump("dr_savescreen")]
 
     vbox:
@@ -204,6 +204,8 @@ screen dr_menu:
             style "dr_keys"
             text_color "#006400"
             text_hover_color "#800000"
+            hovered Show('prologue_dream')
+            unhovered Hide('prologue_dream')
             action [Hide("dr_menu"), Return("dr_debug")]
 
     if persistent.cycled:
@@ -334,6 +336,7 @@ screen dr_settings_menu:
                 hovered [ShowTransient("dr_widget_desc", transition = Dissolve(0.1)), Hide("dr_settings_back")]
                 action [Hide("dr_menu"), SetField(persistent, "dr_widget", True)]
 
+
         #showif persistent.dr_chapter_skip:
          #   textbutton("•Пропуск названий глав - ON"):
          #       xpos 880
@@ -376,7 +379,6 @@ screen dr_settings_back:
 
 label dr_achievements:
     "Undone."
-    call screen dr_menu
     return
 
 screen dr_exit_promt:
@@ -480,6 +482,9 @@ screen intro_limb_screen:
 
 screen prologue_dream:
     add "prologue_dream" xalign 0.0 yalign 0.0
+
+screen dr_white2:
+    add "dr_white2" xalign 0.0 yalign 0.0
 
 screen dr_role_choose:
     tag menu
