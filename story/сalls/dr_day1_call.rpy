@@ -15,17 +15,17 @@ label dr_day1_cr:
 
     $ day_time()
     $ persistent.sprite_time = 'day'
-    call dr_day1_meeting
+    call dr_day1_meeting # Встречи
     pause(1)
 
     $ day_time()
     $ persistent.sprite_time = 'day'
-    call dr_day1_od
+    call dr_day1_od # Вожатая
     pause(1)
 
     $ day_time()
     $ persistent.sprite_time = 'day'
-    call dr_day1_afterod
+    call dr_day1_afterod # Склад
     pause(1)
 
     $ sunset_time()

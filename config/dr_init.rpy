@@ -4,7 +4,7 @@ init 999999999:
     $ config.conditionswitch_predict_all = True # и это
 
 init -1: # Version data
-    $ dr_version = "7.4.1"
+    $ dr_version = "7.4.2"
     $ dr_state = "Alpha rework"
     $ dr_codename = "Bubble Bean"
 
@@ -661,8 +661,9 @@ init python:
     dr_sfx = {}
 
     for i in renpy.list_files():
-        if i.startswith(("deserved_reality/source/images/bg/", "deserved_reality/source/images/cg/")) and i.endswith((".png", ".jpg")):
+        if i.startswith(("deserved_reality/source/images/bg/", "deserved_reality/source/images/bg/camp", "deserved_reality/source/images/cg/")) and i.endswith((".png", ".jpg")):
             renpy.image((str(i)[34:-4]), i)
+
 
         if i.startswith(("deserved_reality/source/sounds/ambience/")) and i.endswith((".ogg")):
             dr_ambience[i[40:-4]] = i
@@ -825,12 +826,12 @@ init python: # скомунизженно прямиком с сайта док�
 
 
 python early: # переписать
-    def CycleCounter():
-        def editoverlay():
-            ui.button(clicked=None, xalign=0.5, yalign = 0.98, xpadding=6)
-            ui.text(save_name, style="button_text", size=13, color="ff32000")
+    def editoverlay_savename():
+        #ui.button(clicked=None, xalign=0.5, yalign = 0.98, xpadding=6)
+        ui.button(clicked=None, xpos=0.40, xanchor=0.0, ypos=2, xpadding=6, xminimum=200)
+        ui.text(save_name, style="button_text", size=13, color="ff32000")
 
-        config.overlay_functions.append(editoverlay)
+        config.overlay_functions.append(editoverlay_savename)
 
 
 
