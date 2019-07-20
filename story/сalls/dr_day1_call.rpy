@@ -25,6 +25,10 @@ label dr_day1_cr:
 
     $ day_time()
     $ persistent.sprite_time = 'day'
+    call dr_day1_map_1 # Карта 1
+
+    $ day_time()
+    $ persistent.sprite_time = 'day'
     call dr_day1_afterod # Склад
     pause(1)
 

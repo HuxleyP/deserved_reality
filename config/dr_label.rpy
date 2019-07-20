@@ -49,6 +49,10 @@ label dr_day1_vars:
     $ dr_day1_sl_together = False # С кем пошёл к ОД TODO сделать не списком, а string
     $ dr_day1_ev_mi = False # позвала ли Мику на пристань
     $ dr_ginger_lie = 0
+    $ dr_known_list = []
+    $ dr_tmp_d1_sl_insta_warehouse = False
+    $ dr_tmp_d1_sl_after = False
+    dr_day1_salty_supper = False
 
     return
 

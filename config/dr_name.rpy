@@ -208,6 +208,7 @@ init python:
 init 3 python:
     def dr_meet(who, name):
         global store
+        global dr_known_list
         gl = globals()
         gl[who + "_name"] = name
         store.dr_names[who] = name
@@ -216,6 +217,10 @@ init 3 python:
             dr_mode_nvl(False)
         else:
             dr_mode_adv()
+        # Экспериментальная
+        if name == ('Славя' or 'Мику' or 'Лена' or 'Ольга Дмитриевна' or 'Алиса' or 'Ульяна' or 'Шурик' or 'Эл' or 'Электроник'):
+            dr_known_list.append('who')
+        # доп фича
 
     def dr_save_names_known():
         gl = globals()

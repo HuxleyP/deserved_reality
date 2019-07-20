@@ -22,19 +22,19 @@ init 2:
 
     $ hide_back = False # Меню - Убрать кнопку Назад при True
 
-    $ dr_iv = 0
-    $ dr_sl = 0
-    $ dr_un = 0
-    $ dr_us = 0
-    $ dr_dv = 0
-    $ dr_mi = 0
-    $ dr_pi = 0 # Поинты пионера, вычисляются в десятках и сотнях, прибавляются за каждый правильный поступок со стороны регламента лагеря (я серьёзно не знаю, как назвать устав), за правильные поступки даются послабления в дальнейшем, а так же ГГ больше доверяют. Поведение проверяет сам вездесущий Генда и его ручная кошкодевочка, которая для генсека will be fine too
+    $ dr_iv_op = 0
+    $ dr_sl_op = 0
+    $ dr_un_op = 0
+    $ dr_us_op = 0
+    $ dr_dv_op = 0
+    $ dr_mi_op = 0
+    $ dr_pi_op = 0 # Поинты пионера, вычисляются в десятках и сотнях, прибавляются за каждый правильный поступок со стороны регламента лагеря (я серьёзно не знаю, как назвать устав), за правильные поступки даются послабления в дальнейшем, а так же ГГ больше доверяют. Поведение проверяет сам вездесущий Генда и его ручная кошкодевочка, которая для генсека will be fine too
     $ dr_wi = 0 # Поинты воли
     $ dr_ka = 0 # Поинты кармы
     $ dr_nr = 0 # Очки Нуара
-    $ dr_overall = max(dr_dv, dr_un, dr_us, dr_sl, dr_iv, dr_mi, dr_nr) # для удобства
+    $ dr_overall = max(dr_dv_op, dr_un_op, dr_us_op, dr_sl_op, dr_iv_op, dr_mi_op, dr_nr_op) # для удобства
 
-    $ girls_pt = [dr_sl, dr_un, dr_us, dr_dv, dr_mi]
+    $ girls_pt = [dr_sl_op, dr_un_op, dr_us_op, dr_dv_op, dr_mi_op]
 
     $ dr_bound = False # при всех гудах
     $ dr_true = False # При получении ВЫХОДА к  ТруЪ концовке
@@ -373,6 +373,20 @@ init:
         pause 6.0
         repeat
 
+    image dr_mi_fasttalking:
+        "mi normal pioneer" with dissolve
+        pause 2.0
+        "mi upset pioneer" with dissolve
+        pause 2.0
+        "mi smile pioneer" with dissolve
+        pause 2.0
+        "mi shy pioneer" with dissolve
+        pause 1.5
+        "mi surprise pioneer" with dissolve
+        pause 2.0
+        "mi laugh pioneer" with dissolve
+        pause 2.0
+        repeat
 # старый на всякий
 #    transform dr_running:
 #        anchor (0.1, 0.1)
@@ -442,13 +456,13 @@ init 10 python: # главы #TODO к херам
 
     def dr_newday(dr_dayNo):
         #TODO TODO ЦВЕТА С НУЛЯ, НЕ РАБОТАЕТ
-        global dr_dv #Алиса
-        global dr_un #Лена
-        global dr_us #Ульяна
-        global dr_sl #Славя
-        global dr_iv #ГГ
-        global dr_mi #Мику
-        global dr_nr #Нуар
+        global dr_dv_op #Алиса
+        global dr_un_op #Лена
+        global dr_us_op #Ульяна
+        global dr_sl_op #Славя
+        global dr_iv_op #ГГ
+        global dr_mi_op #Мику
+        global dr_nr_op #Нуар
         global save_name
         save_name = "Заслуженная Реальность. День [dr_dayNo]"
         renpy.scene()
@@ -473,43 +487,43 @@ init 10 python: # главы #TODO к херам
             elif dr_noir_flag == 3:
                 renpy.show("Color(hsv = (0, 0, 0.1625))")
 
-            elif (max(dr_dv, dr_un, dr_us, dr_sl, dr_mi)  >= 0) and (dr_dayNo <=3): # до 4 дня, очков тян больше нуля,
+            elif (max(dr_dv_op, dr_un_op, dr_us_op, dr_sl_op, dr_mi_op)  >= 0) and (dr_dayNo <=3): # до 4 дня, очков тян больше нуля,
 
-                if (dr_dv or dr_un or dr_us or dr_sl or dr_iv or dr_mi or dr_nr) == max(dr_dv, dr_un, dr_us, dr_sl, dr_iv, dr_mi, dr_nr): #если равно
-                    dr_overall = max(dr_dv, dr_un, dr_us, dr_sl, dr_iv, dr_mi, dr_nr)
+                if (dr_dv or dr_un or dr_us or dr_sl or dr_iv or dr_mi or dr_nr_op) == max(dr_dv_op, dr_un_op, dr_us_op, dr_sl_op, dr_iv_op, dr_un_op, dr_nr_op): #если равно
+                    dr_overall = max(dr_dv_op, dr_un_op, dr_us_op, dr_sl_op, dr_iv_op, dr_un_op, dr_nr_op)
                     renpy.show("Color(hsv = (0.9722222, [dr_overall*0.03], 1.0))") #розовый
 
-                elif (max(dr_dv, dr_un, dr_us, dr_sl, dr_mi) >=8): #  больше восьми, saturation = 100, изменяется brightness
-                    if dr_us == max(dr_dv, dr_un, dr_us, dr_sl, dr_iv, dr_mi, dr_nr): #Уля
+                elif (max(dr_dv_op, dr_un_op, dr_us_op, dr_sl_op, dr_mi) >=8): #  больше восьми, saturation = 100, изменяется brightness
+                    if dr_us == max(dr_dv_op, dr_un_op, dr_us_op, dr_sl_op, dr_iv_op, dr_un_op, dr_nr_op): #Уля
                         renpy.show("Color(hsv = (0, [0.5+dr_us*0.04], 1.0))")
 
-                    elif dr_dv == max(dr_dv, dr_un, dr_us, dr_sl, dr_iv, dr_mi, dr_nr): # Алиса
+                    elif dr_dv == max(dr_dv_op, dr_un_op, dr_us_op, dr_sl_op, dr_iv_op, dr_un_op, dr_nr_op): # Алиса
                         renpy.show("Color(hsv = (.06666, [dr_dv*0.04], 1.0))")
 
-                    elif dr_sl == max(dr_dv, dr_un, dr_us, dr_sl, dr_iv, dr_mi, dr_nr): # Славя
+                    elif dr_sl == max(dr_dv_op, dr_un_op, dr_us_op, dr_sl_op, dr_iv_op, dr_un_op, dr_nr_op): # Славя
                         renpy.show("Color(hsv = (.12222, [dr_sl*0.04], 1.0))")
 
-                    elif dr_mt == max(dr_dv, dr_un, dr_us, dr_sl, dr_iv, dr_mi, dr_nr): # ОД
+                    elif dr_mt == max(dr_dv_op, dr_un_op, dr_us_op, dr_sl_op, dr_iv_op, dr_un_op, dr_nr_op): # ОД
                         renpy.show("Color(hsv = (.33333, [dr_mt*0.04], 1.0))")
 
-                    elif dr_mi == max(dr_dv, dr_un, dr_us, dr_sl, dr_iv, dr_mi, dr_nr): # Мику
+                    elif dr_mi == max(dr_dv_op, dr_un_op, dr_us_op, dr_sl_op, dr_iv_op, dr_un_op, dr_nr_op): # Мику
                         renpy.show("Color(hsv = (.5, [dr_mi*0.04], 1.0))")
 
                 else: # от одного до восьми, brightness = color*0.32, изменяется saturation
 
-                    if dr_us == max(dr_dv, dr_un, dr_us, dr_sl, dr_iv, dr_mi, dr_nr): #Уля
+                    if dr_us == max(dr_dv_op, dr_un_op, dr_us_op, dr_sl_op, dr_iv_op, dr_un_op, dr_nr_op): #Уля
                         renpy.show("Color(hsv = (0, 1.0, [0.5+dr_us*0.04]))")
 
-                    elif dr_dv == max(dr_dv, dr_un, dr_us, dr_sl, dr_iv, dr_mi, dr_nr): # Алиса
+                    elif dr_dv == max(dr_dv_op, dr_un_op, dr_us_op, dr_sl_op, dr_iv_op, dr_un_op, dr_nr_op): # Алиса
                         renpy.show("Color(hsv = (.06666, 1.0, [dr_dv*0.04]))")
 
-                    elif dr_sl == max(dr_dv, dr_un, dr_us, dr_sl, dr_iv, dr_mi, dr_nr): # Славя
+                    elif dr_sl == max(dr_dv_op, dr_un_op, dr_us_op, dr_sl_op, dr_iv_op, dr_un_op, dr_nr_op): # Славя
                         renpy.show("Color(hsv = (.12222, 1.0, [dr_sl*0.04]))")
 
-                    elif dr_mt == max(dr_dv, dr_un, dr_us, dr_sl, dr_iv, dr_mi, dr_nr): # ОД
+                    elif dr_mt == max(dr_dv_op, dr_un_op, dr_us_op, dr_sl_op, dr_iv_op, dr_un_op, dr_nr_op): # ОД
                         renpy.show("Color(hsv = (.33333, 1.0, [dr_mt*0.04]))")
 
-                    elif dr_mi == max(dr_dv, dr_un, dr_us, dr_sl, dr_iv, dr_mi, dr_nr): # Мику
+                    elif dr_mi == max(dr_dv_op, dr_un_op, dr_us_op, dr_sl_op, dr_iv_op, dr_un_op, dr_nr_op): # Мику
                         renpy.show("Color(hsv = (.5, 1.0, [dr_mi*0.04]))")
                         
             elif dr_dayNo >=4:
