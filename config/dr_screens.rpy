@@ -169,36 +169,59 @@ screen dr_menu:
     vbox:   #Открыть экран сейвов
         textbutton ("•Продолжить_Игру"): # может, только для бабочки?
             xpos 363
-            ypos 382
+            ypos 357
             background None
             text_style "dr_keys"
             style "dr_keys"
             action [Hide("dr_menu", transition=Dissolve(0.5)), ShowMenu("load", transition=Dissolve(0.5))] # сделать загрузку свою
             #action [Hide("dr_menu"), Jump("dr_savescreen")]
 
-    vbox:
         textbutton ("•Новая_Игра"):
             xpos 363
-            ypos 462
+            ypos 377
             background None
             text_style "dr_keys"
             style "dr_keys"
             #action [Hide("dr_menu"), Jump("dr_newgame")]
             action [Hide("dr_menu"), Return("dr_newgame")]
 
-    vbox:
         textbutton ("•Настройки"):
             xpos 363
-            ypos 542
+            ypos 397
             background None
             text_style "dr_keys"
             style "dr_keys"
             action [Hide("dr_menu"), Show("dr_settings_menu", transition = Dissolve(0.5))]
+        
+        if persistent.cycled:
+            textbutton ("•Достижения"):
+                xpos 363
+                ypos 417
+                background None
+                text_style "dr_keys_gray"
+                style "dr_keys_gray"
+                action [Hide("dr_menu"), Jump("dr_achievements_menu")]
 
-    vbox:
+        else:
+            textbutton ("•Достижения"):
+                xpos 363
+                ypos 417
+                background None
+                text_style "dr_keys"
+                style "dr_keys"
+                action NullAction()
+
+        textbutton ("•Создатели"):
+            xpos 363
+            ypos 437
+            background None
+            text_style "dr_keys"
+            style "dr_keys"
+            action [Hide("dr_menu"), Show("dr_titles_menu", transition = Dissolve(0.5))]
+    
         textbutton("•/Дебаг/"):
             xpos 363
-            ypos 702
+            ypos 457
             background None
             text_style "dr_keys"
             style "dr_keys"
@@ -208,25 +231,6 @@ screen dr_menu:
             unhovered Hide('prologue_dream')
             action [Hide("dr_menu"), Return("dr_debug")]
 
-    if persistent.cycled:
-        vbox:
-            textbutton ("•Достижения"):
-                xpos 363
-                ypos 622
-                background None
-                text_style "dr_keys_gray"
-                style "dr_keys_gray"
-                action [Hide("dr_menu"), Jump("dr_achievements")]
-
-    else:
-        textbutton ("•Достижения"):
-            xpos 363
-            ypos 622
-            background None
-            text_style "dr_keys"
-            style "dr_keys"
-            action NullAction()
-
 
     imagebutton: #Ливнуть
         auto dr_menu("ButtonExit_%s.png")
@@ -235,6 +239,11 @@ screen dr_menu:
         action [Hide("dr_menu", transition = dissolve), Show("dr_exit_promt", transition = dissolve)]
         # action [ShowMenu("dr_exit_promt", transition=Dissolve(0.5))] # на случай, если найду лейбл оригинального меню игры
         # action MainMenu() совсем запасной
+
+screen dr_titles_menu:
+    tag menu
+    modal True
+
 
 
 screen dr_settings_menu:
@@ -263,7 +272,7 @@ screen dr_settings_menu:
         showif persistent.undone_jumper:
             textbutton ("•Заглушки - ON"):
                 xpos 880
-                ypos 382
+                ypos 357
                 background None
                 text_style "dr_keys_white"
                 style "dr_keys_white"
@@ -274,7 +283,7 @@ screen dr_settings_menu:
         else:
             textbutton ("•Заглушки - OFF"):
                 xpos 880
-                ypos 382
+                ypos 357
                 background None
                 text_style "dr_keys_white"
                 style "dr_keys_white"
@@ -285,7 +294,7 @@ screen dr_settings_menu:
         showif persistent.dr_difficulty:
             textbutton ("•Сложность по умолчанию - Hard"):
                 xpos 880
-                ypos 436
+                ypos 377
                 background None
                 text_style "dr_keys_white"
                 style "dr_keys_white"
@@ -293,10 +302,10 @@ screen dr_settings_menu:
                 hovered[ShowTransient("dr_difficulty_desc", transition=Dissolve(0.1)), Hide("dr_settings_back")]
                 action [Hide("dr_menu"), SetField(persistent, "dr_difficulty", False)]
 
-        showif persistent.dr_difficulty == False:
+        elif persistent.dr_difficulty == False:
             textbutton ("•Сложность по умолчанию - Обычная"):
                 xpos 880
-                ypos 436
+                ypos 377
                 background None
                 text_style "dr_keys_white"
                 style "dr_keys_white"
@@ -307,7 +316,7 @@ screen dr_settings_menu:
         showif persistent.dr_difficulty == None:
             textbutton ("•Сложность по умолчанию - не установлено"):
                 xpos 880
-                ypos 436
+                ypos 377
                 background None
                 text_style "dr_keys_white"
                 style "dr_keys_white"
@@ -318,7 +327,7 @@ screen dr_settings_menu:
         showif persistent.dr_widget:
             textbutton("•Виджет ОП - ON"):
                 xpos 880
-                ypos 492
+                ypos 397
                 background None
                 text_style "dr_keys_white"
                 style "dr_keys_white"
@@ -328,7 +337,7 @@ screen dr_settings_menu:
         else:
             textbutton("•Виджет ОП - OFF"):
                 xpos 880
-                ypos 492
+                ypos 397
                 background None
                 text_style "dr_keys_white"
                 style "dr_keys_white"
@@ -337,37 +346,37 @@ screen dr_settings_menu:
                 action [Hide("dr_menu"), SetField(persistent, "dr_widget", True)]
 
 
-        #showif persistent.dr_chapter_skip:
-         #   textbutton("•Пропуск названий глав - ON"):
-         #       xpos 880
-         #       ypos 522
-         #       background None
-         #       text_style "dr_keys_white"
-         #       style "dr_keys_white"
-         #       unhovered[ShowTransient("dr_settings_back", transition=Dissolve(0.1)), Hide("dr_chskip_desc")]
-         #       hovered[ShowTransient("dr_chskip_desc", transition=Dissolve(0.1)), Hide("dr_settings_back")]
-         #       action [Hide("dr_menu"), SetField(persistent, "dr_chapter_skip", False)]
-        #else:
-         #   textbutton("•Пропуск названий глав - OFF"):
-        #        xpos 880
-         #       ypos 522
-          #      background None
-           #     text_style "dr_keys_white"
-            #    style "dr_keys_white"
-             #   unhovered[ShowTransient("dr_settings_back", transition=Dissolve(0.1)), Hide("dr_widget_desc")]
-              #  hovered[ShowTransient("dr_chskip_desc", transition=Dissolve(0.1)), Hide("dr_settings_back")]
-               # action [Hide("dr_menu"), SetField(persistent, "dr_chapter_skip", True)]
+        showif persistent.dr_chapter_skip:
+           textbutton("•Пропуск названий глав - ON"):
+                xpos 880
+                ypos 412
+                background None
+                text_style "dr_keys_white"
+                style "dr_keys_white"
+                unhovered [ShowTransient("dr_settings_back", transition = Dissolve(0.1)), Hide("dr_chskip_desc")]
+                hovered [ShowTransient("dr_chskip_desc", transition = Dissolve(0.1)), Hide("dr_settings_back")]
+                action [Hide("dr_menu"), SetField(persistent, "dr_chapter_skip", False)]
+        else:
+           textbutton("•Пропуск названий глав - OFF"):
+                xpos 880
+                ypos 412
+                background None
+                text_style "dr_keys_white"
+                style "dr_keys_white"
+                unhovered [ShowTransient("dr_settings_back", transition = Dissolve(0.1)), Hide("dr_chskip_desc")]
+                hovered [ShowTransient("dr_chskip_desc", transition = Dissolve(0.1)), Hide("dr_settings_back")]
+                action [Hide("dr_menu"), SetField(persistent, "dr_chapter_skip", True)]
 
 
-        #textbutton("•Перейти в настройки игры"):
-        #    xpos 880
-        #    ypos 582
-        #    background None
-        #    text_style "dr_keys_white"
-        #    style "dr_keys_white"
-        #    unhovered[ShowTransient("dr_settings_back", transition=Dissolve(0.1)), Hide("dr_es_settings_desc")]
-        #    hovered[ShowTransient("dr_es_settings_desc"), Hide("dr_settings_back")]
-        #    action [ShowMenu("preferences")]
+        textbutton("•Перейти в настройки игры"):
+            xpos 880
+            ypos 432
+            background None
+            text_style "dr_keys_white"
+            style "dr_keys_white"
+            unhovered[ShowTransient("dr_settings_back", transition=Dissolve(0.1)), Hide("dr_es_settings_desc")]
+            hovered[ShowTransient("dr_es_settings_desc"), Hide("dr_settings_back")]
+            action [ShowMenu("preferences")]
 
 screen dr_settings_back:
     textbutton("/Назад/"):
@@ -377,7 +386,7 @@ screen dr_settings_back:
         style "dr_keys_white"
         action [Show("dr_menu", transition = Dissolve(0.55)), Hide("dr_settings", transition = Dissolve(0.25)), Hide("dr_settings_back", transition = Dissolve(0.25)), SetVariable("dr_inmenu", True)]
 
-label dr_achievements:
+label dr_achievements_menu:
     "Undone."
     return
 

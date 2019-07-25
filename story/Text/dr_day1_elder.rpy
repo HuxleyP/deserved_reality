@@ -1,4 +1,4 @@
-label dr_day1_intro_old:
+label old_dr_day1_intro_old:
     $ persistent.sprite_time = "day"
     $ day_time()
     $ sch_newday(sch_dayNo=1)
@@ -201,7 +201,7 @@ label dr_day1_intro_old:
             "Златовласка, похоже, не очень сильно обиделась и впустила меня за ворота, сразу прикрыв за мной."
     return
 
-label sch_day1_camp:
+label old_sch_day1_camp:
     $ persistent.sprite_time = "day"
     $ day_time()
     scene bg ext_clubs_day
@@ -271,7 +271,7 @@ label sch_day1_camp:
 
 
 
-label dr_day1_afterod:
+label old_dr_day1_afterod:
     $ persistent.sprite_time = "day"
     $ day_time()
     scene bg ext_house_of_mt_day with dissolve

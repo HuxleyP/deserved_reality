@@ -4,7 +4,7 @@ init 999999999:
     $ config.conditionswitch_predict_all = True # и это
 
 init -1: # Version data
-    $ dr_version = "7.4.2"
+    $ dr_version = "7.5"
     $ dr_state = "Alpha rework"
     $ dr_codename = "Bubble Bean"
 
@@ -28,10 +28,10 @@ init 2:
     $ dr_us_op = 0
     $ dr_dv_op = 0
     $ dr_mi_op = 0
+    $ dr_nr_op = 0 # Очки Нуара
     $ dr_pi_op = 0 # Поинты пионера, вычисляются в десятках и сотнях, прибавляются за каждый правильный поступок со стороны регламента лагеря (я серьёзно не знаю, как назвать устав), за правильные поступки даются послабления в дальнейшем, а так же ГГ больше доверяют. Поведение проверяет сам вездесущий Генда и его ручная кошкодевочка, которая для генсека will be fine too
     $ dr_wi = 0 # Поинты воли
     $ dr_ka = 0 # Поинты кармы
-    $ dr_nr = 0 # Очки Нуара
     $ dr_overall = max(dr_dv_op, dr_un_op, dr_us_op, dr_sl_op, dr_iv_op, dr_mi_op, dr_nr_op) # для удобства
 
     $ girls_pt = [dr_sl_op, dr_un_op, dr_us_op, dr_dv_op, dr_mi_op]
@@ -196,6 +196,7 @@ init -998:
     image dr_continue = Text("•Новая_Игра", style = "dr_keys")
     image dr_settings = Text("•Настройки", style = "dr_keys")
     image dr_achievements = Text("•Достижения", style = "dr_keys")
+    image dr_titles_text = Text("•Создатели", style = "dr_keys")
     image dr_logo = Text("{size=150}Заслуженная{/size}\n  {size=120}Реальность{/color}", style="dr_keys")
 
 
@@ -356,20 +357,20 @@ init:
         "dr_white2" with Dissolve(0.5)
         pause 0.5
         block:
-            "dr_sky_day" with Dissolve(4)
+            "dr_sky2" with Dissolve(4)
             pause 6.0
-            "dr_sky_sunset" with Dissolve(4)
+            "dr_sky_sunset2" with Dissolve(4)
             pause 6.0
-            "dr_sky_night" with Dissolve(4)
+            "dr_sky_day2" with Dissolve(4)
             pause 6.0
             repeat
 
     image dr_main_menu_atl_short:
-        "dr_sky_day" with Dissolve(4)
+        "dr_sky_day2" with Dissolve(4)
         pause 6.0
-        "dr_sky_sunset" with Dissolve(4)
+        "dr_sky_sunset2" with Dissolve(4)
         pause 6.0
-        "dr_sky_night" with Dissolve(4)
+        "dr_sky2" with Dissolve(4)
         pause 6.0
         repeat
 
@@ -700,6 +701,7 @@ init -998 python:
     style.dr_keys.color = "#000000"
     style.dr_keys.hover_color = "#800000"
     style.dr_keys.size = 83
+    style.dr_keys.spacing = 100
 
     # Реверсивные, другой шрифт
     style.dr_keys_reversed = Style(style.dr_keys)

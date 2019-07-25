@@ -52,7 +52,7 @@ label dr_day1_vars:
     $ dr_known_list = []
     $ dr_tmp_d1_sl_insta_warehouse = False
     $ dr_tmp_d1_sl_after = False
-    dr_day1_salty_supper = False
+    $ dr_day1_salty_supper = False
 
     return
 
@@ -111,11 +111,11 @@ label sichium_start: # Меню
         zoom 20.0
         pause 0.5
         ease 0.5 zoom 1.0
-        linear 0.35 xzoom 0.12
+        ease 0.35 xzoom 0.12
         easein 0.35 yzoom 3.62
-        linear 0.35 xanchor 111
+        ease 0.35 xanchor 111
 
-    pause(2.1) # дефакто 2.05
+    pause(2.05) # дефакто 2.3
 
     show dr_white2:
         xpos 861
@@ -125,26 +125,36 @@ label sichium_start: # Меню
     play sound dr_sfx["whiteflash"]
 
     show dr_begin behind dr_white2:
-        pos(861, 382)
-        linear 0.25 xanchor 498
+        pos(861, 357)
+        ease 0.25 xanchor 498
 
-    pause(0.25)
+    #pause(0.25)
 
     show dr_continue behind dr_white2:
-        pos(861, 462)
-        linear 0.25 xanchor 498
+        pos(861, 431)
+        ease 0.25 xanchor 498
 
-    pause(0.25)
+    #pause(0.25)
 
     show dr_settings behind dr_white2:
-        pos(861, 542)
-        linear 0.25 xanchor 498
+        pos(861, 505)
+        ease 0.25 xanchor 498
         
-    pause(0.25)
+    #pause(0.25)
 
     show dr_achievements behind dr_white2:
-        pos(861, 622)
-        linear 0.25 xanchor 498
+        pos(861, 579)
+        ease 0.25 xanchor 498
+
+    #pause(0.25)
+    
+    show dr_titles_text behind dr_white2:
+        pos(861, 653)
+        ease 0.25 xanchor 498
+
+
+    #pause(0.25)
+
 
     pause(0.25)
 
@@ -176,17 +186,21 @@ label dr_menu_callout:
 
     scene dr_white
 
+
     show dr_begin:
-        pos(363, 382)
+        pos(363, 357)
 
     show dr_continue:
-        pos(363, 462)
-
-    show dr_achievements:
-        pos(363, 622)
+        pos(363, 431)
 
     show dr_settings:
-        pos(363, 542)
+        pos(363, 505)
+
+    show dr_achievements:
+        pos(363, 579)
+
+    show dr_titles_text:
+        pos(353, 653)
 
     show dr_exit_idle:
         pos(0, 1008)
@@ -206,19 +220,23 @@ label dr_menu_callout:
     show dr_white2 behind dr_blacksquare:
         xpos 861
     show dr_begin behind dr_white2:
-        pos(363, 382)
+        pos(363, 357)
         linear 0.75 xanchor -498
 
     show dr_continue behind dr_white2:
-        pos(363, 462)
-        linear 0.75 xanchor -498
-
-    show dr_achievements behind dr_white2:
-        pos(363, 622)
+        pos(363, 431)
         linear 0.75 xanchor -498
 
     show dr_settings behind dr_white2:
-        pos(363, 542)
+        pos(363, 505)
+        linear 0.75 xanchor -498
+
+    show dr_achievements behind dr_white2:
+        pos(363, 579)
+        linear 0.75 xanchor -498
+    
+    show dr_titles_text behind dr_white2:
+        pos(363, 653)
         linear 0.75 xanchor -498
 
     show dr_exit_idle:
