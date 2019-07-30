@@ -1,4 +1,4 @@
-label dr_day1_map_preparation:
+label dr_day1_2_map_preparation:
     if 'mi' or 'dv' in list_dr_day1_together:
         $ dr_day1_mp = 1
     else:
@@ -16,8 +16,8 @@ label dr_day1_map_preparation:
     $ set_zone_dr('beach_dr', 'dr_day1_beach_map')
 
 
-    $ persistent.sprite_time = "day"
-    $ day_time()
+    $ persistent.sprite_time = "sunset"
+    $ sunset_time()
 
 label dr_day1_map_1:
 

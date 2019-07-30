@@ -53,6 +53,8 @@ label dr_day1_vars:
     $ dr_tmp_d1_sl_insta_warehouse = False
     $ dr_tmp_d1_sl_after = False
     $ dr_day1_salty_supper = False
+    $ dr_day1_mi_musclub_promise = False
+    $ dr_day1_mi_musclub_leave = False
 
     return
 
