@@ -229,7 +229,7 @@ label dr_day1_map_1_1_event_musclub:
         "Не мешать музыканту":
             $ dr_day1_mi_musclub_leave = True
             "Я послушал ещё несколько минут, пока мелодия не пришла к своему завершению и, подумав, что делать здесь больше нечего, встал с перил, оттряхнулся и вернулся на дорожку."
-        scene bg ext_musclub_day with dissolve
+            scene bg ext_musclub_day with dissolve
     "Я пошёл прочь от музклуба и поторопился к складу"
     scene bg ext_houses_day with dissolve
     extend "через домики, "
