@@ -376,7 +376,7 @@ screen dr_settings_menu:
             style "dr_keys_white"
             unhovered[ShowTransient("dr_settings_back", transition=Dissolve(0.1)), Hide("dr_es_settings_desc")]
             hovered[ShowTransient("dr_es_settings_desc"), Hide("dr_settings_back")]
-            action [ShowMenu("preferences")]
+            action [ShowTransient("dr_settings_back", transition=Dissolve(0.1)), Hide("dr_es_settings_desc"), ShowMenu("preferences")]
 
 screen dr_settings_back:
     textbutton("/Назад/"):
