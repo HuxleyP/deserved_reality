@@ -118,3 +118,19 @@ screen dr_debug_interpol_hell:
         xpos 0
         ypos 1008
         action [Hide("dr_debug_interpol_hell", transition = dissolve), Show("dr_exit_promt", transition = dissolve)]
+
+
+init:
+    $ m_x_pos = 0
+    $ m_y_pos = 0
+
+screen name:
+    add 'image_name' at func_name
+
+init python:
+    def func_name(d,t,s):
+        global m_x_pos, m_y_pos
+        m_x_pos, m_y_pos = renpy.get_mouse_pos()
+        d.xpos = m_x_pos
+        d.ypos = m_y_pos
+        return 0.01 

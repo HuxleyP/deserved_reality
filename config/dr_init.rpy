@@ -1,10 +1,10 @@
-init 999999999:
+init 9999999999:
     $ config.developer = True #TODO В релиз попасть не должно
-    $ config.debug_text_overflow = True #это тоже
-    $ config.conditionswitch_predict_all = True # и это
+    #$ config.debug_text_overflow = True #это тоже
+    #$ config.conditionswitch_predict_all = True # и это
 
 init -1: # Version data
-    $ dr_version = "7.5"
+    $ dr_version = "7.6"
     $ dr_state = "Alpha rework"
     $ dr_codename = "Bubble Bean"
 
@@ -29,7 +29,7 @@ init 2:
     $ dr_dv_op = 0
     $ dr_mi_op = 0
     $ dr_nr_op = 0 # Очки Нуара
-    $ dr_pi_op = 0 # Поинты пионера, вычисляются в десятках и сотнях, прибавляются за каждый правильный поступок со стороны регламента лагеря (я серьёзно не знаю, как назвать устав), за правильные поступки даются послабления в дальнейшем, а так же ГГ больше доверяют. Поведение проверяет сам вездесущий Генда и его ручная кошкодевочка, которая для генсека will be fine too
+    $ dr_pi = 0 # Поинты пионера, вычисляются в десятках и сотнях, прибавляются за каждый правильный поступок со стороны регламента лагеря (я серьёзно не знаю, как назвать устав), за правильные поступки даются послабления в дальнейшем, а так же ГГ больше доверяют. Поведение проверяет сам вездесущий Генда и его ручная кошкодевочка, которая для генсека will be fine too
     $ dr_wi = 0 # Поинты воли
     $ dr_ka = 0 # Поинты кармы
     $ dr_overall = max(dr_dv_op, dr_un_op, dr_us_op, dr_sl_op, dr_iv_op, dr_mi_op, dr_nr_op) # для удобства
@@ -55,6 +55,7 @@ init 2:
     $ dr_ingame = False # был ли в игре, пока что надобность в переменной только ради плейсхолдера
 
     $ dr_inmenu = False
+    $ dr_exit_essential = False
 
     $ limb = False # Лимб, имя "дефолта", чтобы не путать с Иваном и не писать ГГ, ибо каждый из них ГГ (Тоха уже сказал, что отсылка на один мод, но чёрта с два!)
     $ prophet = False # Пророк, он же трушник, но при этом он выносится как отдельный игрок, ибо Пророк не может выйти на обычные руты, а только на нуара с небольшими изменениями и дополненным тру и на саму тру-ветку
@@ -76,20 +77,21 @@ init 2:
     if dr_true:
         $ persistent.dr_karma_shown = True
 
-init 3:
-    if dr_launch != True:
-        $ persistent.dr_widget = False # Виджет ОП, надо поработать над ним
-        $ persistent.dr_music = True # Виджет музыки
-        $ persistent.dr_difficulty = False # False для Normal
-        $ persistent.undone_jumper = False # Прыгалка на незаконченные руты, при False герой заведомо не будет выходить
-        $ persistent.dr_chapter_skip = False # Пропуск глав
-        $ persistent.dr_butterfly = False # Режим Бабочки
+init python:
+    if not persistent.dr_launched:
+        persistent.dr_widget = False # Виджет ОП, надо поработать над ним
+        persistent.dr_music = True # Виджет музыки
+        persistent.dr_difficulty = False # False для Normal
+        persistent.undone_jumper = False # Прыгалка на незаконченные руты, при False герой заведомо не будет выходить
+        persistent.dr_chapter_skip = False # Пропуск глав
+        persistent.dr_butterfly = False # Режим Бабочки
 
         # тут типа failsafe, но он какой-то тупой
-        $ dr_launch = True
-        $ persistent.dr_launched = True # Проверка на запуск, при нём применяются настройки выше и больше не трогаются
+        persistent.dr_launched = True # Проверка на запуск, при нём применяются настройки выше и больше не трогаются
 
+init 3:
     call dr_allvars
+
 
 
 # Визуал, аудио, т.д.
@@ -174,6 +176,10 @@ init -998:
 
     # Объявляем основные ассеты
 
+
+    #image intro_noir_screen = dr_gui("noir_chosen1.png")
+    #image intro_limb_screen = dr_gui("limb_chosen1.png")
+
     image dr_white = "#fff"
     image dr_white2 = "#ffffff"
     image dr_blacksquare = dr_menu("blacksquare.png")
@@ -184,9 +190,50 @@ init -998:
     image dr_blueish = "#00003d"
     image dr_exit_idle = dr_menu("ButtonExit_idle.png")
 
+    # Делаем бары
 
-    image intro_noir_screen = dr_gui("noir_chosen1.png")
-    image intro_limb_screen = dr_gui("limb_chosen1.png")
+    image dr_graysquare = im.MatrixColor(dr_menu("blacksquare.png"), im.matrix.colorize("#969696", "#969696"))
+    image dr_redsquare = im.MatrixColor(dr_menu("blacksquare.png"), im.matrix.colorize("#800000", "#800000"))
+
+
+    # незаполненные
+    image dr_bar_nofull:
+        'dr_graysquare'
+        xzoom 7.55
+        yzoom 0.175
+
+    image dr_bar_nofull_ch:
+        'dr_graysquare'
+        xzoom 6.5
+        yzoom 0.175
+
+    image dr_bar_nofull_m:
+        'dr_graysquare'
+        xzoom 3.86
+        yzoom 0.175
+
+    # заполненные
+    image dr_bar_full:
+        'dr_whitesquare'
+        xzoom 7.55
+        yzoom 0.175
+
+    image dr_bar_full_ch:
+        'dr_whitesquare'
+        xzoom 6.5
+        yzoom 0.175
+
+    image dr_bar_full_m:
+        'dr_whitesquare'
+        xzoom 3.86
+        yzoom 0.175
+
+    # ползунок
+    image dr_thumb:
+        'dr_redsquare'
+        xzoom 0.18
+        yzoom 0.17825
+
 
     # Объявляем текст для анимаций
 
@@ -342,7 +389,7 @@ init:
         yalign 0.5
         linear 0.25 zoom 0.8
 
-
+    # Менюшные
 
     transform dr_ease_left_away:
         ease 1.0 xalign -0.5
@@ -352,6 +399,144 @@ init:
 
     transform dr_ease_down_away:
         ease 1.0 yalign -1.0
+
+    # Меню игры
+
+    transform dr_music_volume_transform:
+        xalign 0.5 yalign 0.5 xzoom 0.12 yzoom 3.62 xanchor 111
+        pause 0.33
+        ease 0.33 xanchor 660
+        ease 0.33 yzoom 0.18
+        ease 0.33 xzoom 4.0
+        ease 0.33 yanchor -120
+
+    transform dr_ambience_volume_transform:
+        xalign 0.5 yalign 0.5 xzoom 0.12 yzoom 3.62 xanchor 111
+        pause 0.33
+        ease 0.33 xanchor 660
+        ease 0.33 yzoom 0.18
+        ease 0.33 xzoom 4.0
+        ease 0.33 yanchor -220
+
+    transform dr_sfx_volume_transform:
+        xalign 0.5 yalign 0.5 xzoom 0.12 yzoom 3.62 xanchor 111
+        pause 0.33
+        ease 0.33 xanchor 660
+        ease 0.33 yzoom 0.18
+        ease 0.33 xzoom 4.0
+        ease 0.33 yanchor -319
+
+    transform dr_text_speed_transform:
+        xalign 0.5 yalign 0.5 xzoom 0.12 yzoom 3.62 xanchor 111
+        pause 0.33
+        ease 0.33 xanchor 660
+        ease 0.33 yzoom 0.18
+        ease 0.33 xzoom 4.0
+        ease 0.33 yanchor -319
+        ease 0.33 xanchor -490
+    
+    transform dr_autotransition_transform:
+        xalign 0.5 yalign 0.5 xzoom 0.12 yzoom 3.62 xanchor 111
+        pause 0.33
+        ease 0.33 xanchor 660
+        ease 0.33 yzoom 0.18
+        ease 0.33 xzoom 4.0
+        ease 0.33 yanchor -319
+        ease 0.33 xanchor -41
+
+
+# обратная
+
+    transform dr_music_volume_transform_back:
+        xalign 0.5 yalign 0.5 xanchor 660 yzoom 0.18 xzoom 4.0 yanchor -120
+        ease 0.33 yanchor -319
+        ease 0.33 xanchor -41
+        ease 0.33 yanchor 181
+        ease 0.33 xanchor 111
+        ease 0.33 yzoom 3.62
+        ease 0.33 xzoom 0.12
+
+    transform dr_ambience_volume_transform_back:
+        xalign 0.5 yalign 0.5 xanchor 660 yzoom 0.18 xzoom 4.0 yanchor -220
+        ease 0.33 yanchor -319
+        ease 0.33 xanchor -41
+        ease 0.33 yanchor 181
+        ease 0.33 xanchor 111
+        ease 0.33 yzoom 3.62
+        ease 0.33 xzoom 0.12
+    
+    transform dr_sfx_volume_transform_back:
+        xalign 0.5 yalign 0.5 xanchor 660 yzoom 0.18 xzoom 4.0 yanchor -319
+        pause 0.33
+        ease 0.33 xanchor -41
+        ease 0.33 yanchor 181
+        ease 0.33 xanchor 111
+        ease 0.33 yzoom 3.62
+        ease 0.33 xzoom 0.12
+
+    transform dr_text_speed_transform_back:
+        xalign 0.5 yalign 0.5 yzoom 0.18 xzoom 4.0 yanchor -319 xanchor -490
+        pause 0.33
+        ease 0.33 xanchor -41
+        ease 0.33 yanchor 181
+        ease 0.33 xanchor 111
+        ease 0.33 yzoom 3.62
+        ease 0.33 xzoom 0.12
+
+    transform dr_autotransition_transform_back:
+        xalign 0.5 yalign 0.5 yzoom 0.18 xzoom 4.0 yanchor -319 xanchor -41
+        pause 0.66
+        ease 0.33 yanchor 181
+        ease 0.33 xanchor 111
+        ease 0.33 yzoom 3.62
+        ease 0.33 xzoom 0.12
+
+
+
+    # трансформы в сторону
+
+    transform dr_from_left_transform(x, y, p=0.0, t=0.5):
+        xpos (-1000-x) ypos y
+        pause p
+        ease 0.5 xpos x
+
+    transform dr_from_right_transform(x, y, p=0.0, t=0.5):
+        xpos (1920+x) ypos y
+        pause p
+        ease 0.5 xpos x
+
+    transform dr_from_down_transform(x, y, p=0.0, t=0.5):
+        xpos x ypos (1080+y)
+        pause p
+        ease 0.5 ypos y
+
+    transform dr_from_up_transform(x, y, p=0.0, t=0.5):
+        xpos x ypos (1080+y)
+        pause p
+        ease 0.5 ypos y
+
+    # трансформы в сторону с экрана
+
+    transform dr_to_left_transform(x, y, p=0.0, t=0.5):
+        xpos x ypos y
+        pause p
+        ease 0.5 xpos (-1000-x)
+
+    transform dr_to_right_transform(x, y, p=0.0, t=0.5):
+        xpos x ypos y
+        pause p
+        ease 0.5 xpos (1920+x)
+
+    transform dr_to_down_transform(x, y, p=0.0, t=0.5):
+        xpos x ypos y
+        pause p
+        ease 0.5 ypos (1080+y)
+
+    transform dr_to_up_transform(x, y, p=0.0, t=0.5):
+        xpos x ypos y
+        pause p
+        ease 0.5 ypos (1080+y)
+
 
     image dr_main_menu_atl:
         "dr_white2" with Dissolve(0.5)
@@ -480,58 +665,58 @@ init 10 python: # главы #TODO к херам
         if (dr_dayNo > 1) and (not dr_hard):
 
             if dr_noir_flag == 1: # сделать проверку на тян
-                renpy.show("Color(hsv = (0, 0, 0.4875))")
+                renpy.show(Color(hsv = (0, 0, 0.4875)))
 
             elif dr_noir_flag == 2:
-                renpy.show("Color(hsv = (0, 0, 0.325))")
+                renpy.show(Color(hsv = (0, 0, 0.325)))
 
             elif dr_noir_flag == 3:
-                renpy.show("Color(hsv = (0, 0, 0.1625))")
+                renpy.show(Color(hsv = (0, 0, 0.1625)))
 
             elif (max(dr_dv_op, dr_un_op, dr_us_op, dr_sl_op, dr_mi_op)  >= 0) and (dr_dayNo <=3): # до 4 дня, очков тян больше нуля,
 
                 if (dr_dv or dr_un or dr_us or dr_sl or dr_iv or dr_mi or dr_nr_op) == max(dr_dv_op, dr_un_op, dr_us_op, dr_sl_op, dr_iv_op, dr_un_op, dr_nr_op): #если равно
                     dr_overall = max(dr_dv_op, dr_un_op, dr_us_op, dr_sl_op, dr_iv_op, dr_un_op, dr_nr_op)
-                    renpy.show("Color(hsv = (0.9722222, [dr_overall*0.03], 1.0))") #розовый
+                    renpy.show(Color(hsv = (0.9722222, [dr_overall*0.03], 1.0))) #розовый
 
                 elif (max(dr_dv_op, dr_un_op, dr_us_op, dr_sl_op, dr_mi) >=8): #  больше восьми, saturation = 100, изменяется brightness
-                    if dr_us == max(dr_dv_op, dr_un_op, dr_us_op, dr_sl_op, dr_iv_op, dr_un_op, dr_nr_op): #Уля
-                        renpy.show("Color(hsv = (0, [0.5+dr_us*0.04], 1.0))")
+                    if dr_us_op == max(dr_dv_op, dr_un_op, dr_us_op, dr_sl_op, dr_iv_op, dr_un_op, dr_nr_op): #Уля
+                        renpy.show(Color(hsv = (0, [0.5+dr_us_op_op*0.04], 1.0)))
 
-                    elif dr_dv == max(dr_dv_op, dr_un_op, dr_us_op, dr_sl_op, dr_iv_op, dr_un_op, dr_nr_op): # Алиса
-                        renpy.show("Color(hsv = (.06666, [dr_dv*0.04], 1.0))")
+                    elif dr_dv_op == max(dr_dv_op, dr_un_op, dr_us_op, dr_sl_op, dr_iv_op, dr_un_op, dr_nr_op): # Алиса
+                        renpy.show(Color(hsv = (.06666, [dr_dv_op_op*0.04], 1.0)))
 
-                    elif dr_sl == max(dr_dv_op, dr_un_op, dr_us_op, dr_sl_op, dr_iv_op, dr_un_op, dr_nr_op): # Славя
-                        renpy.show("Color(hsv = (.12222, [dr_sl*0.04], 1.0))")
+                    elif dr_sl_op == max(dr_dv_op, dr_un_op, dr_us_op, dr_sl_op, dr_iv_op, dr_un_op, dr_nr_op): # Славя
+                        renpy.show(Color(hsv = (.12222, [dr_sl_op_op*0.04], 1.0)))
 
-                    elif dr_mt == max(dr_dv_op, dr_un_op, dr_us_op, dr_sl_op, dr_iv_op, dr_un_op, dr_nr_op): # ОД
-                        renpy.show("Color(hsv = (.33333, [dr_mt*0.04], 1.0))")
+                    #elif dr_mt == max(dr_dv_op, dr_un_op, dr_us_op, dr_sl_op, dr_iv_op, dr_un_op, dr_nr_op): # ОД
+                    #    renpy.show(Color(hsv = (.33333, [dr_mt_op_op*0.04], 1.0)))
 
-                    elif dr_mi == max(dr_dv_op, dr_un_op, dr_us_op, dr_sl_op, dr_iv_op, dr_un_op, dr_nr_op): # Мику
-                        renpy.show("Color(hsv = (.5, [dr_mi*0.04], 1.0))")
+                    elif dr_mi_op == max(dr_dv_op, dr_un_op, dr_us_op, dr_sl_op, dr_iv_op, dr_un_op, dr_nr_op): # Мику
+                        renpy.show(Color(hsv = (.5, [dr_mi_op_op*0.04], 1.0)))
 
                 else: # от одного до восьми, brightness = color*0.32, изменяется saturation
 
-                    if dr_us == max(dr_dv_op, dr_un_op, dr_us_op, dr_sl_op, dr_iv_op, dr_un_op, dr_nr_op): #Уля
-                        renpy.show("Color(hsv = (0, 1.0, [0.5+dr_us*0.04]))")
+                    if dr_us_op == max(dr_dv_op, dr_un_op, dr_us_op, dr_sl_op, dr_iv_op, dr_un_op, dr_nr_op): #Уля
+                        renpy.show(Color(hsv = (0, 1.0, [0.5+dr_us_op*0.04],)))
 
-                    elif dr_dv == max(dr_dv_op, dr_un_op, dr_us_op, dr_sl_op, dr_iv_op, dr_un_op, dr_nr_op): # Алиса
-                        renpy.show("Color(hsv = (.06666, 1.0, [dr_dv*0.04]))")
+                    elif dr_dv_op == max(dr_dv_op, dr_un_op, dr_us_op, dr_sl_op, dr_iv_op, dr_un_op, dr_nr_op): # Алиса
+                        renpy.show(Color(hsv = (.06666, 1.0, [dr_dv_op*0.04],)))
 
-                    elif dr_sl == max(dr_dv_op, dr_un_op, dr_us_op, dr_sl_op, dr_iv_op, dr_un_op, dr_nr_op): # Славя
-                        renpy.show("Color(hsv = (.12222, 1.0, [dr_sl*0.04]))")
+                    elif dr_sl_op == max(dr_dv_op, dr_un_op, dr_us_op, dr_sl_op, dr_iv_op, dr_un_op, dr_nr_op): # Славя
+                        renpy.show(Color(hsv = (.12222, 1.0, [dr_sl_op*0.04],)))
 
-                    elif dr_mt == max(dr_dv_op, dr_un_op, dr_us_op, dr_sl_op, dr_iv_op, dr_un_op, dr_nr_op): # ОД
-                        renpy.show("Color(hsv = (.33333, 1.0, [dr_mt*0.04]))")
+                    #elif dr_mt == max(dr_dv_op, dr_un_op, dr_us_op, dr_sl_op, dr_iv_op, dr_un_op, dr_nr_op): # ОД
+                    #    renpy.show(Color(hsv = (.33333, 1.0, [dr_mt_op*0.04],)))
 
-                    elif dr_mi == max(dr_dv_op, dr_un_op, dr_us_op, dr_sl_op, dr_iv_op, dr_un_op, dr_nr_op): # Мику
-                        renpy.show("Color(hsv = (.5, 1.0, [dr_mi*0.04]))")
-                        
+                    elif dr_mi_op == max(dr_dv_op, dr_un_op, dr_us_op, dr_sl_op, dr_iv_op, dr_un_op, dr_nr_op): # Мику
+                        renpy.show(Color(hsv = (.5, 1.0, [dr_mi_op*0.04],)))
+
             elif dr_dayNo >=4:
                 pass
                 #TODO по руттегам, без лого ЗР
             else:
-                renpy.show("#a6a6a6") # НЕ РАБОТАЕТ!
+                renpy.show(Color("#a6a6a6")) # НЕ РАБОТАЕТ!
             renpy.show("dr_pattern")
             renpy.transition(fade)
             renpy.pause(3, hard=True)
@@ -693,6 +878,13 @@ init python:
 
 init -998 python:
 
+    style.dr_button_none = Style(style.button)
+    style.dr_button_none.background = None
+    style.dr_button_none.hover_background = None
+    style.dr_button_none.selected_background = None
+    style.dr_button_none.selected_hover_background = None
+    style.dr_button_none.selected_idle_background = None
+
     style.dr_keys_undefined = Style(style.default)
     style.dr_keys_undefined.font = dr_csn
 
@@ -714,6 +906,23 @@ init -998 python:
     style.dr_keys_white.color = "#ffffff" # Цвет текста
     style.dr_keys_white.hover_color = "#800000"
 
+    # белые инверс
+
+    style.dr_keys_white_reverse = Style(style.dr_keys)
+    style.dr_keys_white_reverse.color = "#800000"
+    style.dr_keys_white_reverse.hover_color = "#ffffff"
+
+    # настроечные размерные
+
+    style.dr_keys_white_small = Style(style.dr_keys_white)
+    style.dr_keys_white_small.size = 35
+
+    style.dr_keys_big_white = Style(style.dr_keys_white)
+    style.dr_keys_big_white.size = 60
+
+    style.dr_keys_white_small_reverse = Style(style.dr_keys_white_reverse)
+    style.dr_keys_white_small_reverse.size = 35
+
     # белые с определённым размером
     style.dr_desc = Style(style.dr_keys_white)
     style.dr_desc.size = 80
@@ -726,6 +935,8 @@ init -998 python:
     style.dr_keys_gray.color = "#a6a6a6"
     style.dr_keys_gray.hover_color = "#a6a6a6"
     style.dr_keys_gray.size = 83
+
+
 
 
     #style.base_font = Style(style.default)
@@ -808,7 +1019,7 @@ init python: # скомунизженно прямиком с сайта док�
     # import threading
     # import time
     # import io
-    
+
     # class Blur(ImageBase):
 
 
@@ -831,7 +1042,7 @@ init python: # скомунизженно прямиком с сайта док�
 
             # ws = renpy.display.pgrender.surface(surf.get_size(), True)
             # rv = renpy.display.pgrender.surface(surf.get_size(), True)
-    
+
             # renpy.display.module.blur(surf, ws, rv, self.rx, self.ry)
 
             # return rv
@@ -848,6 +1059,3 @@ python early: # переписать
         ui.text(save_name, style="button_text", size=13, color="ff32000")
 
         config.overlay_functions.append(editoverlay_savename)
-
-
-

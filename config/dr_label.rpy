@@ -39,13 +39,14 @@ label dr_day0_vars:
     $ deathflag = False # Смерть, невыход в игру
     $ dr_day0_keychain = False # Брелок
     $ true_prologue = False
-
     return
 
 # День 1
 
 label dr_day1_vars:
 
+    $ dr_tutorial = None
+    $ dr_day1_intro_sl_menu_rude = False
     $ dr_day1_sl_together = False # С кем пошёл к ОД TODO сделать не списком, а string
     $ dr_day1_ev_mi = False # позвала ли Мику на пристань
     $ dr_ginger_lie = 0
@@ -100,6 +101,7 @@ label sichium_start: # Меню
     #$ volume('sound', 0.5)
 
     scene bg black
+    #call screen dr_animations_check with dissolve
     $ renpy.movie_cutscene(preroll)
 
     play sound dr_sfx["whiteflash"]

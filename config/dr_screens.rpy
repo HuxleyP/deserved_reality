@@ -110,17 +110,69 @@ screen dr_widget_screen:
             color "#000000"
             font source_dr + "images/fonts/Roboto.ttf"
 
+
+screen dr_animations_check:
+    tag menu
+    modal False
+
+    key "game_menu" action NullAction()
+    key "screenshot" action NullAction()
+    key "K_F1" action NullAction()
+    key "K_ESCAPE" action NullAction()
+    key "K_RETURN" action NullAction()
+    key "K_KP_ENTER" action NullAction()
+    key "K_SPACE" action NullAction()
+    key "mousedown_4" action NullAction()
+    key "K_PAGEUP" action NullAction()
+    key "mousedown_5" action NullAction()
+    key "K_PAGEDOWN" action NullAction()
+    key "mouseup_3" action NullAction()
+
+    add "dr_whitesquare" xzoom 3.58 yzoom 0.85 xpos 780 ypos 498
+
+    textbutton "       Включить\n ускоренные анимации?":
+        text_style "dr_keys"
+        style "dr_keys"
+        text_size 45
+        xpos 810 ypos 510
+
+    textbutton "Да":
+        text_size 45
+        style "dr_keys"
+        text_style "dr_keys"
+        xalign 0.35
+        ypos 505
+        text_color "#ffffff"
+        text_hover_color "#800000"
+        action [Hide("dr_animations_check", transition=dissolve), Return("dr_anim_fast")]
+
+    textbutton "Нет":
+        text_size 45
+        style "dr_keys"
+        text_style "dr_keys"
+        xalign 0.65
+        ypos 505
+        text_color "#ffffff"
+        text_hover_color "#006400"
+        action [Hide("dr_animations_check", transition=dissolve), Return("dr_anim_normal")]
+
+
+
 screen dr_menu_pre:
     modal False
 
-    key "game_menu":
-        action NullAction()
-
-    key "screenshot":
-        action NullAction()
-
-    key "K_F1":
-        action NullAction()
+    key "game_menu" action NullAction()
+    key "screenshot" action NullAction()
+    key "K_F1" action NullAction()
+    key "K_ESCAPE" action [Hide("dr_menu", transition = dissolve), Show("dr_exit_promt", transition = dissolve)]
+    key "K_RETURN" action NullAction()
+    key "K_KP_ENTER" action NullAction()
+    key "K_SPACE" action NullAction()
+    key "mousedown_4" action NullAction()
+    key "K_PAGEUP" action NullAction()
+    key "mousedown_5" action NullAction()
+    key "K_PAGEDOWN" action NullAction()
+    key "mouseup_3" action NullAction()
 
     timer 0.1 action (Hide("dr_menu_pre", transition=dissolve), Show("dr_menu"))
 
@@ -129,14 +181,18 @@ screen dr_menu:
     tag menu
     modal True
 
-    key "game_menu":
-        action NullAction()
-
-    key "screenshot":
-        action NullAction()
-
-    key "K_F1":
-        action NullAction()
+    key "game_menu" action NullAction()
+    key "screenshot" action NullAction()
+    key "K_F1" action NullAction()
+    key "K_ESCAPE" action [Hide("dr_menu", transition = dissolve), Show("dr_exit_promt", transition = dissolve)]
+    key "K_RETURN" action NullAction()
+    key "K_KP_ENTER" action NullAction()
+    key "K_SPACE" action NullAction()
+    key "mousedown_4" action NullAction()
+    key "K_PAGEUP" action NullAction()
+    key "mousedown_5" action NullAction()
+    key "K_PAGEDOWN" action NullAction()
+    key "mouseup_3" action NullAction()
 
     add "bg black"
 
@@ -164,7 +220,7 @@ screen dr_menu:
             style "dr_keys"
             text_style "dr_keys"
             action OpenURL("https://vk.com/public167564386")
-        
+
     # потенциально сделать провекру на хардмод
     vbox:   #Открыть экран сейвов
         textbutton ("•Продолжить_Игру"): # может, только для бабочки?
@@ -192,7 +248,7 @@ screen dr_menu:
             text_style "dr_keys"
             style "dr_keys"
             action [Hide("dr_menu"), Show("dr_settings_menu", transition = Dissolve(0.5))]
-        
+
         if persistent.cycled:
             textbutton ("•Достижения"):
                 xpos 363
@@ -217,8 +273,8 @@ screen dr_menu:
             background None
             text_style "dr_keys"
             style "dr_keys"
-            action [Hide("dr_menu"), Show("dr_titles_menu", transition = Dissolve(0.5))]
-    
+            action [Hide("dr_menu", transition = Dissolve(0.5)), Show("dr_titles_menu", transition = Dissolve(0.5))]
+
         textbutton("•/Дебаг/"):
             xpos 363
             ypos 457
@@ -250,14 +306,18 @@ screen dr_settings_menu:
     tag menu
     modal True
 
-    key "game_menu":
-        action NullAction()
-
-    key "screenshot":
-        action NullAction()
-
-    key "K_F1":
-        action NullAction()
+    key "game_menu" action NullAction()
+    key "screenshot" action NullAction()
+    key "K_F1" action NullAction()
+    key "K_ESCAPE"  action [Show("dr_menu", transition = Dissolve(0.55)), Hide("dr_settings", transition = Dissolve(0.25)), Hide("dr_settings_back", transition = Dissolve(0.25)), SetVariable("dr_inmenu", True)]
+    key "K_RETURN" action NullAction()
+    key "K_KP_ENTER" action NullAction()
+    key "K_SPACE" action NullAction()
+    key "mousedown_4" action NullAction()
+    key "K_PAGEUP" action NullAction()
+    key "mousedown_5" action NullAction()
+    key "K_PAGEDOWN" action NullAction()
+    key "mouseup_3" action NullAction()
 
     add "#171717"
 
@@ -376,7 +436,8 @@ screen dr_settings_menu:
             style "dr_keys_white"
             unhovered[ShowTransient("dr_settings_back", transition=Dissolve(0.1)), Hide("dr_es_settings_desc")]
             hovered[ShowTransient("dr_es_settings_desc"), Hide("dr_settings_back")]
-            action [ShowTransient("dr_settings_back", transition=Dissolve(0.1)), Hide("dr_es_settings_desc"), ShowMenu("preferences")]
+            #action [ShowTransient("dr_settings_back", transition=Dissolve(0.1)), Hide("dr_es_settings_desc"), ShowMenu("preferences")]
+            action [Hide("dr_settings_menu", transition=Dissolve(0.25)), Show("dr_settings_essential_intro", transition=Dissolve(0.25))]
 
 screen dr_settings_back:
     textbutton("/Назад/"):
@@ -386,6 +447,236 @@ screen dr_settings_back:
         style "dr_keys_white"
         action [Show("dr_menu", transition = Dissolve(0.55)), Hide("dr_settings", transition = Dissolve(0.25)), Hide("dr_settings_back", transition = Dissolve(0.25)), SetVariable("dr_inmenu", True)]
 
+
+screen dr_settings_essential_intro:
+    tag menu
+    modal True
+
+    key "game_menu" action NullAction()
+    key "screenshot" action NullAction()
+    key "K_F1" action NullAction()
+    key "K_ESCAPE" action [SetVariable("dr_exit_essential", True), Hide("dr_settings_essential"), Show("dr_settings_menu")]
+    key "K_RETURN" action NullAction()
+    key "K_KP_ENTER" action NullAction()
+    key "K_SPACE" action NullAction()
+    key "mousedown_4" action NullAction()
+    key "K_PAGEUP" action NullAction()
+    key "mousedown_5" action NullAction()
+    key "K_PAGEDOWN" action NullAction()
+    key "mouseup_3" action NullAction()
+    key "mousedown_1" action [Show('dr_settings_essential', transition=Dissolve(0.2))]
+
+
+    add "#171717"
+
+    # add "dr_whitesquare" xalign 0.5 yalign 0.5 xzoom 0.12 yzoom 3.62 xanchor 111
+    add "dr_whitesquare" at dr_music_volume_transform
+    add "dr_whitesquare" at dr_ambience_volume_transform
+    add "dr_whitesquare" at dr_sfx_volume_transform
+    add "dr_whitesquare" at dr_text_speed_transform
+    add "dr_whitesquare" at dr_autotransition_transform
+
+    textbutton "Музыка" at dr_from_left_transform(150, 644, 1.75):
+        style "dr_button_none"
+        text_style "dr_keys_big_white"
+
+    textbutton "Звуки" at dr_from_left_transform(150, 744, 1.75):
+        style "dr_button_none"
+        text_style "dr_keys_big_white"
+
+    textbutton "Эмбиент" at dr_from_left_transform(150, 844, 1.75):
+        style "dr_button_none"
+        text_style "dr_keys_big_white"
+
+
+    textbutton "Автопереход" at dr_from_right_transform(1541, 800, 1.75):
+        style "dr_button_none"
+        text_style "dr_keys_big_white"
+
+
+    textbutton "Cкорость текста" at dr_from_right_transform(1053, 800, 1.75):
+        style "dr_button_none"
+        text_style "dr_keys_big_white"
+
+    textbutton "/Назад/" at dr_from_down_transform(837, 930, 1.5, 0.25):
+        style "dr_button_none"
+        text_style "dr_keys_white"
+    
+    timer 2.25 action [Show('dr_settings_essential', transition=Dissolve(0.25))]
+
+
+screen dr_settings_essential:
+    tag menu
+    modal True
+
+    key "game_menu" action NullAction()
+    key "screenshot" action NullAction()
+    key "K_F1" action NullAction()
+    key "K_ESCAPE" action [SetVariable("dr_exit_essential", True), Hide("dr_settings_essential"), Show("dr_settings_essential_outro")]
+    key "K_RETURN" action NullAction()
+    key "K_KP_ENTER" action NullAction()
+    key "K_SPACE" action NullAction()
+    key "mousedown_4" action NullAction()
+    key "K_PAGEUP" action NullAction()
+    key "mousedown_5" action NullAction()
+    key "K_PAGEDOWN" action NullAction()
+    key "mouseup_3" action NullAction()
+
+
+    add "#171717"
+
+    textbutton "Музыка":
+        style "dr_button_none"
+        text_style "dr_keys_big_white"
+        xpos 150
+        ypos 644
+    bar:
+        value Preference("music volume")
+        right_bar "dr_bar_nofull"
+        left_bar "dr_bar_full"
+        thumb "dr_thumb"
+        xpos 300
+        ypos 660
+        xmaximum 400
+        ymaximum 50
+
+    textbutton "Звуки":
+        style "dr_button_none"
+        text_style "dr_keys_big_white"
+        xpos 150
+        ypos 744
+    bar:
+        value Preference("sound volume")
+        right_bar "dr_bar_nofull"
+        left_bar "dr_bar_full"
+        thumb "dr_thumb"
+        xpos 300
+        ypos 760
+        xmaximum 400
+        ymaximum 50
+
+    textbutton "Эмбиент":
+        style "dr_button_none"
+        text_style "dr_keys_big_white"
+        xpos 150
+        ypos 844
+    bar:
+        value Preference("voice volume")
+        right_bar "dr_bar_nofull"
+        left_bar "dr_bar_full"
+        thumb "dr_thumb"
+        xpos 300
+        ypos 860
+        xmaximum 400
+        ymaximum 50
+
+    textbutton "Cкорость текста":
+        style "dr_button_none"
+        text_style "dr_keys_big_white"
+        xpos 1053
+        ypos 800
+
+    bar:
+        value Preference("text speed")
+        left_bar "dr_bar_full"
+        right_bar "dr_bar_nofull"
+        thumb "dr_thumb"
+        xpos 1000
+        ypos 860
+        xmaximum 400 ymaximum 50
+
+
+    textbutton "Автопереход":
+        style "dr_button_none"
+        text_style "dr_keys_big_white"
+        xpos 1541
+        ypos 800
+
+    bar:
+        value Preference("auto-forward time")
+        left_bar "dr_bar_full"
+        right_bar "dr_bar_nofull"
+        thumb "dr_thumb"
+        xpos 1450
+        ypos 860
+        xmaximum 400 ymaximum 50
+
+    textbutton "/Назад/":
+        style "dr_button_none"
+        text_style "dr_keys_white"
+        xpos 837
+        ypos 930
+        action [SetVariable("dr_exit_essential", True), Hide("dr_settings_essential"), Show("dr_settings_essential_outro")]
+
+screen dr_settings_essential_outro:
+    tag menu
+    modal True
+
+    key "game_menu" action NullAction()
+    key "screenshot" action NullAction()
+    key "K_F1" action NullAction()
+    key "K_ESCAPE" action [SetVariable("dr_exit_essential", True), Hide("dr_settings_essential"), Show("dr_settings_menu")]
+    key "K_RETURN" action NullAction()
+    key "K_KP_ENTER" action NullAction()
+    key "K_SPACE" action NullAction()
+    key "mousedown_4" action NullAction()
+    key "K_PAGEUP" action NullAction()
+    key "mousedown_5" action NullAction()
+    key "K_PAGEDOWN" action NullAction()
+    key "mouseup_3" action NullAction()
+    key "mousedown_1" action [Show('dr_settings_essential', transition=Dissolve(0.2))]
+
+
+    add "#171717"
+    # Ненавижу, блять, анчоры
+    # add "dr_whitesquare" xalign 0.5 yalign 0.5 xzoom 0.12 yzoom 3.62 xanchor 111
+    add "dr_whitesquare" at dr_music_volume_transform_back
+    add "dr_whitesquare" at dr_ambience_volume_transform_back
+    add "dr_whitesquare" at dr_sfx_volume_transform_back
+    add "dr_whitesquare" at dr_text_speed_transform_back
+    add "dr_whitesquare" at dr_autotransition_transform_back
+
+    textbutton "Музыка" at dr_to_left_transform(150, 644):
+        style "dr_button_none"
+        text_style "dr_keys_big_white"
+        xpos 150
+        ypos 644
+
+    textbutton "Звуки" at dr_to_left_transform(150, 744):
+        style "dr_button_none"
+        text_style "dr_keys_big_white"
+        xpos 150
+        ypos 744
+
+    textbutton "Эмбиент" at dr_to_left_transform(150, 844):
+        style "dr_button_none"
+        text_style "dr_keys_big_white"
+        xpos 150
+        ypos 844
+
+
+    textbutton "Автопереход" at dr_to_right_transform(1541, 800):
+        style "dr_button_none"
+        text_style "dr_keys_big_white"
+        xpos 1541
+        ypos 800
+
+
+    textbutton "Cкорость текста" at dr_to_right_transform(1053, 800):
+        style "dr_button_none"
+        text_style "dr_keys_big_white"
+        xpos 1053
+        ypos 800
+
+    textbutton "/Назад/" at dr_to_down_transform(837, 930):
+        style "dr_button_none"
+        text_style "dr_keys_white"
+        xpos 837
+        ypos 930
+    
+    timer 2.25 action [Show('dr_settings_menu', transition=Dissolve(0.25))]
+
+
 label dr_achievements_menu:
     "Undone."
     return
@@ -394,14 +685,18 @@ screen dr_exit_promt:
     tag menu
     modal True
 
-    key "game_menu":
-        action NullAction()
-
-    key "screenshot":
-        action NullAction()
-
-    key "K_F1":
-        action NullAction()
+    key "game_menu" action NullAction()
+    key "screenshot" action NullAction()
+    key "K_F1" action NullAction()
+    key "K_ESCAPE" action [Hide("dr_exit_promt", transition=Dissolve(0.5)), Show("dr_menu", transition=Dissolve(0.5))]
+    key "K_RETURN" action [Hide("dr_exit_promt", transition=dissolve), Return("dr_exit_final")]
+    key "K_KP_ENTER" action [Hide("dr_exit_promt", transition=dissolve), Return("dr_exit_final")]
+    key "K_SPACE" action [Hide("dr_exit_promt", transition=Dissolve(0.5)), Show("dr_menu", transition=Dissolve(0.5))]
+    key "mousedown_4" action NullAction()
+    key "K_PAGEUP" action NullAction()
+    key "mousedown_5" action NullAction()
+    key "K_PAGEDOWN" action NullAction()
+    key "mouseup_3" action NullAction()
 
     add "#ffffff"
 
@@ -412,8 +707,8 @@ screen dr_exit_promt:
         $ dr_quittext  = "Вы действительно\nхотите выйти из мода?"
 
     text dr_quittext:
-        style "dr_keys"
         size 60
+        style "dr_keys"
         text_align 0.5
         xalign 0.5
         yalign 0.33
